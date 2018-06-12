@@ -3,7 +3,6 @@
 namespace InetStudio\ACL\Users\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use InetStudio\ACL\Roles\Contracts\Repositories\RolesRepositoryContract;
 use InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract;
 
@@ -55,19 +54,12 @@ class CreateAdminCommand extends Command
         $adminRole = $this->repositories['roles']->searchItemsByField('name', 'admin')->first();
         $user = $this->repositories['users']->searchItemsByField('name', 'admin')->first();
         $user = $this->repositories['users']->save([
+            'activated' => 1,
             'name' => 'admin',
             'email' => 'admin@example.com',
             'password' => 'password',
-        ], $user->id ?? 0);
+        ], $user ? $user->id : 0);
 
-        if (DB::table('role_user')->where('user_id', $user->id)->where('role_id', $adminRole->id)->where('user_type', get_class($user))->count() == 0) {
-            DB::table('role_user')->insert([
-                [
-                    'user_id' => $user->id,
-                    'role_id' => $adminRole->id,
-                    'user_type' => get_class($user),
-                ],
-            ]);
-        }
+        $user->syncRoles([$adminRole->id]);
     }
 }

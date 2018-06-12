@@ -15,7 +15,7 @@ class SetupCommand extends Command
      *
      * @var string
      */
-    protected $name = 'inetstudio:roles:setup';
+    protected $name = 'inetstudio:acl:roles:setup';
 
     /**
      * Описание команды.

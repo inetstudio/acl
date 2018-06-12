@@ -53,20 +53,20 @@ class CreateRolesCommand extends Command
             'name' => 'admin',
             'display_name' => 'Администратор',
             'description' => 'Пользователь, у которого есть доступ в административную панель.',
-        ], $adminRole->id ?? 0);
+        ], $adminRole ? $adminRole->id : 0);
 
         $userRole = $this->repository->searchItemsByField('name', 'user')->first();
         $this->repository->save([
             'name' => 'user',
             'display_name' => 'Пользователь',
             'description' => 'Пользователь, зарегистрировавшийся через сайт.',
-        ], $userRole->id ?? 0);
+        ], $userRole ? $userRole->id : 0);
 
         $socialUserRole = $this->repository->searchItemsByField('name', 'social_user')->first();
         $this->repository->save([
             'name' => 'social_user',
             'display_name' => 'Пользователь социальной сети',
             'description' => 'Пользователь, зарегистрировавшийся через социальную сеть.',
-        ], $socialUserRole->id ?? 0);
+        ], $socialUserRole ? $socialUserRole->id : 0);
     }
 }

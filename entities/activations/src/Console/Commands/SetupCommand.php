@@ -74,7 +74,7 @@ class SetupCommand extends Command
                 'description' => 'Publish migrations',
                 'command' => 'vendor:publish',
                 'params' => [
-                    '--provider' => 'InetStudio\ACL\Activations\Providers\ProfilesServiceProvider',
+                    '--provider' => 'InetStudio\ACL\Activations\Providers\ActivationsServiceProvider',
                     '--tag' => 'migrations',
                 ],
             ],

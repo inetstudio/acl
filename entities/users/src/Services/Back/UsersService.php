@@ -65,7 +65,10 @@ class UsersService implements UsersServiceContract
     public function save(SaveUserRequestContract $request, int $id): UserModelContract
     {
         $action = ($id) ? 'отредактирован' : 'создан';
-        $item = $this->repository->save($request->only($this->repository->getModel()->getFillable()), $id);
+        $item = $this->repository->save(
+            array_merge($request->only($this->repository->getModel()->getFillable()), ['activated' => 1]),
+            $id
+        );
 
         app()->make('InetStudio\ACL\Roles\Contracts\Services\Back\RolesServiceContract')
             ->attachToObject($request, $item);

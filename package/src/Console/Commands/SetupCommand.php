@@ -91,10 +91,16 @@ class SetupCommand extends Command
             ],
             [
                 'type' => 'artisan',
+                'description' => 'Reviews acl roles setup',
+                'command' => 'inetstudio:acl:roles:setup',
+            ],
+            [
+                'type' => 'artisan',
                 'description' => 'Reviews acl users setup',
                 'command' => 'inetstudio:acl:users:setup',
             ],
             [
+                'type' => 'artisan',
                 'description' => 'Publish config',
                 'command' => 'vendor:publish',
                 'params' => [
