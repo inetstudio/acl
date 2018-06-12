@@ -1,0 +1,54 @@
+{
+    "name": "inetstudio/acl",
+    "description": "Package for acl",
+    "homepage": "https://github.com/inetstudio/acl",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Konstantin Bukin",
+        "email": "bukin@inetstudio.ru"
+      }
+    ],
+    "require": {
+      "jhaoda/socialite-odnoklassniki": "^3.0",
+      "laravel/socialite": "^3.0",
+      "santigarcor/laratrust": "^5.0",
+      "socialiteproviders/instagram": "^3.0",
+      "socialiteproviders/vkontakte": "^3.0"
+    },
+    "autoload": {
+      "psr-4": {
+        "InetStudio\\ACL\\": "package/src",
+        "InetStudio\\ACL\\Activations\\": "entities/activations/src",
+        "InetStudio\\ACL\\Passwords\\": "entities/passwords/src",
+        "InetStudio\\ACL\\Permissions\\": "entities/permissions/src",
+        "InetStudio\\ACL\\Profiles\\": "entities/profiles/src",
+        "InetStudio\\ACL\\Roles\\": "entities/roles/src",
+        "InetStudio\\ACL\\Users\\": "entities/users/src"
+      }
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "InetStudio\\ACL\\Providers\\ACLBindingsServiceProvider",
+          "InetStudio\\ACL\\Providers\\ACLServiceProvider",
+          "InetStudio\\ACL\\Activations\\Providers\\ActivationsBindingsServiceProvider",
+          "InetStudio\\ACL\\Activations\\Providers\\ActivationsServiceProvider",
+          "InetStudio\\ACL\\Passwords\\Providers\\PasswordsBindingsServiceProvider",
+          "InetStudio\\ACL\\Passwords\\Providers\\PasswordsServiceProvider",
+          "InetStudio\\ACL\\Permissions\\Providers\\FormBuilderServiceProvider",
+          "InetStudio\\ACL\\Permissions\\Providers\\PermissionsBindingsServiceProvider",
+          "InetStudio\\ACL\\Permissions\\Providers\\PermissionsServiceProvider",
+          "InetStudio\\ACL\\Profiles\\Providers\\ProfilesBindingsServiceProvider",
+          "InetStudio\\ACL\\Profiles\\Providers\\ProfilesServiceProvider",
+          "InetStudio\\ACL\\Roles\\Providers\\BladeServiceProvider",
+          "InetStudio\\ACL\\Roles\\Providers\\FormBuilderServiceProvider",
+          "InetStudio\\ACL\\Roles\\Providers\\RolesBindingsServiceProvider",
+          "InetStudio\\ACL\\Roles\\Providers\\RolesServiceProvider",
+          "InetStudio\\ACL\\Users\\Providers\\FormBuilderServiceProvider",
+          "InetStudio\\ACL\\Users\\Providers\\UsersBindingsServiceProvider",
+          "InetStudio\\ACL\\Users\\Providers\\UsersServiceProvider"
+        ]
+      }
+    }
+}
