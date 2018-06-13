@@ -7,8 +7,8 @@ use Illuminate\Validation\ValidationException;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use App\Http\Controllers\Auth\LoginController as BaseLoginController;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\LoginRequestContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\LogoutResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\LoginControllerContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Users\LogoutResponseContract;
 
 /**
  * Class LoginController.
@@ -132,7 +132,7 @@ class LoginController extends BaseLoginController implements LoginControllerCont
     {
         $this->services['users']->logout();
 
-        return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\Users\LogoutResponseContract', [
+        return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\LogoutResponseContract', [
             'result' => [
                 'success' => true,
             ],
