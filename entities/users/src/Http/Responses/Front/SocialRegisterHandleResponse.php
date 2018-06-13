@@ -48,9 +48,9 @@ class SocialRegisterHandleResponse implements SocialRegisterHandleResponseContra
         if (! $this->user) {
             return response()->redirectTo('/');
         } elseif (false) {
-            return response()->redirectToRoute('front.oauth.email');
+            return response()->redirectToRoute('front.acl.users.oauth.email');
         } elseif (! $this->user->activated) {
-            return view('admin::front.auth.activate', [
+            return view('admin.module.acl.activations::front.activate', [
                 'SEO' => $this->services['SEO']->getAllTags(null),
                 'activation' => [
                     'success' => false,
