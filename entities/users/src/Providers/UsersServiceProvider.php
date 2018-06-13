@@ -4,7 +4,6 @@ namespace InetStudio\ACL\Users\Providers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -140,10 +139,12 @@ class UsersServiceProvider extends ServiceProvider
      */
     public function registerViewComposers(): void
     {
-        $userClassName = Config::get('auth.providers.users.model');
-
-        view()->composer('admin.module.acl.users::back.partials.analytics.statistic', function ($view) use ($userClassName) {
-            $registrations = (new $userClassName())->select(['activated', DB::raw('count(*) as total')])->groupBy('activated')->get();
+        view()->composer('admin.module.acl.users::back.partials.analytics.statistic', function ($view) {
+            $registrations = app()->make('InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract')
+                ->getAllItems(true)
+                ->select(['activated', DB::raw('count(*) as total')])
+                ->groupBy('activated')
+                ->get();
 
             $view->with('registrations', $registrations);
         });

@@ -146,7 +146,7 @@ class UsersRepository implements UsersRepositoryContract
      */
     protected function getItemsQuery($extColumns = [], $with = []): Builder
     {
-        $defaultColumns = ['id', 'name', 'email'];
+        $defaultColumns = ['id', 'activated', 'name', 'email'];
 
         $relations = [];
 

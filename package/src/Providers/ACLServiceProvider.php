@@ -3,7 +3,6 @@
 namespace InetStudio\ACL\Providers;
 
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Laratrust\Middleware\LaratrustRole;
@@ -51,11 +50,9 @@ class ACLServiceProvider extends ServiceProvider
      */
     protected function registerPublishes(): void
     {
-        $config = File::getRequire(__DIR__.'/../../config/acl.php');
-
-        Config::set('laratrust.models', $config['models']);
-        Config::set('laratrust.user_models', $config['user_models']);
-        Config::set('auth.providers.users.model', $config['user_models']['users']);
+        Config::set('laratrust.models', config('acl.models'));
+        Config::set('laratrust.user_models', config('acl.user_models'));
+        Config::set('auth.providers.users.model', config('acl.user_models.users'));
 
         $this->publishes([
             __DIR__.'/../../config/acl.php' => config_path('acl.php'),
