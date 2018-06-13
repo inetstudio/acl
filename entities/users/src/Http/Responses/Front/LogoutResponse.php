@@ -3,7 +3,7 @@
 namespace InetStudio\ACL\Users\Http\Responses\Front;
 
 use Illuminate\Contracts\Support\Responsable;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Users\LogoutResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\LogoutResponseContract;
 
 /**
  * Class LogoutResponse.
