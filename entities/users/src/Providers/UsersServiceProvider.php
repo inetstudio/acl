@@ -87,7 +87,7 @@ class UsersServiceProvider extends ServiceProvider
      */
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/../../../resources/lang', 'admin.module.acl.users');
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'admin.module.acl.users');
     }
 
     /**

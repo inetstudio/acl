@@ -24,4 +24,17 @@ class RolesService implements RolesServiceContract
     {
         $this->repository = $repository;
     }
+
+    /**
+     * Получаем объекты по списку id.
+     *
+     * @param array|int $ids
+     * @param bool $returnBuilder
+     *
+     * @return mixed
+     */
+    public function getRolesByIDs($ids, bool $returnBuilder = false)
+    {
+        return $this->repository->getItemsByIDs($ids, $returnBuilder);
+    }
 }

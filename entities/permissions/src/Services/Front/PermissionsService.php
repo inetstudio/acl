@@ -24,4 +24,17 @@ class PermissionsService implements PermissionsServiceContract
     {
         $this->repository = $repository;
     }
+
+    /**
+     * Получаем объекты по списку id.
+     *
+     * @param array|int $ids
+     * @param bool $returnBuilder
+     *
+     * @return mixed
+     */
+    public function getPermissionsByIDs($ids, bool $returnBuilder = false)
+    {
+        return $this->repository->getItemsByIDs($ids, $returnBuilder);
+    }
 }

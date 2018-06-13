@@ -99,7 +99,7 @@ class ActivationsService implements ActivationsServiceContract
         $this->repositories['activations']->save([
             'token' => $token,
             'created_at' => new Carbon(),
-        ], $activation->id);
+        ], $activation->token);
 
         return $token;
     }
@@ -134,7 +134,7 @@ class ActivationsService implements ActivationsServiceContract
     {
         $activation = $this->getActivationByToken($token);
 
-        return $this->repositories['activations']->destroy(($activation) ? $activation->id : 0);
+        return $this->repositories['activations']->destroy(($activation) ? $activation->token : '');
     }
 
     /**

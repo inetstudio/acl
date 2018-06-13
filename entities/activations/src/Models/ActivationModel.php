@@ -41,4 +41,13 @@ class ActivationModel extends Model implements ActivationModelContract
     protected $dates = [
         'created_at',
     ];
+
+    /**
+     * Атрибуты, которые должны быть преобразованы к базовым типам.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'token' => 'string',
+    ];
 }

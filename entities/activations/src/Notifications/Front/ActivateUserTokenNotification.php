@@ -59,7 +59,7 @@ class ActivateUserTokenNotification extends Notification implements ActivateUser
      */
     public function toMail($notifiable): ActivateUserTokenMailContract
     {
-        return app()->makeWith('InetStudio\ACL\Activations\Contracts\Mail\ActivateUserTokenMailContract', [
+        return app()->makeWith('InetStudio\ACL\Activations\Contracts\Mail\Front\ActivateUserTokenMailContract', [
             'token' => $this->token,
         ])->to($this->user->email);
     }

@@ -24,8 +24,8 @@ trait HasUser
 
         return $this->belongsTo(
             $userClassName,
-            'id',
-            'user_id'
+            'user_id',
+            'id'
         );
     }
 }

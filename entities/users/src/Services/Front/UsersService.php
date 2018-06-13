@@ -74,7 +74,7 @@ class UsersService implements UsersServiceContract
         $user = $this->user;
 
         if ($email) {
-            $user = $this->repository->searchItemsByField('email', $email);
+            $user = $this->repository->searchItemsByField('email', $email)->first();
         }
 
         return ($user) ? $user->id : 0;
@@ -118,7 +118,7 @@ class UsersService implements UsersServiceContract
     public function register(RegisterRequestContract $request): UserModelContract
     {
         $requestData = $request->only($this->repository->getModel()->getFillable());
-        $activated = ['activated' => (int) config('acl.activations.enabled')];
+        $activated = ['activated' => (int) (! config('acl.activations.enabled'))];
 
         $item = $this->repository->save(array_merge($requestData, $activated), 0);
 

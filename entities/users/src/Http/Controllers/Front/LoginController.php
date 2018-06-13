@@ -116,7 +116,7 @@ class LoginController extends BaseLoginController implements LoginControllerCont
 
         throw ValidationException::withMessages([
             'email' => [
-                trans('admin::activation.activationWarning'),
+                trans('admin.module.acl.activations::activation.activationWarning'),
             ],
         ]);
     }

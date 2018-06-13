@@ -46,7 +46,7 @@ class RegisterController extends BaseRegisterController implements RegisterContr
         return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract', [
             'result' => [
                 'success' => true,
-                'message' => trans('admin::activation.activationStatus'),
+                'message' => trans('admin.module.acl.activations::activation.activationStatus'),
             ]
         ]);
     }

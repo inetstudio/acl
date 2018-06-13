@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Profiles\Services\Front;
 
 use InetStudio\ACL\Profiles\Contracts\Models\UserProfileModelContract;
-use InetStudio\ACL\Profiles\Contracts\Repositories\UsersProfilesRepositoryContract;
 use InetStudio\ACL\Profiles\Contracts\Services\Front\UsersProfilesServiceContract;
+use InetStudio\ACL\Profiles\Contracts\Repositories\UsersProfilesRepositoryContract;
 
 /**
  * Class UsersProfilesService.

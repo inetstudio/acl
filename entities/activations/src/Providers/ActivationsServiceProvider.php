@@ -83,7 +83,7 @@ class ActivationsServiceProvider extends ServiceProvider
      */
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/../../../resources/lang', 'admin.module.acl.activations');
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'admin.module.acl.activations');
     }
 
     /**
@@ -95,7 +95,7 @@ class ActivationsServiceProvider extends ServiceProvider
     {
         Event::listen(
             'InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract',
-            'InetStudio\ACL\Activations\Contracts\Notifications\Front\ActivateUserTokenNotificationContract'
+            'InetStudio\ACL\Activations\Contracts\Listeners\Front\SendActivateNotificationListenerContract'
         );
 
         Event::listen(

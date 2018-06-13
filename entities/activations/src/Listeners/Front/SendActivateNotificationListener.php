@@ -63,7 +63,7 @@ class SendActivateNotificationListener implements SendActivateNotificationListen
      */
     private function shouldSend($user): bool
     {
-        $activation = $this->services['activations']->getActivation($user);
+        $activation = $this->services['activations']->getActivationByUser($user);
 
         return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
     }

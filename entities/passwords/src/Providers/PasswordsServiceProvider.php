@@ -48,6 +48,6 @@ class PasswordsServiceProvider extends ServiceProvider
      */
     protected function registerTranslations(): void
     {
-        $this->loadTranslationsFrom(__DIR__.'/../../../resources/lang', 'admin.module.acl.passwords');
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'admin.module.acl.passwords');
     }
 }

@@ -39,45 +39,26 @@ class ActivationsRepository implements ActivationsRepositoryContract
     /**
      * Возвращаем объект по id, либо создаем новый.
      *
-     * @param int $id
+     * @param string $token
      *
      * @return ActivationModelContract
      */
-    public function getItemByID(int $id): ActivationModelContract
+    public function getItemByToken(string $token): ActivationModelContract
     {
-        return $this->model::find($id) ?? new $this->model;
-    }
-
-    /**
-     * Возвращаем объекты по списку id.
-     *
-     * @param $ids
-     * @param bool $returnBuilder
-     *
-     * @return mixed
-     */
-    public function getItemsByIDs($ids, bool $returnBuilder = false)
-    {
-        $builder = $this->getItemsQuery()->whereIn('id', (array) $ids);
-
-        if ($returnBuilder) {
-            return $builder;
-        }
-
-        return $builder->get();
+        return $this->model::find($token) ?? new $this->model;
     }
 
     /**
      * Сохраняем объект.
      *
      * @param array $data
-     * @param int $id
+     * @param string $token
      *
      * @return ActivationModelContract
      */
-    public function save(array $data, int $id): ActivationModelContract
+    public function save(array $data, string $token): ActivationModelContract
     {
-        $item = $this->getItemByID($id);
+        $item = $this->getItemByToken($token);
         $item->fill($data);
         $item->save();
 
@@ -87,13 +68,13 @@ class ActivationsRepository implements ActivationsRepositoryContract
     /**
      * Удаляем объект.
      *
-     * @param int $id
+     * @param string $token
      *
      * @return bool
      */
-    public function destroy($id): ?bool
+    public function destroy(string $token): ?bool
     {
-        return $this->getItemByID($id)->delete();
+        return $this->getItemByToken($token)->delete();
     }
 
     /**
