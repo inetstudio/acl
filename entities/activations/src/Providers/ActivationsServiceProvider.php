@@ -100,7 +100,7 @@ class ActivationsServiceProvider extends ServiceProvider
 
         Event::listen(
             'InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract',
-            'InetStudio\ACL\Activations\Contracts\Notifications\Front\ActivateUserTokenNotificationContract'
+            'InetStudio\ACL\Activations\Contracts\Listeners\Front\SendActivateNotificationListenerContract'
         );
     }
 }

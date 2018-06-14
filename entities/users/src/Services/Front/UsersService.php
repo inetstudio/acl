@@ -240,7 +240,7 @@ class UsersService implements UsersServiceContract
             }
 
             event(app()->makeWith('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract', [
-                'object' => $user,
+                'user' => $user,
             ]));
         } else {
             if (! $user->hasRole('social_user')) {

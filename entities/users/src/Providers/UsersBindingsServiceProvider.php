@@ -64,6 +64,7 @@ class UsersBindingsServiceProvider extends ServiceProvider
         'InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract' => 'InetStudio\ACL\Users\Http\Responses\Front\RegisterResponse',
         'InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterApproveEmailResponseContract' => 'InetStudio\ACL\Users\Http\Responses\Front\SocialRegisterApproveEmailResponse',
         'InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterAskEmailResponseContract' => 'InetStudio\ACL\Users\Http\Responses\Front\SocialRegisterAskEmailResponse',
+        'InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterHandleResponseContract' => 'InetStudio\ACL\Users\Http\Responses\Front\SocialRegisterHandleResponse',
 
         // Services
         'InetStudio\ACL\Users\Contracts\Services\Back\UsersDataTableServiceContract' => 'InetStudio\ACL\Users\Services\Back\UsersDataTableService',
@@ -117,6 +118,7 @@ class UsersBindingsServiceProvider extends ServiceProvider
             'InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract',
             'InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterApproveEmailResponseContract',
             'InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterAskEmailResponseContract',
+            'InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterHandleResponseContract',
             'InetStudio\ACL\Users\Contracts\Services\Back\UsersDataTableServiceContract',
             'InetStudio\ACL\Users\Contracts\Services\Back\UsersObserverServiceContract',
             'InetStudio\ACL\Users\Contracts\Services\Back\UsersServiceContract',

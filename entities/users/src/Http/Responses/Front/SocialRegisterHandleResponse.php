@@ -2,9 +2,7 @@
 
 namespace InetStudio\ACL\Users\Http\Responses\Front;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterHandleResponseContract;
 
 /**

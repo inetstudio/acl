@@ -18,14 +18,14 @@ class SocialRegisteredEvent implements SocialRegisteredEventContract
      *
      * @var UserModelContract
      */
-    public $object;
+    public $user;
 
     /**
      * SocialRegisteredEvent constructor.
-     * @param UserModelContract $object
+     * @param UserModelContract $user
      */
-    public function __construct(UserModelContract $object)
+    public function __construct(UserModelContract $user)
     {
-        $this->object = $object;
+        $this->user = $user;
     }
 }
