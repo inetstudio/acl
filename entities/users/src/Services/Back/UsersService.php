@@ -106,7 +106,7 @@ class UsersService implements UsersServiceContract
      */
     public function getSuggestions(string $search): Collection
     {
-        $items = $this->repository->searchItemsByField('email', $search);
+        $items = $this->repository->searchItems([['email', 'LIKE', '%'.$search.'%']]);
 
         return $items;
     }

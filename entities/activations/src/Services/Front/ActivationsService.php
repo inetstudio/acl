@@ -53,7 +53,7 @@ class ActivationsService implements ActivationsServiceContract
      */
     public function getActivationByToken(string $token = ''): ?ActivationModelContract
     {
-        return $this->repositories['activations']->searchItemsByField('token', $token)->first();
+        return $this->repositories['activations']->searchItems([['token', '=', $token]])->first();
     }
 
     /**

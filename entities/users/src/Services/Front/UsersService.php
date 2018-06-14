@@ -2,13 +2,12 @@
 
 namespace InetStudio\ACL\Users\Services\Front;
 
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract;
-use InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
 
 /**
@@ -17,9 +16,9 @@ use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
 class UsersService implements UsersServiceContract
 {
     /**
-     * @var UsersRepositoryContract
+     * @var array
      */
-    private $repository;
+    private $repositories;
 
     /**
      * @var UserModelContract
@@ -28,12 +27,11 @@ class UsersService implements UsersServiceContract
 
     /**
      * UsersService constructor.
-     *
-     * @param UsersRepositoryContract $repository
      */
-    public function __construct(UsersRepositoryContract $repository)
+    public function __construct()
     {
-        $this->repository = $repository;
+        $this->repositories['users'] = app()->make('InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract');
+        $this->repositories['usersSocialProfiles'] = app()->make('InetStudio\ACL\Profiles\Contracts\Repositories\UsersSocialProfilesRepositoryContract');
 
         $this->user = Auth::user();
     }
@@ -74,7 +72,7 @@ class UsersService implements UsersServiceContract
         $user = $this->user;
 
         if ($email) {
-            $user = $this->repository->searchItemsByField('email', $email)->first();
+            $user = $this->repositories['users']->searchItems([['email', '=', $email]])->first();
         }
 
         return ($user) ? $user->id : 0;
@@ -117,10 +115,10 @@ class UsersService implements UsersServiceContract
      */
     public function register(RegisterRequestContract $request): UserModelContract
     {
-        $requestData = $request->only($this->repository->getModel()->getFillable());
+        $requestData = $request->only($this->repositories['users']->getModel()->getFillable());
         $activated = ['activated' => (int) (! config('acl.activations.enabled'))];
 
-        $item = $this->repository->save(array_merge($requestData, $activated), 0);
+        $item = $this->repositories['users']->save(array_merge($requestData, $activated), 0);
 
         return $item;
     }
@@ -175,18 +173,18 @@ class UsersService implements UsersServiceContract
 
         $user = $this->createOrGetSocialUser($socialUser, $provider);
 
-        if (! $user) {
+        if (! $user->id) {
             Session::flash('social_user', $socialUser);
             Session::flash('provider', $provider);
+        } else {
+            if (! $user->activated) {
+                event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract', [
+                    'user' => $user,
+                ]));
+            } else {
+                Auth::login($user, true);
+            }
         }
-
-        if (! $user->activated) {
-            event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract', [
-                'user' => $user,
-            ]));
-        }
-
-        Auth::login($user, true);
 
         return $user;
     }
@@ -198,39 +196,42 @@ class UsersService implements UsersServiceContract
      * @param string $providerName
      * @param string $approveEmail
      *
-     * @return mixed
+     * @return UserModelContract|null
      */
-    public function createOrGetSocialUser($socialUser, string $providerName, string $approveEmail = '')
+    public function createOrGetSocialUser($socialUser, string $providerName, string $approveEmail = ''): ?UserModelContract
     {
         $email = ($approveEmail) ? $approveEmail : $socialUser->getEmail();
 
-        $socialProfile = UserSocialProfileModel::where('provider', $providerName)->where('provider_id', $socialUser->getId())->first();
+        $socialProfile = $this->repositories['usersSocialProfiles']->searchItems([
+            ['provider', '=', $providerName],
+            ['provider_id', '=', $socialUser->getId()],
+        ])->first();
 
         if (! $email && ! $socialProfile) {
-            return;
+            return $this->repositories['users']->getItemByID(0);
         }
 
         if (! $socialProfile) {
-            $socialProfile = UserSocialProfileModel::create([
+            $socialProfile = $this->repositories['usersSocialProfiles']->save([
                 'provider' => $providerName,
                 'provider_id' => $socialUser->getId(),
                 'provider_email' => $email,
-            ]);
+            ], 0);
         }
 
         $user = $socialProfile->user;
 
         if (! $user) {
-            $user = User::where('email', $email)->first();
+            $user = $this->repositories['users']->searchItems([['email', '=', $email]])->first();
         }
 
         if (! $user) {
-            $user = User::create([
+            $user = $this->repositories['users']->save([
                 'name' => $socialUser->getName(),
                 'email' => $socialProfile->provider_email,
-                'password' => Hash::make($socialUser->getName().config('app.key').$socialUser->getEmail()),
+                'password' => $socialUser->getName().config('app.key').$socialUser->getEmail(),
                 'activated' => ($approveEmail) ? 0 : 1,
-            ]);
+            ], 0);
 
             if ($approveEmail) {
                 event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract', [

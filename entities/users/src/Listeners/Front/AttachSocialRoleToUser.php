@@ -35,7 +35,7 @@ class AttachSocialRoleToUser implements AttachSocialRoleToUserContract
     public function handle($event): void
     {
         $user = $event->user;
-        $userRole = $this->repository->searchItemsByField('name', 'social_user')->first();
+        $userRole = $this->repository->searchItems([['name', '=', 'social_user']])->first();
 
         if ($userRole) {
             $user->attachRole($userRole);

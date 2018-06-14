@@ -47,7 +47,7 @@ class SocialRegisterHandleResponse implements SocialRegisterHandleResponseContra
     {
         if (! $this->user) {
             return response()->redirectTo('/');
-        } elseif (false) {
+        } elseif (! $this->user->id) {
             return response()->redirectToRoute('front.acl.users.oauth.email');
         } elseif (! $this->user->activated) {
             return view('admin.module.acl.activations::front.activate', [
@@ -57,6 +57,8 @@ class SocialRegisterHandleResponse implements SocialRegisterHandleResponseContra
                     'message' => trans('admin.module.acl.activations::activation.activationWarning'),
                 ],
             ]);
+        } else {
+            return response()->redirectTo('/');
         }
     }
 }

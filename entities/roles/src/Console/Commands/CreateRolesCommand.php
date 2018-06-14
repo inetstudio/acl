@@ -48,21 +48,21 @@ class CreateRolesCommand extends Command
      */
     public function handle(): void
     {
-        $adminRole = $this->repository->searchItemsByField('name', 'admin')->first();
+        $adminRole = $this->repository->searchItems([['name', '=', 'admin']])->first();
         $this->repository->save([
             'name' => 'admin',
             'display_name' => 'Администратор',
             'description' => 'Пользователь, у которого есть доступ в административную панель.',
         ], $adminRole ? $adminRole->id : 0);
 
-        $userRole = $this->repository->searchItemsByField('name', 'user')->first();
+        $userRole = $this->repository->searchItems([['name', '=', 'user']])->first();
         $this->repository->save([
             'name' => 'user',
             'display_name' => 'Пользователь',
             'description' => 'Пользователь, зарегистрировавшийся через сайт.',
         ], $userRole ? $userRole->id : 0);
 
-        $socialUserRole = $this->repository->searchItemsByField('name', 'social_user')->first();
+        $socialUserRole = $this->repository->searchItems([['name', '=', 'social_user']])->first();
         $this->repository->save([
             'name' => 'social_user',
             'display_name' => 'Пользователь социальной сети',

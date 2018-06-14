@@ -35,7 +35,7 @@ class AttachUserRoleToUser implements AttachUserRoleToUserContract
     public function handle($event): void
     {
         $user = $event->user;
-        $userRole = $this->repository->searchItemsByField('name', 'user')->first();
+        $userRole = $this->repository->searchItems([['name', '=', 'user']])->first();
 
         if ($userRole) {
             $user->attachRole($userRole);

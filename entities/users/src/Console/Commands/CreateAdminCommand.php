@@ -51,8 +51,8 @@ class CreateAdminCommand extends Command
      */
     public function handle(): void
     {
-        $adminRole = $this->repositories['roles']->searchItemsByField('name', 'admin')->first();
-        $user = $this->repositories['users']->searchItemsByField('name', 'admin')->first();
+        $adminRole = $this->repositories['roles']->searchItems([['name', '=', 'admin']])->first();
+        $user = $this->repositories['users']->searchItems([['name', '=', 'admin']])->first();
         $user = $this->repositories['users']->save([
             'activated' => 1,
             'name' => 'admin',

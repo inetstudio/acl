@@ -100,7 +100,7 @@ class RolesService implements RolesServiceContract
      */
     public function getSuggestions(string $search): Collection
     {
-        $items = $this->repository->searchItemsByField('display_name', $search);
+        $items = $this->repository->searchItems([['display_name', 'LIKE', '%'.$search.'%']]);
 
         return $items;
     }
