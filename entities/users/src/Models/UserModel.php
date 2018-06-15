@@ -4,6 +4,7 @@ namespace InetStudio\ACL\Users\Models;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -70,5 +71,65 @@ class UserModel extends Authenticatable implements UserModelContract
             'token' => $token,
             'user' => $this,
         ]));
+    }
+
+    /**
+     * Handle dynamic method calls into the model.
+     *
+     * @param $method
+     * @param $parameters
+     *
+     * @return mixed
+     */
+    public function __call($method, $parameters) {
+        $config = implode( '.', ['acl.users.relationships', $method]);
+
+        if (Config::has($config)) {
+            $function = Config::get($config);
+
+            return $function($this);
+        }
+
+        return parent::__call($method, $parameters);
+    }
+
+    /**
+     * Get an attribute from the model.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        $config = implode( '.', ['acl.users.relationships', $key]);
+
+        if (Config::has($config)) {
+            return $this->getRelationValue($key);
+        }
+
+        return parent::getAttribute($key);
+    }
+
+    /**
+     * Get a relationship.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getRelationValue($key)
+    {
+        if ($this->relationLoaded($key)) {
+            return $this->relations[$key];
+        }
+
+        $config = implode( '.', ['acl.users.relationships', $key]);
+
+        if (Config::has($config)) {
+            return $this->getRelationshipFromMethod($key);
+        }
+
+        return parent::getRelationValue($key);
     }
 }
