@@ -32,7 +32,7 @@ class ForgotPasswordController extends Controller implements ForgotPasswordContr
      *
      * @return ResetLinkResponseContract
      */
-    public function sendResetLinkEmailCustom(ForgotPasswordRequestContract $request) : ResetLinkResponseContract
+    public function sendResetLinkEmail(ForgotPasswordRequestContract $request) : ResetLinkResponseContract
     {
         $result = $this->broker()->sendResetLink(
             $request->only('email')

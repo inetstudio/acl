@@ -63,7 +63,7 @@ class ResetPasswordController extends Controller implements ResetPasswordControl
      *
      * @return ResetPasswordResponseContract
      */
-    public function resetCustom(ResetPasswordRequestContract $request): ResetPasswordResponseContract
+    public function reset(ResetPasswordRequestContract $request): ResetPasswordResponseContract
     {
         $result = $this->services['passwords']->reset($request, $this->broker());
 

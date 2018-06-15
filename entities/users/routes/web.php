@@ -37,10 +37,10 @@ Route::group([
     Route::get('oauth/{provider}', 'SocialLoginControllerContract@redirectToProvider')->name('front.acl.users.oauth.login');
     Route::get('oauth/{provider}/callback', 'SocialLoginControllerContract@handleProviderCallback')->name('front.acl.users.oauth.callback');
 
-    Route::post('login', 'LoginControllerContract@loginCustom')->name('front.acl.users.login');
+    Route::post('login', 'LoginControllerContract@login')->name('front.acl.users.login');
     Route::group(['middleware' => 'auth'], function () {
         Route::post('logout', 'LoginControllerContract@logout')->name('front.acl.users.logout');
     });
 
-    Route::post('register', 'RegisterControllerContract@registerCustom')->name('front.acl.users.register');
+    Route::post('register', 'RegisterControllerContract@register')->name('front.acl.users.register');
 });

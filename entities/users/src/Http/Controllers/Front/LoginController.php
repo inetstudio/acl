@@ -51,7 +51,7 @@ class LoginController extends Controller implements LoginControllerContract
      *
      * @throws ValidationException
      */
-    public function loginCustom(LoginRequestContract $request)
+    public function login(LoginRequestContract $request)
     {
         $baseRequest = request();
 

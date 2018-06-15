@@ -49,7 +49,7 @@ class RegisterController extends Controller implements RegisterControllerContrac
      *
      * @return RegisterResponseContract
      */
-    public function registerCustom(RegisterRequestContract $request): RegisterResponseContract
+    public function register(RegisterRequestContract $request): RegisterResponseContract
     {
         $user = $this->services['users']->register($request);
 
@@ -61,30 +61,5 @@ class RegisterController extends Controller implements RegisterControllerContrac
                 'message' => trans('admin.module.acl.activations::activation.activationStatus'),
             ]
         ]);
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @return UserModelContract
-     */
-    protected function create()
-    {
-        return $this->services['users']->register(request());
     }
 }
