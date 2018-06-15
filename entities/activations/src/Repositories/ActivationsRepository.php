@@ -126,7 +126,7 @@ class ActivationsRepository implements ActivationsRepositoryContract
     {
         $defaultColumns = ['user_id', 'token'];
 
-        $relations = [];
+        $relations = ['user'];
 
         return $this->model::select(array_merge($defaultColumns, $extColumns))
             ->with(array_intersect_key($relations, array_flip($with)));

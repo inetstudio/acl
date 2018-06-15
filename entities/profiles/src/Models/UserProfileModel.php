@@ -4,6 +4,7 @@ namespace InetStudio\ACL\Profiles\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use InetStudio\ACL\Users\Models\Traits\HasUser;
 use InetStudio\AdminPanel\Models\Traits\HasJSONColumns;
 use InetStudio\ACL\Profiles\Contracts\Models\UserProfileModelContract;
 
@@ -12,6 +13,7 @@ use InetStudio\ACL\Profiles\Contracts\Models\UserProfileModelContract;
  */
 class UserProfileModel extends Model implements UserProfileModelContract
 {
+    use HasUser;
     use SoftDeletes;
     use HasJSONColumns;
 
@@ -50,14 +52,4 @@ class UserProfileModel extends Model implements UserProfileModelContract
         'updated_at',
         'deleted_at',
     ];
-
-    /**
-     * Обратное отношение с моделью пользователя.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(app()->make('InetStudio\ACL\Users\Contracts\Models\UserModelContract'), 'user_id');
-    }
 }

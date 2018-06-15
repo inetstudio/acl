@@ -4,6 +4,7 @@ namespace InetStudio\ACL\Profiles\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use InetStudio\ACL\Users\Models\Traits\HasUser;
 use InetStudio\ACL\Profiles\Contracts\Models\UserSocialProfileModelContract;
 
 /**
@@ -11,6 +12,7 @@ use InetStudio\ACL\Profiles\Contracts\Models\UserSocialProfileModelContract;
  */
 class UserSocialProfileModel extends Model implements UserSocialProfileModelContract
 {
+    use HasUser;
     use SoftDeletes;
 
     /**
@@ -39,14 +41,4 @@ class UserSocialProfileModel extends Model implements UserSocialProfileModelCont
         'updated_at',
         'deleted_at',
     ];
-
-    /**
-     * Обратное отношение с моделью пользователя.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(app()->make('InetStudio\ACL\Users\Contracts\Models\UserModelContract'), 'user_id');
-    }
 }

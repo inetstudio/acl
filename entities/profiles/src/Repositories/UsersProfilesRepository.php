@@ -143,9 +143,9 @@ class UsersProfilesRepository implements UsersProfilesRepositoryContract
      */
     protected function getItemsQuery($extColumns = [], $with = []): Builder
     {
-        $defaultColumns = ['id'];
+        $defaultColumns = ['id', 'user_id', 'additional_info'];
 
-        $relations = [];
+        $relations = ['user'];
 
         return $this->model::select(array_merge($defaultColumns, $extColumns))
             ->with(array_intersect_key($relations, array_flip($with)));

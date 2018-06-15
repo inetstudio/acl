@@ -143,9 +143,9 @@ class UsersSocialProfilesRepository implements UsersSocialProfilesRepositoryCont
      */
     protected function getItemsQuery($extColumns = [], $with = []): Builder
     {
-        $defaultColumns = ['id'];
+        $defaultColumns = ['id', 'user_id', 'provider', 'provider_id', 'provider_email'];
 
-        $relations = [];
+        $relations = ['user'];
 
         return $this->model::select(array_merge($defaultColumns, $extColumns))
             ->with(array_intersect_key($relations, array_flip($with)));
