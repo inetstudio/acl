@@ -1,6 +1,11 @@
-<?
+<?php
 
 return [
+
+    /*
+     * Данные для авторизации через социальные сети.
+     */
+
     'google' => [
         'client_id'  => env('GOOGLE_KEY'),
         'client_secret' => env('GOOGLE_SECRET'),
