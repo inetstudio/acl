@@ -2,8 +2,11 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
-use App\Http\Controllers\Auth\RegisterController as BaseRegisterController;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\RegisterControllerContract;
@@ -11,8 +14,17 @@ use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\RegisterControllerCont
 /**
  * Class RegisterController.
  */
-class RegisterController extends BaseRegisterController implements RegisterControllerContract
+class RegisterController extends Controller implements RegisterControllerContract
 {
+    use RegistersUsers;
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
     /**
      * Используемые сервисы.
      *
@@ -25,7 +37,7 @@ class RegisterController extends BaseRegisterController implements RegisterContr
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->middleware('guest');
 
         $this->services['users'] = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract');
     }
@@ -49,5 +61,30 @@ class RegisterController extends BaseRegisterController implements RegisterContr
                 'message' => trans('admin.module.acl.activations::activation.activationStatus'),
             ]
         ]);
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @return UserModelContract
+     */
+    protected function create()
+    {
+        return $this->services['users']->register(request());
     }
 }

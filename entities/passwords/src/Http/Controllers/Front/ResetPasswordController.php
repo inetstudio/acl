@@ -3,7 +3,8 @@
 namespace InetStudio\ACL\Passwords\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Auth\ResetPasswordController as BaseResetPasswordController;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ResetPasswordRequestContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetPasswordResponseContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front\ResetPasswordControllerContract;
@@ -12,8 +13,17 @@ use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetPasswordFormRes
 /**
  * Class ResetPasswordController.
  */
-class ResetPasswordController extends BaseResetPasswordController implements ResetPasswordControllerContract
+class ResetPasswordController extends Controller implements ResetPasswordControllerContract
 {
+    use ResetsPasswords;
+
+    /**
+     * Where to redirect users after resetting their password.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
     /**
      * Используемые сервисы.
      *
@@ -26,7 +36,7 @@ class ResetPasswordController extends BaseResetPasswordController implements Res
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->middleware('guest');
 
         $this->services['passwords'] = app()->make('InetStudio\ACL\Passwords\Contracts\Services\Front\PasswordsServiceContract');
     }

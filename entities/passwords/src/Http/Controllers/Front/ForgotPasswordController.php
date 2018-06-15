@@ -2,16 +2,29 @@
 
 namespace InetStudio\ACL\Passwords\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetLinkResponseContract;
-use App\Http\Controllers\Auth\ForgotPasswordController as BaseForgotPasswordController;
 use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ForgotPasswordRequestContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front\ForgotPasswordControllerContract;
 
 /**
  * Class ForgotPasswordController.
  */
-class ForgotPasswordController extends BaseForgotPasswordController implements ForgotPasswordControllerContract
+class ForgotPasswordController extends Controller implements ForgotPasswordControllerContract
 {
+    use SendsPasswordResetEmails;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
     /**
      * Отправляем пользователю ссылку для сброса пароля.
      *

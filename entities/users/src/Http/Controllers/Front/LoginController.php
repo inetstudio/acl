@@ -3,9 +3,10 @@
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
-use App\Http\Controllers\Auth\LoginController as BaseLoginController;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\LoginRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\LogoutResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\LoginControllerContract;
@@ -13,8 +14,17 @@ use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\LoginControllerContrac
 /**
  * Class LoginController.
  */
-class LoginController extends BaseLoginController implements LoginControllerContract
+class LoginController extends Controller implements LoginControllerContract
 {
+    use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
     /**
      * Используемые сервисы.
      *
@@ -27,7 +37,7 @@ class LoginController extends BaseLoginController implements LoginControllerCont
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->middleware('guest')->except('logout');
 
         $this->services['users'] = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract');
     }
