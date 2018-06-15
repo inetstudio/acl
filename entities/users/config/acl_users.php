@@ -31,9 +31,14 @@ return [
 
     'relationships' => [
         /* Relationship example
-        'comments' => function($self) {
-            return $self->hasMany(CommentModel::class, 'user_id', 'id');
-        },
+        'comments' => [
+            'relationship' => 'hasMany',
+            'model' => 'InetStudio\Comments\Models\CommentModel',
+            'params' => [
+                'user_id',
+                'id'
+            ],
+        ],
         */
     ],
 ];

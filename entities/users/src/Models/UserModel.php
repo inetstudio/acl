@@ -85,9 +85,12 @@ class UserModel extends Authenticatable implements UserModelContract
         $config = implode( '.', ['acl_users.relationships', $method]);
 
         if (Config::has($config)) {
-            $function = Config::get($config);
+            $data = Config::get($config);
 
-            return $function($this);
+            $model = isset($data['model']) ? [app()->make($data['model'])] : [];
+            $params = isset($data['params']) ? $data['params'] : [];
+
+            return call_user_func_array([$this, $data['relationship']], array_merge($model, $params));
         }
 
         return parent::__call($method, $parameters);
