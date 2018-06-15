@@ -82,7 +82,7 @@ class UserModel extends Authenticatable implements UserModelContract
      * @return mixed
      */
     public function __call($method, $parameters) {
-        $config = implode( '.', ['acl.users.relationships', $method]);
+        $config = implode( '.', ['acl_users.relationships', $method]);
 
         if (Config::has($config)) {
             $function = Config::get($config);
@@ -102,7 +102,7 @@ class UserModel extends Authenticatable implements UserModelContract
      */
     public function getAttribute($key)
     {
-        $config = implode( '.', ['acl.users.relationships', $key]);
+        $config = implode( '.', ['acl_users.relationships', $key]);
 
         if (Config::has($config)) {
             return $this->getRelationValue($key);
@@ -124,7 +124,7 @@ class UserModel extends Authenticatable implements UserModelContract
             return $this->relations[$key];
         }
 
-        $config = implode( '.', ['acl.users.relationships', $key]);
+        $config = implode( '.', ['acl_users.relationships', $key]);
 
         if (Config::has($config)) {
             return $this->getRelationshipFromMethod($key);

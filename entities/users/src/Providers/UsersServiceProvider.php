@@ -55,6 +55,10 @@ class UsersServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->mergeConfigFrom(
+            __DIR__.'/../../config/services.php', 'services'
+        );
+
+        $this->mergeConfigFrom(
             __DIR__.'/../../config/filesystems.php', 'filesystems.disks'
         );
     }

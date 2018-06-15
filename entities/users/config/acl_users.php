@@ -3,7 +3,7 @@
 return [
 
     /*
-     * Настройки изображений
+     * Настройки изображений.
      */
 
     'images' => [
@@ -23,5 +23,17 @@ return [
                 ],
             ],
         ],
+    ],
+
+    /*
+     * Настройки связей.
+     */
+
+    'relationships' => [
+        /* Relationship example
+        'comments' => function($self) {
+            return $self->hasMany(CommentModel::class, 'user_id', 'id');
+        },
+        */
     ],
 ];

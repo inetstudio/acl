@@ -25,14 +25,4 @@ return [
         ],
     ],
 
-    'users' => [
-        'relationships' => [
-            /* Relationship example
-            'comments' => function($self) {
-                return $self->hasMany(CommentModel::class, 'user_id', 'id');
-            },
-            */
-        ],
-    ],
-
 ];
