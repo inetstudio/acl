@@ -81,6 +81,15 @@ class SetupCommand extends Command
             ],
             [
                 'type' => 'artisan',
+                'description' => 'Publish config',
+                'command' => 'vendor:publish',
+                'params' => [
+                    '--provider' => 'InetStudio\ACL\Providers\ACLServiceProvider',
+                    '--tag' => 'config',
+                ],
+            ],
+            [
+                'type' => 'artisan',
                 'description' => 'Reviews acl activations setup',
                 'command' => 'inetstudio:acl:activations:setup',
             ],
@@ -98,15 +107,6 @@ class SetupCommand extends Command
                 'type' => 'artisan',
                 'description' => 'Reviews acl users setup',
                 'command' => 'inetstudio:acl:users:setup',
-            ],
-            [
-                'type' => 'artisan',
-                'description' => 'Publish config',
-                'command' => 'vendor:publish',
-                'params' => [
-                    '--provider' => 'InetStudio\ACL\Providers\ACLServiceProvider',
-                    '--tag' => 'config',
-                ],
             ],
             [
                 'type' => 'cli',

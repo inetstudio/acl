@@ -71,7 +71,7 @@ class SetupCommand extends Command
         $this->calls = [
             [
                 'type' => 'artisan',
-                'description' => 'Create folders',
+                'description' => 'Roles seeder',
                 'command' => 'inetstudio:acl:roles:seed',
             ],
             [
