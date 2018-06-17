@@ -12,8 +12,9 @@
         'class' => 'select2 form-control',
         'data-placeholder' => 'Выберите пользователя',
         'style' => 'width: 100%',
+        'data-source' => route('back.acl.users.getSuggestions'),
     ],
     'options' => [
-        'values' => [null => ''] + $usersService->getAllUsers()->pluck('name', 'id')->toArray(),
+        'values' => $usersService->getUsersByIDs(old('user_id') ? old('user_id') : (int) $item->user_id, true)->pluck('email', 'id')->toArray(),
     ],
 ]) !!}
