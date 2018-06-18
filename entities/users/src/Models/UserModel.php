@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use InetStudio\ACL\Profiles\Models\Traits\HasProfiles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use InetStudio\ACL\Activations\Models\Traits\HasActivation;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
@@ -17,6 +18,7 @@ use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 class UserModel extends Authenticatable implements UserModelContract
 {
     use Notifiable;
+    use HasProfiles;
     use HasActivation;
     use LaratrustUserTrait;
 
