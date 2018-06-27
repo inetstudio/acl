@@ -4,6 +4,7 @@ namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
@@ -75,6 +76,26 @@ class LoginController extends Controller implements LoginControllerContract
     }
 
     /**
+     * Redirect the user after determining they are locked out.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendLockoutResponse(Request $request)
+    {
+        $seconds = $this->limiter()->availableIn(
+            $this->throttleKey($request)
+        );
+
+        throw ValidationException::withMessages([
+            $this->username() => [Lang::get('admin.module.acl.users::auth.throttle', ['seconds' => $seconds])],
+        ])->status(423);
+    }
+
+    /**
      * Ответ при удачной авторизации.
      *
      * @param \Illuminate\Http\Request $request
@@ -89,6 +110,20 @@ class LoginController extends Controller implements LoginControllerContract
 
         return response()->json([
             'success' => true,
+        ]);
+    }
+
+    /**
+     * Ответ при неудачной авторизации.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('admin.module.acl.users::auth.failed')],
         ]);
     }
 
