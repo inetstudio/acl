@@ -103,7 +103,7 @@ class UsersService implements UsersServiceContract
     {
         $user = $this->user;
 
-        return ($request && $request->has('email')) ? strip_tags($request->get('email')) : (($user) ? $user->email : '');
+        return ($request && $request->has('email')) ? strip_tags(strtolower($request->get('email'))) : (($user) ? $user->email : '');
     }
 
     /**
