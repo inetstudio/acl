@@ -2,11 +2,9 @@
 
 namespace InetStudio\ACL\Users\Repositories;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract;
-use InetStudio\ACL\Users\Contracts\Http\Requests\Back\SaveUserRequestContract;
 
 /**
  * Class UsersRepository.
@@ -14,18 +12,16 @@ use InetStudio\ACL\Users\Contracts\Http\Requests\Back\SaveUserRequestContract;
 class UsersRepository implements UsersRepositoryContract
 {
     /**
-     * @var UserModelContract
+     * @var
      */
     private $model;
 
     /**
      * UsersRepository constructor.
-     *
-     * @param UserModelContract $model
      */
-    public function __construct(UserModelContract $model)
+    public function __construct()
     {
-        $this->model = $model;
+        $this->model = app()->make('InetStudio\ACL\Users\Contracts\Models\UserModelContract');
     }
 
     /**
@@ -143,7 +139,7 @@ class UsersRepository implements UsersRepositoryContract
      *
      * @return Builder
      */
-    protected function getItemsQuery($extColumns = [], $with = []): Builder
+    public function getItemsQuery($extColumns = [], $with = []): Builder
     {
         $defaultColumns = ['id', 'activated', 'name', 'email', 'remember_token'];
 
