@@ -81,6 +81,8 @@ class ACLServiceProvider extends ServiceProvider
         $router->aliasMiddleware('back.auth', 'InetStudio\ACL\Contracts\Http\Middleware\Back\AdminAuthenticateContract');
         $router->aliasMiddleware('back.guest', 'InetStudio\ACL\Contracts\Http\Middleware\Back\RedirectIfAuthenticatedContract');
 
+        $router->aliasMiddleware('acl.users.activated', 'InetStudio\ACL\Contracts\Http\Middleware\Front\CheckActivationContract');
+
         $router->aliasMiddleware('role', LaratrustRole::class);
         $router->aliasMiddleware('permission', LaratrustPermission::class);
         $router->aliasMiddleware('ability', LaratrustAbility::class);

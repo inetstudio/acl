@@ -3,6 +3,7 @@
 namespace InetStudio\ACL\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
 
 /**
  * Class ACLBindingsServiceProvider.
@@ -11,22 +12,27 @@ class ACLBindingsServiceProvider extends ServiceProvider
 {
     protected $defer = true;
 
-    public $bindings = [
-        // Middleware
-        'InetStudio\ACL\Contracts\Http\Middleware\Back\AdminAuthenticateContract' => 'InetStudio\ACL\Http\Middleware\Back\AdminAuthenticate',
-        'InetStudio\ACL\Contracts\Http\Middleware\Back\RedirectIfAuthenticatedContract' => 'InetStudio\ACL\Http\Middleware\Back\RedirectIfAuthenticated',
-    ];
+    public $bindings = [];
+
+    /**
+     * ACLBindingsServiceProvider constructor.
+     *
+     * @param Application $app
+     */
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+
+        $this->bindings = getPackageBindings(__DIR__.'/../Contracts');
+    }
 
     /**
      * Получить сервисы от провайдера.
      *
      * @return array
      */
-    public function provides(): array
+    public function provides()
     {
-        return [
-            'InetStudio\ACL\Contracts\Http\Middleware\Back\AdminAuthenticateContract',
-            'InetStudio\ACL\Contracts\Http\Middleware\Back\RedirectIfAuthenticatedContract',
-        ];
+        return array_keys($this->bindings);
     }
 }
