@@ -3,33 +3,30 @@
 namespace InetStudio\ACL\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Foundation\Application;
 
 /**
  * Class ACLBindingsServiceProvider.
  */
 class ACLBindingsServiceProvider extends ServiceProvider
 {
+    /**
+    * @var  bool
+    */
     protected $defer = true;
 
-    public $bindings = [];
-
     /**
-     * ACLBindingsServiceProvider constructor.
-     *
-     * @param Application $app
-     */
-    public function __construct(Application $app)
-    {
-        parent::__construct($app);
-
-        $this->bindings = getPackageBindings(__DIR__.'/../Contracts');
-    }
+    * @var  array
+    */
+    public $bindings = [
+        'InetStudio\ACL\Contracts\Http\Middleware\Back\AdminAuthenticateContract' => 'InetStudio\ACL\Http\Middleware\Back\AdminAuthenticate',
+        'InetStudio\ACL\Contracts\Http\Middleware\Back\RedirectIfAuthenticatedContract' => 'InetStudio\ACL\Http\Middleware\Back\RedirectIfAuthenticated',
+        'InetStudio\ACL\Contracts\Http\Middleware\Front\CheckActivationContract' => 'InetStudio\ACL\Http\Middleware\Front\CheckActivation',
+    ];
 
     /**
      * Получить сервисы от провайдера.
      *
-     * @return array
+     * @return  array
      */
     public function provides()
     {
