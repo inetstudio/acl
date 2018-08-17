@@ -23,7 +23,6 @@ class UsersServiceProvider extends ServiceProvider
         $this->registerRoutes();
         $this->registerViews();
         $this->registerTranslations();
-        $this->registerEvents();
         $this->registerViewComposers();
     }
 
@@ -91,49 +90,6 @@ class UsersServiceProvider extends ServiceProvider
     protected function registerTranslations(): void
     {
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'admin.module.acl.users');
-    }
-
-    /**
-     * Регистрация событий.
-     *
-     * @return void
-     */
-    protected function registerEvents(): void
-    {
-        Event::listen(
-            'Illuminate\Auth\Events\Registered',
-            'InetStudio\ACL\Activations\Contracts\Listeners\Front\SendActivateNotificationListenerContract'
-        );
-
-        Event::listen(
-            'Illuminate\Auth\Events\Registered',
-            'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract'
-        );
-
-        Event::listen(
-            'SocialiteProviders\Manager\SocialiteWasCalled',
-            'SocialiteProviders\VKontakte\VKontakteExtendSocialite'
-        );
-
-        Event::listen(
-            'SocialiteProviders\Manager\SocialiteWasCalled',
-            'JhaoDa\SocialiteProviders\Odnoklassniki\OdnoklassnikiExtendSocialite'
-        );
-
-        Event::listen(
-            'SocialiteProviders\Manager\SocialiteWasCalled',
-            'SocialiteProviders\Instagram\InstagramExtendSocialite'
-        );
-
-        Event::listen(
-            'InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract',
-            'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachSocialRoleToUserContract'
-        );
-
-        Event::listen(
-            'InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract',
-            'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract'
-        );
     }
 
     /**

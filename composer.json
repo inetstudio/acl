@@ -45,6 +45,7 @@
           "InetStudio\\ACL\\Roles\\Providers\\FormBuilderServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\RolesBindingsServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\RolesServiceProvider",
+          "InetStudio\\ACL\\Users\\Providers\\EventsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\FormBuilderServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersBindingsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersServiceProvider"
