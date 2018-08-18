@@ -55,9 +55,7 @@ class UsersService implements UsersServiceContract
      */
     public function getUser(): ?UserModelContract
     {
-        $user = $this->user;
-
-        return ($user) ? $user : null;
+        return $this->user;
     }
 
     /**
