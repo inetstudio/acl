@@ -54,10 +54,16 @@ class UsersBindingsServiceProvider extends ServiceProvider
         'InetStudio\ACL\Users\Contracts\Services\Back\UsersDataTableServiceContract' => 'InetStudio\ACL\Users\Services\Back\UsersDataTableService',
         'InetStudio\ACL\Users\Contracts\Services\Back\UsersObserverServiceContract' => 'InetStudio\ACL\Users\Services\Back\UsersObserverService',
         'InetStudio\ACL\Users\Contracts\Services\Back\UsersServiceContract' => 'InetStudio\ACL\Users\Services\Back\UsersService',
-        'InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract' => 'InetStudio\ACL\Users\Services\Front\UsersService',
         'InetStudio\ACL\Users\Contracts\Transformers\Back\SuggestionTransformerContract' => 'InetStudio\ACL\Users\Transformers\Back\SuggestionTransformer',
         'InetStudio\ACL\Users\Contracts\Transformers\Back\UserTransformerContract' => 'InetStudio\ACL\Users\Transformers\Back\UserTransformer',
         'InetStudio\ACL\Users\Contracts\Validation\Rules\CheckPasswordContract' => 'InetStudio\ACL\Users\Validation\Rules\CheckPassword',
+    ];
+
+    /**
+     * @var  array
+     */
+    public $singletons = [
+        'InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract' => 'InetStudio\ACL\Users\Services\Front\UsersService',
     ];
 
     /**
@@ -67,6 +73,9 @@ class UsersBindingsServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array_keys($this->bindings);
+        return array_merge(
+            array_keys($this->bindings),
+            array_keys($this->singletons)
+        );
     }
 }
