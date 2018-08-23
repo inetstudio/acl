@@ -257,4 +257,19 @@ class UsersService implements UsersServiceContract
 
         return $user;
     }
+
+    /**
+     * Сохраняем модель.
+     *
+     * @param array $data
+     * @param int $id
+     *
+     * @return UserModelContract
+     */
+    public function save(array $data, int $id): UserModelContract
+    {
+        $item = $this->repository->save($data, $id);
+
+        return $item;
+    }
 }

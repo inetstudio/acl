@@ -47,6 +47,16 @@ class UserModel extends Authenticatable implements UserModelContract
         'password', 'remember_token',
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = trim(strip_tags($value));
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = trim(strip_tags($value));
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make(trim($value));
