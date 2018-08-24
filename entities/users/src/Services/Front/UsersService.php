@@ -268,7 +268,7 @@ class UsersService implements UsersServiceContract
      */
     public function save(array $data, int $id): UserModelContract
     {
-        $item = $this->repository->save($data, $id);
+        $item = $this->repositories['users']->save($data, $id);
 
         return $item;
     }
