@@ -36,17 +36,13 @@
           "InetStudio\\ACL\\Activations\\Providers\\ActivationsServiceProvider",
           "InetStudio\\ACL\\Passwords\\Providers\\PasswordsBindingsServiceProvider",
           "InetStudio\\ACL\\Passwords\\Providers\\PasswordsServiceProvider",
-          "InetStudio\\ACL\\Permissions\\Providers\\FormBuilderServiceProvider",
           "InetStudio\\ACL\\Permissions\\Providers\\PermissionsBindingsServiceProvider",
           "InetStudio\\ACL\\Permissions\\Providers\\PermissionsServiceProvider",
           "InetStudio\\ACL\\Profiles\\Providers\\ProfilesBindingsServiceProvider",
           "InetStudio\\ACL\\Profiles\\Providers\\ProfilesServiceProvider",
-          "InetStudio\\ACL\\Roles\\Providers\\BladeServiceProvider",
-          "InetStudio\\ACL\\Roles\\Providers\\FormBuilderServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\RolesBindingsServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\RolesServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\EventsServiceProvider",
-          "InetStudio\\ACL\\Users\\Providers\\FormBuilderServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersBindingsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersServiceProvider"
         ]

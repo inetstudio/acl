@@ -2,8 +2,8 @@
 
 namespace InetStudio\ACL\Users\Providers;
 
+use Collective\Html\FormBuilder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -24,6 +24,7 @@ class UsersServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerTranslations();
         $this->registerViewComposers();
+        $this->registerFormComponents();
     }
 
     /**
@@ -108,5 +109,15 @@ class UsersServiceProvider extends ServiceProvider
 
             $view->with('registrations', $registrations);
         });
+    }
+
+    /**
+     * Регистрация компонентов форм.
+     *
+     * @return void
+     */
+    protected function registerFormComponents()
+    {
+        FormBuilder::component('user', 'admin.module.acl.users::back.forms.fields.user', ['name' => null, 'value' => null, 'attributes' => null]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace InetStudio\ACL\Permissions\Providers;
 
+use Collective\Html\FormBuilder;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -16,50 +17,9 @@ class PermissionsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //$this->registerConsoleCommands();
-        //$this->registerPublishes();
         $this->registerRoutes();
         $this->registerViews();
-    }
-
-    /**
-     * Регистрация команд.
-     *
-     * @return void
-     */
-    protected function registerConsoleCommands(): void
-    {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                'InetStudio\ACL\Permissions\Console\Commands\SetupCommand',
-                'InetStudio\ACL\Permissions\Console\Commands\CreateFoldersCommand',
-            ]);
-        }
-    }
-
-    /**
-     * Регистрация ресурсов.
-     *
-     * @return void
-     */
-    protected function registerPublishes(): void
-    {
-        $this->publishes([
-            __DIR__.'/../../config/permissions.php' => config_path('permissions.php'),
-        ], 'config');
-
-        $this->mergeConfigFrom(
-            __DIR__.'/../../config/filesystems.php', 'filesystems.disks'
-        );
-
-        if ($this->app->runningInConsole()) {
-            if (! class_exists('CreatePermissionsTables')) {
-                $timestamp = date('Y_m_d_His', time());
-                $this->publishes([
-                    __DIR__.'/../../database/migrations/create_permissions_tables.php.stub' => database_path('migrations/'.$timestamp.'_create_permissions_tables.php'),
-                ], 'migrations');
-            }
-        }
+        $this->registerFormComponents();
     }
 
     /**
@@ -80,5 +40,15 @@ class PermissionsServiceProvider extends ServiceProvider
     protected function registerViews(): void
     {
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'admin.module.acl.permissions');
+    }
+
+    /**
+     * Регистрация компонентов форм.
+     *
+     * @return void
+     */
+    protected function registerFormComponents()
+    {
+        FormBuilder::component('permissions', 'admin.module.acl.permissions::back.forms.fields.permissions', ['name' => null, 'value' => null, 'attributes' => null]);
     }
 }
