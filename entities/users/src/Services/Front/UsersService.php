@@ -172,8 +172,8 @@ class UsersService implements UsersServiceContract
         $user = $this->createOrGetSocialUser($socialUser, $provider);
 
         if (! $user->id) {
-            Session::set('social_user', $socialUser);
-            Session::set('provider', $provider);
+            Session::put('social_user', $socialUser);
+            Session::put('provider', $provider);
         } else {
             if (! $user->activated) {
                 event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract', [
