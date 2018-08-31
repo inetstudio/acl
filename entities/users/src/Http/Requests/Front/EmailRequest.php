@@ -2,7 +2,6 @@
 
 namespace InetStudio\ACL\Users\Http\Requests\Front;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Http\FormRequest;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\EmailRequestContract;
 
@@ -43,8 +42,6 @@ class EmailRequest extends FormRequest implements EmailRequestContract
      */
     public function rules(): array
     {
-        Session::reflash();
-
         return [
             'email' => 'required|email|max:255|unique:users,email',
         ];

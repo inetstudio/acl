@@ -2,6 +2,7 @@
 
 namespace InetStudio\ACL\Users\Http\Responses\Front;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Support\Responsable;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterApproveEmailResponseContract;
 
@@ -45,6 +46,9 @@ class SocialRegisterApproveEmailResponse implements SocialRegisterApproveEmailRe
      */
     public function toResponse($request)
     {
+        Session::forget('social_user');
+        Session::forget('provider');
+
         if ($request->ajax()) {
             return response()->json($this->result, 200);
         } else {
