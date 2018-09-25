@@ -237,6 +237,9 @@ class UsersService implements UsersServiceContract
                 ]));
             }
 
+            $socialProfile->user()->associate($user);
+            $socialProfile->save();
+
             event(app()->makeWith('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract', [
                 'user' => $user,
             ]));
