@@ -2,8 +2,10 @@
 
 namespace InetStudio\ACL\Users\Services\Front;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
@@ -74,6 +76,32 @@ class UsersService implements UsersServiceContract
         }
 
         return ($user) ? $user->id : 0;
+    }
+
+    /**
+     * Возвращаем id пользователя или хэш гостя.
+     *
+     * @return mixed
+     */
+    public function getUserIDOrHash()
+    {
+        $userId = $this->getUserId();
+
+        if (! $userId) {
+            $cookieData = request()->cookie('guest_user_hash');
+
+            if ($cookieData) {
+                return $cookieData;
+            } else {
+                $uuid = Str::uuid();
+
+                Cookie::queue('guest_user_hash', $uuid, 5256000);
+
+                return $uuid;
+            }
+        }
+
+        return $userId;
     }
 
     /**
