@@ -90,22 +90,22 @@ class SetupCommand extends Command
             ],
             [
                 'type' => 'artisan',
-                'description' => 'Reviews acl activations setup',
+                'description' => 'ACL activations setup',
                 'command' => 'inetstudio:acl:activations:setup',
             ],
             [
                 'type' => 'artisan',
-                'description' => 'Reviews acl profiles setup',
+                'description' => 'ACL profiles setup',
                 'command' => 'inetstudio:acl:profiles:setup',
             ],
             [
                 'type' => 'artisan',
-                'description' => 'Reviews acl roles setup',
+                'description' => 'ACL roles setup',
                 'command' => 'inetstudio:acl:roles:setup',
             ],
             [
                 'type' => 'artisan',
-                'description' => 'Reviews acl users setup',
+                'description' => 'ACL users setup',
                 'command' => 'inetstudio:acl:users:setup',
             ],
             [

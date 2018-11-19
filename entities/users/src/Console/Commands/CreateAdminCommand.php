@@ -3,6 +3,7 @@
 namespace InetStudio\ACL\Users\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use InetStudio\ACL\Roles\Contracts\Repositories\RolesRepositoryContract;
 use InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract;
 
@@ -60,6 +61,8 @@ class CreateAdminCommand extends Command
             'password' => 'password',
         ], $user ? $user->id : 0);
 
-        $user->syncRoles([$adminRole->id]);
+        DB::table('role_user')->insert(
+            ['user_id' => $user->id, 'role_id' => $adminRole->id, 'user_type' => get_class($user)]
+        );
     }
 }
