@@ -3,10 +3,9 @@
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\RegisterControllerContract;
@@ -55,10 +54,14 @@ class RegisterController extends Controller implements RegisterControllerContrac
 
         event(new Registered($user));
 
+        if (config('acl.register.login_after_register')) {
+            Auth::login($user, true);
+        }
+
         return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract', [
             'result' => [
                 'success' => true,
-                'message' => trans('admin.module.acl.activations::activation.activationStatus'),
+                'message' => (config('acl.activations.enabled')) ? trans('admin.module.acl.activations::activation.activationStatus') : 'Пользователь успешно зарегистрирован',
             ]
         ]);
     }

@@ -51,11 +51,16 @@ class RegisterRequest extends FormRequest implements RegisterRequestContract
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|confirmed|min:6',
             'policy-agree' => 'required',
         ];
+
+        if (! config('acl.passwords.generate')) {
+            $rules['password'] = 'required|confirmed|min:6';
+        }
+
+        return $rules;
     }
 }

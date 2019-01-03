@@ -20,9 +20,14 @@ return [
     ],
 
     'passwords' => [
+        'generate' => false,
         'mails' => [
             'subject' => 'Сброс пароля',
         ],
+    ],
+
+    'register' => [
+        'login_after_register' => false,
     ],
 
 ];
