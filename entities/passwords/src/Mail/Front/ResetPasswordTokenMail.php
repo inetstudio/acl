@@ -48,7 +48,7 @@ class ResetPasswordTokenMail extends Mailable implements ResetPasswordTokenMailC
     public function build(): self
     {
         return $this->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject(config('acl.passwords.subjects') ?? 'Сброс пароля')
+            ->subject(config('acl.passwords.mails.subject') ?? 'Сброс пароля')
             ->view('admin.module.acl.passwords::mails.reset_password_token', [
                 'token' => $this->token,
                 'user' => $this->user,
