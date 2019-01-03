@@ -29,10 +29,10 @@ class ResetPasswordTokenNotification extends Notification implements ResetPasswo
     /**
      * ResetPasswordTokenNotification constructor.
      *
-     * @param $token
+     * @param string $token
      * @param UserModelContract $user
      */
-    public function __construct($token, UserModelContract $user)
+    public function __construct(string $token, UserModelContract $user)
     {
         $this->token = $token;
         $this->user = $user;
@@ -61,6 +61,7 @@ class ResetPasswordTokenNotification extends Notification implements ResetPasswo
     {
         return app()->makeWith('InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetPasswordTokenMailContract', [
             'token' => $this->token,
+            'user' => $this->user,
         ])->to($this->user->email);
     }
 }
