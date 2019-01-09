@@ -16,7 +16,7 @@
         <div class="middle-box text-center loginscreen animated fadeInDown">
             <div>
                 <div>
-                    <h1 class="logo-name"><i class="fa fa-user-o"></i></h1>
+                    <h1 class="logo-name"><i class="fa fa-sign-in-alt"></i></h1>
                 </div>
                 <form class="m-t" role="form" action="{{ url(route('back.acl.users.login.post')) }}" method="post">
                     {{ csrf_field() }}
