@@ -145,7 +145,7 @@ class UsersRepository implements UsersRepositoryContract
 
         $relations = [
             'profile' => function ($query) {
-                $query->select(['id', 'additional_info']);
+                $query->select(['id', 'user_id', 'additional_info']);
             },
         ];
 
