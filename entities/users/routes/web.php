@@ -7,6 +7,7 @@ Route::group([
 ], function () {
     Route::any('users/data', 'UsersDataControllerContract@data')->name('back.acl.users.data.index');
     Route::post('users/suggestions', 'UsersUtilityControllerContract@getSuggestions')->name('back.acl.users.getSuggestions');
+    Route::get('users/export', 'UsersExportControllerContract@exportUsers')->name('back.acl.users.export');
 
     Route::resource('users', 'UsersControllerContract', ['as' => 'back.acl']);
 });

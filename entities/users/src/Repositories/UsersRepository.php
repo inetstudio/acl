@@ -143,7 +143,11 @@ class UsersRepository implements UsersRepositoryContract
     {
         $defaultColumns = ['id', 'activated', 'name', 'email', 'remember_token'];
 
-        $relations = [];
+        $relations = [
+            'profile' => function ($query) {
+                $query->select(['id', 'additional_info']);
+            },
+        ];
 
         return $this->model::select(array_merge($defaultColumns, $extColumns))
             ->with(array_intersect_key($relations, array_flip($with)));

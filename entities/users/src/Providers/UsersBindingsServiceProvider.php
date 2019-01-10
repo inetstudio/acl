@@ -20,10 +20,12 @@ class UsersBindingsServiceProvider extends ServiceProvider
     public $bindings = [
         'InetStudio\ACL\Users\Contracts\Events\Back\ModifyUserEventContract' => 'InetStudio\ACL\Users\Events\Back\ModifyUserEvent',
         'InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract' => 'InetStudio\ACL\Users\Events\Front\SocialRegisteredEvent',
+        'InetStudio\ACL\Users\Contracts\Exports\UsersExportContract' => 'InetStudio\ACL\Users\Exports\UsersExport',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Back\LoginControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Back\LoginController',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Back\UsersControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Back\UsersController',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Back\UsersDataControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Back\UsersDataController',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Back\UsersUtilityControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Back\UsersUtilityController',
+        'InetStudio\ACL\Users\Contracts\Http\Controllers\Back\UsersExportControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Back\UsersExportController',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Front\LoginControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Front\LoginController',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Front\RegisterControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Front\RegisterController',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Front\SocialLoginControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Front\SocialLoginController',
