@@ -3,6 +3,7 @@
 namespace InetStudio\ACL\Activations\Services\Front;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Activations\Contracts\Models\ActivationModelContract;
@@ -81,7 +82,7 @@ class ActivationsService implements ActivationsServiceContract
      */
     protected function getToken(): string
     {
-        return hash_hmac('sha256', str_random(40), config('app.key'));
+        return hash_hmac('sha256', Str::random(40), config('app.key'));
     }
 
     /**

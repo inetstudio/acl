@@ -3,17 +3,13 @@
 namespace InetStudio\ACL\Passwords\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 /**
  * Class PasswordsBindingsServiceProvider.
  */
-class PasswordsBindingsServiceProvider extends ServiceProvider
+class PasswordsBindingsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-    * @var  bool
-    */
-    protected $defer = true;
-
     /**
     * @var  array
     */

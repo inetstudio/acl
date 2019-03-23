@@ -145,7 +145,7 @@ class UsersService implements UsersServiceContract
         $activated = ['activated' => (int) (! config('acl.activations.enabled'))];
 
         if (config('acl.passwords.generate')) {
-            $requestData['password'] = str_random(8);
+            $requestData['password'] = Str::random(8);
         }
 
         $item = $this->repositories['users']->save(array_merge($requestData, $activated), 0);

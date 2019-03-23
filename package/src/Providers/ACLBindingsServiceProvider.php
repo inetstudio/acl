@@ -3,17 +3,13 @@
 namespace InetStudio\ACL\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 /**
  * Class ACLBindingsServiceProvider.
  */
-class ACLBindingsServiceProvider extends ServiceProvider
+class ACLBindingsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-    * @var  bool
-    */
-    protected $defer = true;
-
     /**
     * @var  array
     */

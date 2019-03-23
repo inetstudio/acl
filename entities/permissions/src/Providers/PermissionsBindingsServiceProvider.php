@@ -3,17 +3,13 @@
 namespace InetStudio\ACL\Permissions\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
 /**
  * Class PermissionsBindingsServiceProvider.
  */
-class PermissionsBindingsServiceProvider extends ServiceProvider
+class PermissionsBindingsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-    * @var  bool
-    */
-    protected $defer = true;
-
     /**
     * @var  array
     */
