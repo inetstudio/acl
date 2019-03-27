@@ -20,14 +20,14 @@
                 </div>
                 <form class="m-t" role="form" action="{{ url(route('back.acl.users.login.post')) }}" method="post">
                     {{ csrf_field() }}
-                    <div class="form-group @if(isset($errors) and $errors->has('email')) has-error @endif">
+                    <div class="form-group row @if(isset($errors) and $errors->has('email')) has-error @endif">
                         <input type="text" name="login" class="form-control" placeholder="Логин" required="">
                     </div>
-                    <div class="form-group @if(isset($errors) and $errors->has('password')) has-error @endif">
+                    <div class="form-group row @if(isset($errors) and $errors->has('password')) has-error @endif">
                         <input type="password" name="password" class="form-control" placeholder="Пароль" required="">
                     </div>
-                    <div class="form-group">
-                        <div class="i-checks pull-right m-b-sm">
+                    <div class="form-group row">
+                        <div class="i-checks float-right m-b-sm">
                             <label> <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : ''}}> <i></i> Запомнить меня </label>
                         </div>
                     </div>

@@ -63,7 +63,7 @@ class PermissionsController extends Controller implements PermissionsControllerC
     }
 
     /**
-     * Добавление объекта.
+     * Создание объекта.
      *
      * @return FormResponseContract
      */

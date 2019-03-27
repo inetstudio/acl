@@ -63,7 +63,7 @@ class RolesController extends Controller implements RolesControllerContract
     }
 
     /**
-     * Добавление объекта.
+     * Создание объекта.
      *
      * @return FormResponseContract
      */

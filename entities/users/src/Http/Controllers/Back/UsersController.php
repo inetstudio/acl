@@ -63,7 +63,7 @@ class UsersController extends Controller implements UsersControllerContract
     }
 
     /**
-     * Добавление объекта.
+     * Создание объекта.
      *
      * @return FormResponseContract
      */
