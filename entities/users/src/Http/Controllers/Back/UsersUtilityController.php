@@ -32,23 +32,6 @@ class UsersUtilityController extends Controller implements UsersUtilityControlle
     }
 
     /**
-     * Получаем slug для модели по строке.
-     *
-     * @param Request $request
-     *
-     * @return SlugResponseContract
-     */
-    public function getSlug(Request $request): SlugResponseContract
-    {
-        $name = $request->get('name');
-        $slug = ($name) ? SlugService::createSlug(app()->make('InetStudio\ACL\Users\Contracts\Http\Responses\Back\Utility\SlugResponseContract'), 'slug', $name) : '';
-
-        return app()->makeWith('InetStudio\Categories\Contracts\Http\Responses\Back\Utility\SlugResponseContract', [
-            'slug' => $slug,
-        ]);
-    }
-
-    /**
      * Возвращаем объекты для поля.
      *
      * @param Request $request
