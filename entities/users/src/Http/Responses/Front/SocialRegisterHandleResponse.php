@@ -29,7 +29,7 @@ class SocialRegisterHandleResponse implements SocialRegisterHandleResponseContra
      */
     public function __construct($user)
     {
-        $this->services['SEO'] = app()->make('InetStudio\Meta\Contracts\Services\Front\MetaServiceContract');
+        $this->services['SEO'] = app()->make('InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract');
 
         $this->user = $user;
     }

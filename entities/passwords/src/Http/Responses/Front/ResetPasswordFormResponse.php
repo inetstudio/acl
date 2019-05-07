@@ -33,7 +33,7 @@ class ResetPasswordFormResponse implements ResetPasswordFormResponseContract, Re
     {
         $this->token = $token;
 
-        $this->services['SEO'] = app()->make('InetStudio\Meta\Contracts\Services\Front\MetaServiceContract');
+        $this->services['SEO'] = app()->make('InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract');
     }
 
     /**
