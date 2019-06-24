@@ -9,7 +9,7 @@
         'title' => 'Пользователь',
     ],
     'field' => [
-        'class' => 'select2 form-control',
+        'class' => 'select2-drop form-control',
         'data-placeholder' => 'Выберите пользователя',
         'style' => 'width: 100%',
         'data-source' => route('back.acl.users.getSuggestions'),

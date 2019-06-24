@@ -9,7 +9,7 @@
         'title' => $attributes['label'] ?? 'Права',
     ],
     'field' => [
-        'class' => 'select2 form-control',
+        'class' => 'select2-drop form-control',
         'data-placeholder' => $attributes['placeholder'] ?? 'Выберите права',
         'style' => 'width: 100%',
         'multiple' => 'multiple',
