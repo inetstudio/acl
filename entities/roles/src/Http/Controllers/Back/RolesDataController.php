@@ -2,7 +2,7 @@
 
 namespace InetStudio\ACL\Roles\Http\Controllers\Back;
 
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Roles\Contracts\Http\Controllers\Back\RolesDataControllerContract;
 
 /**

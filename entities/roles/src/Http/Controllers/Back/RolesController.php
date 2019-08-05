@@ -2,7 +2,7 @@
 
 namespace InetStudio\ACL\Roles\Http\Controllers\Back;
 
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Roles\Contracts\Http\Requests\Back\SaveRoleRequestContract;
 use InetStudio\ACL\Roles\Contracts\Http\Controllers\Back\RolesControllerContract;
 use InetStudio\ACL\Roles\Contracts\Http\Responses\Back\Roles\FormResponseContract;

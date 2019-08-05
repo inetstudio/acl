@@ -3,7 +3,7 @@
 namespace InetStudio\ACL\Roles\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Roles\Contracts\Http\Controllers\Back\RolesUtilityControllerContract;
 use InetStudio\ACL\Roles\Contracts\Http\Responses\Back\Utility\SuggestionsResponseContract;
 

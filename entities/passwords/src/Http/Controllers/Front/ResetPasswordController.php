@@ -3,7 +3,7 @@
 namespace InetStudio\ACL\Passwords\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ResetPasswordRequestContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetPasswordResponseContract;

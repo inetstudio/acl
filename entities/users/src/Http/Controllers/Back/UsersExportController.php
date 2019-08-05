@@ -3,7 +3,7 @@
 namespace InetStudio\ACL\Users\Http\Controllers\Back;
 
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Back\UsersExportControllerContract;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace InetStudio\ACL\Passwords\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetLinkResponseContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ForgotPasswordRequestContract;

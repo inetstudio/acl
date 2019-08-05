@@ -2,7 +2,7 @@
 
 namespace InetStudio\ACL\Activations\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Activations\Contracts\Http\Responses\Front\ActivateResponseContract;
 use InetStudio\ACL\Activations\Contracts\Http\Controllers\Front\ActivationsControllerContract;
 

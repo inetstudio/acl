@@ -2,7 +2,7 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\EmailRequestContract;

@@ -2,7 +2,7 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Back;
 
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Back\LoginControllerContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Users\LoginResponseContract;

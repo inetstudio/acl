@@ -3,7 +3,7 @@
 namespace InetStudio\ACL\Permissions\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use InetStudio\ACL\Permissions\Contracts\Http\Responses\Back\Utility\SlugResponseContract;
 use InetStudio\ACL\Permissions\Contracts\Http\Controllers\Back\PermissionsUtilityControllerContract;
