@@ -263,18 +263,18 @@ class UsersService implements UsersServiceContract
                 'activated' => ($approveEmail) ? 0 : 1,
             ], 0);
 
-            if ($approveEmail) {
-                event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract', [
-                    'user' => $user,
-                ]));
-            }
-
             $socialProfile->user()->associate($user);
             $socialProfile->save();
 
             event(app()->makeWith('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract', [
                 'user' => $user,
             ]));
+
+            if ($approveEmail) {
+                event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract', [
+                    'user' => $user,
+                ]));
+            }
         } else {
             if (! $user->hasRole('social_user')) {
                 $user->update([

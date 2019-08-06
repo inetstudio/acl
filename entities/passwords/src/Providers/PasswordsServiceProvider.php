@@ -2,7 +2,9 @@
 
 namespace InetStudio\ACL\Passwords\Providers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class PasswordsServiceProvider.
@@ -11,20 +13,17 @@ class PasswordsServiceProvider extends ServiceProvider
 {
     /**
      * Загрузка сервиса.
-     *
-     * @return void
      */
     public function boot(): void
     {
         $this->registerRoutes();
         $this->registerViews();
         $this->registerTranslations();
+        $this->registerValidators();
     }
 
     /**
      * Регистрация путей.
-     *
-     * @return void
      */
     protected function registerRoutes(): void
     {
@@ -33,8 +32,6 @@ class PasswordsServiceProvider extends ServiceProvider
 
     /**
      * Регистрация представлений.
-     *
-     * @return void
      */
     protected function registerViews(): void
     {
@@ -43,11 +40,19 @@ class PasswordsServiceProvider extends ServiceProvider
 
     /**
      * Регистрация переводов.
-     *
-     * @return void
      */
     protected function registerTranslations(): void
     {
         $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'admin.module.acl.passwords');
+    }
+
+    /**
+     * Регистрация валидаторов.
+     */
+    protected function registerValidators(): void
+    {
+        Validator::extend('check_password', function ($attribute, $value, $parameters, $validator) {
+            return ($value == '' or Hash::check($value, current($parameters)));
+        });
     }
 }
