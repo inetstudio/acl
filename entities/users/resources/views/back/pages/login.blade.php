@@ -8,7 +8,7 @@
 
         <title>Admin | Вход</title>
 
-        <link href="{{ asset(mix('admin/css/app.css')) }}" rel="stylesheet">
+        <link href="{{ asset(mix('admin/css/app.css', '/admin/')) }}" rel="stylesheet">
     </head>
 
     <body class="gray-bg">
@@ -37,9 +37,9 @@
             </div>
         </div>
 
-        <script src="{{ asset(mix('admin/js/manifest.js')) }}"></script>
-        <script src="{{ asset(mix('admin/js/vendor.js')) }}"></script>
-        <script src="{{ asset(mix('admin/js/app.js')) }}"></script>
+        <script src="{{ asset(mix('admin/js/manifest.js', '/admin/') }}"></script>
+        <script src="{{ asset(mix('admin/js/vendor.js', '/admin/')) }}"></script>
+        <script src="{{ asset(mix('admin/js/app.js', '/admin/')) }}"></script>
 
     </body>
 </html>
