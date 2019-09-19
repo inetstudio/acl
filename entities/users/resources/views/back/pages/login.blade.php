@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <script src="{{ asset(mix('admin/js/manifest.js', '/admin/') }}"></script>
+        <script src="{{ asset(mix('admin/js/manifest.js', '/admin/')) }}"></script>
         <script src="{{ asset(mix('admin/js/vendor.js', '/admin/')) }}"></script>
         <script src="{{ asset(mix('admin/js/app.js', '/admin/')) }}"></script>
 
