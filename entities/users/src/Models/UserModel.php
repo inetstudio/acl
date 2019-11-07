@@ -2,9 +2,11 @@
 
 namespace InetStudio\ACL\Users\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use InetStudio\ACL\Profiles\Models\Traits\HasProfiles;
@@ -46,6 +48,24 @@ class UserModel extends Authenticatable implements UserModelContract
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function ($model) {
+            $referrerHash = (Cookie::queued('user_referer')) ? Cookie::queued('user_referer')->getValue() : Cookie::get('user_referer');
+
+            if ($referrerHash) {
+                $usersRepository = app()->make('InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract');
+
+                $referrer = $usersRepository->getModel()->where('user_hash', $referrerHash)->first();
+                $model->referer_id = ($referrer) ? $referrer->id : null;
+            }
+
+            $model->user_hash = (string) Str::random();
+        });
+    }
 
     public function setNameAttribute($value)
     {

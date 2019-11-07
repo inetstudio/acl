@@ -4,6 +4,7 @@ namespace InetStudio\ACL\Users\Providers;
 
 use Collective\Html\FormBuilder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -60,6 +61,18 @@ class UsersServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom(
             __DIR__.'/../../config/filesystems.php', 'filesystems.disks'
+        );
+
+        if (Schema::hasColumn('users', 'user_hash') || Schema::hasColumn('users', 'referer_id')) {
+            return;
+        }
+
+        $timestamp = date('Y_m_d_His', time());
+        $this->publishes(
+            [
+                __DIR__.'/../../database/migrations/create_referrals_columns.php.stub' => database_path('migrations/'.$timestamp.'_create_referrals_columns.php'),
+            ],
+            'migrations'
         );
     }
 
