@@ -89,6 +89,20 @@ class SetupCommand extends Command
                 ],
             ],
             [
+                'type' => 'artisan',
+                'description' => 'Publish config',
+                'command' => 'vendor:publish',
+                'params' => [
+                    '--provider' => 'InetStudio\ACL\Users\Providers\UsersServiceProvider',
+                    '--tag' => 'migrations',
+                ],
+            ],
+            [
+                'type' => 'artisan',
+                'description' => 'Migration',
+                'command' => 'migrate',
+            ],
+            [
                 'type' => 'cli',
                 'description' => 'Composer dump',
                 'command' => 'composer dump-autoload',
