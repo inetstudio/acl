@@ -1,10 +1,10 @@
 <?php
 
-namespace InetStudio\ACL\Roles\Transformers\Back\Utility;
+namespace InetStudio\ACL\Permissions\Transformers\Back\Utility;
 
-use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
 use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
-use InetStudio\ACL\Roles\Contracts\Transformers\Back\Utility\SuggestionTransformerContract;
+use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
+use InetStudio\ACL\Permissions\Contracts\Transformers\Back\Utility\SuggestionTransformerContract;
 
 /**
  * Class SuggestionTransformer.
@@ -29,11 +29,11 @@ class SuggestionTransformer extends BaseTransformer implements SuggestionTransfo
     /**
      * Подготовка данных для отображения в выпадающих списках.
      *
-     * @param  RoleModelContract  $item
+     * @param  PermissionModelContract  $item
      *
      * @return array
      */
-    public function transform(RoleModelContract $item): array
+    public function transform(PermissionModelContract $item): array
     {
         return ($this->type == 'autocomplete')
             ? [

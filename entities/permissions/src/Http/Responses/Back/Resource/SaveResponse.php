@@ -1,10 +1,10 @@
 <?php
 
-namespace InetStudio\ACL\Roles\Http\Responses\Back\Resource;
+namespace InetStudio\ACL\Permissions\Http\Responses\Back\Resource;
 
 use Illuminate\Http\Request;
-use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
-use InetStudio\ACL\Roles\Contracts\Http\Responses\Back\Resource\SaveResponseContract;
+use InetStudio\ACL\Permissions\Contracts\Services\Back\ItemsServiceContract;
+use InetStudio\ACL\Permissions\Contracts\Http\Responses\Back\Resource\SaveResponseContract;
 
 /**
  * Class SaveResponse.
@@ -35,7 +35,7 @@ class SaveResponse implements SaveResponseContract
      */
     public function toResponse($request)
     {
-        $id = $request->route('role', 0);
+        $id = $request->route('permission', 0);
         $data = $request->all();
 
         $item = $this->resourceService->save($data, $id);
@@ -47,7 +47,7 @@ class SaveResponse implements SaveResponseContract
             ], 200);
         } else {
             return response()->redirectToRoute(
-                'back.acl.roles.edit',
+                'back.acl.permissions.edit',
                 [
                     $item['id'],
                 ]

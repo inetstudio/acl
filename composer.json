@@ -31,14 +31,14 @@
     "extra": {
       "laravel": {
         "providers": [
-          "InetStudio\\ACL\\Providers\\ACLBindingsServiceProvider",
-          "InetStudio\\ACL\\Providers\\ACLServiceProvider",
+          "InetStudio\\ACL\\Providers\\BindingsServiceProvider",
+          "InetStudio\\ACL\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Activations\\Providers\\ActivationsBindingsServiceProvider",
           "InetStudio\\ACL\\Activations\\Providers\\ActivationsServiceProvider",
           "InetStudio\\ACL\\Passwords\\Providers\\PasswordsBindingsServiceProvider",
           "InetStudio\\ACL\\Passwords\\Providers\\PasswordsServiceProvider",
-          "InetStudio\\ACL\\Permissions\\Providers\\PermissionsBindingsServiceProvider",
-          "InetStudio\\ACL\\Permissions\\Providers\\PermissionsServiceProvider",
+          "InetStudio\\ACL\\Permissions\\Providers\\BindingsServiceProvider",
+          "InetStudio\\ACL\\Permissions\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Profiles\\Providers\\ProfilesBindingsServiceProvider",
           "InetStudio\\ACL\\Profiles\\Providers\\ProfilesServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\BindingsServiceProvider",

@@ -2,35 +2,103 @@
 
 namespace InetStudio\ACL\Permissions\Models;
 
+use OwenIt\Auditing\Auditable;
 use Laratrust\Models\LaratrustPermission;
 use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
+use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
 
 /**
  * Class PermissionModel.
  */
 class PermissionModel extends LaratrustPermission implements PermissionModelContract
 {
+    use Auditable;
+    use BuildQueryScopeTrait;
+
+    /**
+     * Тип сущности.
+     */
+    const ENTITY_TYPE = 'permission';
+
+    /**
+     * Should the timestamps be audited?
+     *
+     * @var bool
+     */
+    protected $auditTimestamps = true;
+
     /**
      * Атрибуты, для которых разрешено массовое назначение.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'display_name', 'description',
+        'name',
+        'display_name',
+        'description',
     ];
 
-    public function setNameAttribute($value)
+    /**
+     * Атрибуты, которые должны быть преобразованы в даты.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Загрузка модели.
+     */
+    protected static function boot()
     {
-        $this->attributes['name'] = strip_tags($value);
+        parent::boot();
+
+        self::$buildQueryScopeDefaults['columns'] = [
+            'id',
+            'name',
+            'display_name',
+        ];
     }
 
-    public function setDisplayNameAttribute($value)
+    /**
+     * Сеттер атрибута name.
+     *
+     * @param $value
+     */
+    public function setNameAttribute($value): void
     {
-        $this->attributes['display_name'] = strip_tags($value);
+        $this->attributes['name'] = trim(strip_tags($value));
     }
 
-    public function setDescriptionAttribute($value)
+    /**
+     * Сеттер атрибута display_name.
+     *
+     * @param $value
+     */
+    public function setDisplayNameAttribute($value): void
     {
-        $this->attributes['description'] = strip_tags($value);
+        $this->attributes['display_name'] = trim(strip_tags($value));
+    }
+
+    /**
+     * Сеттер атрибута description.
+     *
+     * @param $value
+     */
+    public function setDescriptionAttribute($value): void
+    {
+        $this->attributes['description'] = trim(strip_tags($value));
+    }
+
+    /**
+     * Геттер атрибута type.
+     *
+     * @return string
+     */
+    public function getTypeAttribute(): string
+    {
+        return self::ENTITY_TYPE;
     }
 }

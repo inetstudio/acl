@@ -3,62 +3,80 @@
 namespace InetStudio\ACL\Permissions\Http\Responses\Back\Utility;
 
 use League\Fractal\Manager;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Collection;
-use Illuminate\Contracts\Support\Responsable;
-use League\Fractal\Serializer\DataArraySerializer;
+use Illuminate\Http\Request;
+use InetStudio\ACL\Permissions\Contracts\Services\Back\UtilityServiceContract;
+use InetStudio\AdminPanel\Base\Contracts\Serializers\SimpleDataArraySerializerContract;
 use InetStudio\ACL\Permissions\Contracts\Http\Responses\Back\Utility\SuggestionsResponseContract;
+use InetStudio\ACL\Permissions\Contracts\Transformers\Back\Utility\SuggestionTransformerContract;
 
 /**
  * Class SuggestionsResponse.
  */
-class SuggestionsResponse implements SuggestionsResponseContract, Responsable
+class SuggestionsResponse implements SuggestionsResponseContract
 {
     /**
-     * @var array
+     * @var UtilityServiceContract
      */
-    private $suggestions;
+    protected $utilityService;
 
     /**
-     * @var string
+     * @var SuggestionTransformerContract
      */
-    private $type;
+    protected $transformer;
 
     /**
-     * SuggestionsResponse constructor.
+     * @var SimpleDataArraySerializerContract
+     */
+    protected $serializer;
+
+    /**
+     * CreateResponse constructor.
      *
-     * @param Collection $suggestions
-     * @param string $type
+     * @param  UtilityServiceContract  $utilityService
+     * @param  SuggestionTransformerContract  $transformer
+     * @param  SimpleDataArraySerializerContract  $serializer
      */
-    public function __construct(Collection $suggestions, string $type)
-    {
-        $this->suggestions = $suggestions;
-        $this->type = $type;
+    public function __construct(
+        UtilityServiceContract $utilityService,
+        SuggestionTransformerContract $transformer,
+        SimpleDataArraySerializerContract $serializer
+    ) {
+        $this->utilityService = $utilityService;
+        $this->transformer = $transformer;
+        $this->serializer = $serializer;
     }
 
     /**
-     * Возвращаем подсказки.
+     * Возвращаем подсказки для поля.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function toResponse($request): JsonResponse
+    public function toResponse($request)
     {
-        $resource = (app()->makeWith(
-            'InetStudio\ACL\Permissions\Contracts\Transformers\Back\SuggestionTransformerContract', [
-            'type' => $this->type,
-        ]))->transformCollection($this->suggestions);
+        $search = $request->get('q', '') ?? '';
+        $type = $request->get('type', '') ?? '';
+
+        $items = $this->utilityService->getSuggestions($search);
+
+        $this->transformer->setType($type);
+        $resource = $this->transformer->transformCollection($items);
 
         $manager = new Manager();
-        $manager->setSerializer(new DataArraySerializer());
+        $manager->setSerializer($this->serializer);
 
         $transformation = $manager->createData($resource)->toArray();
 
-        if ($this->type == 'autocomplete') {
-            $data['suggestions'] = $transformation['data'];
+        $data = [
+            'suggestions' => [],
+            'items' => [],
+        ];
+
+        if ($type == 'autocomplete') {
+            $data['suggestions'] = $transformation;
         } else {
-            $data['items'] = $transformation['data'];
+            $data['items'] = $transformation;
         }
 
         return response()->json($data);
