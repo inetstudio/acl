@@ -3,13 +3,13 @@
 namespace InetStudio\ACL\Passwords\Providers;
 
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 /**
- * Class PasswordsServiceProvider.
+ * Class ServiceProvider.
  */
-class PasswordsServiceProvider extends ServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Загрузка сервиса.
@@ -52,7 +52,7 @@ class PasswordsServiceProvider extends ServiceProvider
     protected function registerValidators(): void
     {
         Validator::extend('check_password', function ($attribute, $value, $parameters, $validator) {
-            return ($value == '' or Hash::check($value, current($parameters)));
+            return ($value == '' || Hash::check($value, current($parameters)));
         });
     }
 }

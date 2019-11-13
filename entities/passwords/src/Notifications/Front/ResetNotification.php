@@ -4,33 +4,34 @@ namespace InetStudio\ACL\Passwords\Notifications\Front;
 
 use Illuminate\Notifications\Notification;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
-use InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetPasswordTokenMailContract;
-use InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetPasswordTokenNotificationContract;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetMailContract;
+use InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetNotificationContract;
 
 /**
- * Class ResetPasswordTokenNotification.
+ * Class ResetNotification.
  */
-class ResetPasswordTokenNotification extends Notification implements ResetPasswordTokenNotificationContract
+class ResetNotification extends Notification implements ResetNotificationContract
 {
     /**
      * Токен.
      *
      * @var string
      */
-    public $token;
+    protected $token;
 
     /**
      * Пользователь.
      *
      * @var UserModelContract
      */
-    public $user;
+    protected $user;
 
     /**
      * ResetPasswordTokenNotification constructor.
      *
-     * @param string $token
-     * @param UserModelContract $user
+     * @param  string  $token
+     * @param  UserModelContract  $user
      */
     public function __construct(string $token, UserModelContract $user)
     {
@@ -41,7 +42,7 @@ class ResetPasswordTokenNotification extends Notification implements ResetPasswo
     /**
      * Get the notification's channels.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      *
      * @return array
      */
@@ -55,13 +56,18 @@ class ResetPasswordTokenNotification extends Notification implements ResetPasswo
      *
      * @param $notifiable
      *
-     * @return ResetPasswordTokenMailContract
+     * @return ResetMailContract
+     *
+     * @throws BindingResolutionException
      */
-    public function toMail($notifiable): ResetPasswordTokenMailContract
+    public function toMail($notifiable): ResetMailContract
     {
-        return app()->makeWith('InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetPasswordTokenMailContract', [
-            'token' => $this->token,
-            'user' => $this->user,
-        ])->to($this->user->email);
+        return app()->make(
+            ResetMailContract::class,
+            [
+                'token' => $this->token,
+                'user' => $this->user,
+            ]
+        )->to($this->user['email']);
     }
 }

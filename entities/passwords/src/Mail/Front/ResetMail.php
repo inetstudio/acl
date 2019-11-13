@@ -5,12 +5,12 @@ namespace InetStudio\ACL\Passwords\Mail\Front;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
-use InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetPasswordTokenMailContract;
+use InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetMailContract;
 
 /**
- * Class ResetPasswordTokenMail.
+ * Class ResetMail.
  */
-class ResetPasswordTokenMail extends Mailable implements ResetPasswordTokenMailContract
+class ResetMail extends Mailable implements ResetMailContract
 {
     use SerializesModels;
 
@@ -31,8 +31,8 @@ class ResetPasswordTokenMail extends Mailable implements ResetPasswordTokenMailC
     /**
      * ResetPasswordTokenMail constructor.
      *
-     * @param string $token
-     * @param UserModelContract $user
+     * @param  string  $token
+     * @param  UserModelContract  $user
      */
     public function __construct(string $token, UserModelContract $user)
     {

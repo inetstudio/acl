@@ -5,17 +5,33 @@ namespace InetStudio\ACL\Passwords\Http\Responses\Front;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
-use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetLinkResponseContract;
+use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetResponseContract;
+use InetStudio\ACL\Passwords\Contracts\Services\Front\ItemsServiceContract as PasswordsServiceContract;
 
 /**
- * Class ResetLinkResponse.
+ * Class ResetResponse.
  */
-class ResetLinkResponse implements ResetLinkResponseContract
+class ResetResponse implements ResetResponseContract
 {
+    /**
+     * @var PasswordsServiceContract
+     */
+    private $passwordsService;
+
     /**
      * @var string
      */
     protected $broker;
+
+    /**
+     * ResetResponse constructor.
+     *
+     * @param  PasswordsServiceContract  $passwordsService
+     */
+    public function __construct(PasswordsServiceContract $passwordsService)
+    {
+        $this->passwordsService = $passwordsService;
+    }
 
     /**
      * @param $broker
@@ -26,7 +42,7 @@ class ResetLinkResponse implements ResetLinkResponseContract
     }
 
     /**
-     * Возвращаем ответ при получении ссылки для сброса пароля.
+     * Возвращаем ответ при сбросе пароля.
      *
      * @param  Request  $request
      *
@@ -36,11 +52,9 @@ class ResetLinkResponse implements ResetLinkResponseContract
      */
     public function toResponse($request)
     {
-        $result = $this->broker()->sendResetLink(
-            $request->only('email')
-        );
+        $result = $this->passwordsService->reset($request, $this->broker());
 
-        if ($result == Password::RESET_LINK_SENT) {
+        if ($result == Password::PASSWORD_RESET) {
             return response()->json(
                 [
                     'success' => true,

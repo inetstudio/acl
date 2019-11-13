@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Passwords\Contracts\Services\Front;
 
 /**
- * Interface PasswordsServiceContract.
+ * Interface ItemsServiceContract.
  */
-interface PasswordsServiceContract
+interface ItemsServiceContract
 {
 }

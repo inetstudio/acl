@@ -5,8 +5,8 @@ namespace InetStudio\ACL\Passwords\Contracts\Http\Responses\Front;
 use Illuminate\Contracts\Support\Responsable;
 
 /**
- * Class ResetLinkResponseContract.
+ * Class ResetFormResponseContract.
  */
-interface ResetLinkResponseContract extends Responsable
+interface ResetFormResponseContract extends Responsable
 {
 }

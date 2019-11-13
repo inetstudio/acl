@@ -6,13 +6,12 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract;
-use InetStudio\ACL\Passwords\Contracts\Services\Front\PasswordsServiceContract;
-use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ResetPasswordRequestContract;
+use InetStudio\ACL\Passwords\Contracts\Services\Front\ItemsServiceContract;
 
 /**
- * Class PasswordsService.
+ * Class ItemsService.
  */
-class PasswordsService implements PasswordsServiceContract
+class ItemsService implements ItemsServiceContract
 {
     /**
      * @var array
@@ -22,7 +21,7 @@ class PasswordsService implements PasswordsServiceContract
     /**
      * PasswordsService constructor.
      *
-     * @param UsersRepositoryContract $userRepository
+     * @param  UsersRepositoryContract  $userRepository
      */
     public function __construct(UsersRepositoryContract $userRepository)
     {
@@ -32,15 +31,16 @@ class PasswordsService implements PasswordsServiceContract
     /**
      * Сбрасываем пароль пользователя.
      *
-     * @param ResetPasswordRequestContract $request
-     * @param PasswordBroker $broker
+     * @param $request
+     * @param  PasswordBroker  $broker
      *
      * @return string
      */
-    public function reset(ResetPasswordRequestContract $request, PasswordBroker $broker): string
+    public function reset($request, PasswordBroker $broker): string
     {
         $result = $broker->reset(
-            $this->credentialsFields($request), function ($user, $password) {
+            $this->credentialsFields($request),
+            function ($user, $password) {
                 $this->resetPasswordWithoutLogin($user, $password);
             }
         );
@@ -51,11 +51,11 @@ class PasswordsService implements PasswordsServiceContract
     /**
      * Получаем необходимые поля из запроса.
      *
-     * @param ResetPasswordRequestContract $request
+     * @param $request
      *
      * @return array
      */
-    protected function credentialsFields(ResetPasswordRequestContract $request): array
+    protected function credentialsFields($request): array
     {
         return $request->only(
             'email', 'password', 'password_confirmation', 'token'
@@ -65,14 +65,17 @@ class PasswordsService implements PasswordsServiceContract
     /**
      * Сохраняем новый пользовательский пароль.
      *
-     * @param UserModelContract $user
-     * @param string $password
+     * @param  UserModelContract  $user
+     * @param  string  $password
      */
     protected function resetPasswordWithoutLogin(UserModelContract $user, string $password): void
     {
-        $user = $this->repositories['users']->save([
-            'password' => $password,
-        ], $user->id);
+        $user = $this->repositories['users']->save(
+            [
+                'password' => $password,
+            ],
+            $user['id']
+        );
 
         event(new PasswordReset($user));
     }

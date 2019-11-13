@@ -3,12 +3,12 @@
 namespace InetStudio\ACL\Passwords\Http\Requests\Front;
 
 use Illuminate\Foundation\Http\FormRequest;
-use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ResetPasswordRequestContract;
+use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ForgotRequestContract;
 
 /**
- * Class ResetPasswordRequest.
+ * Class ForgotRequest.
  */
-class ResetPasswordRequest extends FormRequest implements ResetPasswordRequestContract
+class ForgotRequest extends FormRequest implements ForgotRequestContract
 {
     /**
      * Определить, авторизован ли пользователь для этого запроса.
@@ -30,10 +30,6 @@ class ResetPasswordRequest extends FormRequest implements ResetPasswordRequestCo
         return [
             'email.required' => 'Поле «E-mail» обязательно для заполнения.',
             'email.email' => 'Поле «E-mail» содержит значение в некорректном формате.',
-
-            'password.required' => 'Поле «Новый пароль» обязательно для заполнения.',
-            'password.confirmed' => 'Введенные пароли не совпадают.',
-            'password.min' => 'Поле «Новый пароль» должно содержать минимум 6 символов.',
         ];
     }
 
@@ -46,7 +42,6 @@ class ResetPasswordRequest extends FormRequest implements ResetPasswordRequestCo
     {
         return [
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:6',
         ];
     }
 }
