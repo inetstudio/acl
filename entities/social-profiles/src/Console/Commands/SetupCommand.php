@@ -1,6 +1,6 @@
 <?php
 
-namespace InetStudio\ACL\Profiles\Console\Commands;
+namespace InetStudio\ACL\SocialProfiles\Console\Commands;
 
 use InetStudio\AdminPanel\Base\Console\Commands\BaseSetupCommand;
 
@@ -14,7 +14,7 @@ class SetupCommand extends BaseSetupCommand
      *
      * @var string
      */
-    protected $name = 'inetstudio:acl:profiles:setup';
+    protected $name = 'inetstudio:acl:social-profiles:setup';
 
     /**
      * Описание команды.
@@ -34,7 +34,7 @@ class SetupCommand extends BaseSetupCommand
                 'description' => 'Publish migrations',
                 'command' => 'vendor:publish',
                 'params' => [
-                    '--provider' => 'InetStudio\ACL\Profiles\Providers\ServiceProvider',
+                    '--provider' => 'InetStudio\ACL\SocialProfiles\Providers\ServiceProvider',
                     '--tag' => 'migrations',
                 ],
             ],

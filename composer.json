@@ -25,6 +25,7 @@
         "InetStudio\\ACL\\Permissions\\": "entities/permissions/src",
         "InetStudio\\ACL\\Profiles\\": "entities/profiles/src",
         "InetStudio\\ACL\\Roles\\": "entities/roles/src",
+        "InetStudio\\ACL\\SocialProfiles\\": "entities/social-profiles/src",
         "InetStudio\\ACL\\Users\\": "entities/users/src"
       }
     },
@@ -39,10 +40,10 @@
           "InetStudio\\ACL\\Passwords\\Providers\\PasswordsServiceProvider",
           "InetStudio\\ACL\\Permissions\\Providers\\BindingsServiceProvider",
           "InetStudio\\ACL\\Permissions\\Providers\\ServiceProvider",
-          "InetStudio\\ACL\\Profiles\\Providers\\ProfilesBindingsServiceProvider",
-          "InetStudio\\ACL\\Profiles\\Providers\\ProfilesServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\BindingsServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\ServiceProvider",
+          "InetStudio\\ACL\\SocialProfiles\\Providers\\BindingsServiceProvider",
+          "InetStudio\\ACL\\SocialProfiles\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\EventsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersBindingsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersServiceProvider"

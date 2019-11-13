@@ -60,6 +60,11 @@ class SetupCommand extends BaseSetupCommand
             ],
             [
                 'type' => 'artisan',
+                'description' => 'ACL social profiles setup',
+                'command' => 'inetstudio:acl:social-profiles:setup',
+            ],
+            [
+                'type' => 'artisan',
                 'description' => 'ACL roles setup',
                 'command' => 'inetstudio:acl:roles:setup',
             ],

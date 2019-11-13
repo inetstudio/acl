@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
-use InetStudio\ACL\Profiles\Models\Traits\HasProfiles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use InetStudio\ACL\Activations\Models\Traits\HasActivation;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
@@ -20,7 +19,6 @@ use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 class UserModel extends Authenticatable implements UserModelContract
 {
     use Notifiable;
-    use HasProfiles;
     use HasActivation;
     use LaratrustUserTrait;
 
@@ -166,5 +164,25 @@ class UserModel extends Authenticatable implements UserModelContract
         }
 
         return parent::getRelationValue($key);
+    }
+
+    /**
+     * Отношение "один к одному" с моделью профиля.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(app()->make('InetStudio\ACL\Profiles\Contracts\Models\ProfileModelContract'), 'user_id', 'id');
+    }
+
+    /**
+     * Отношение "один ко многим" с моделью социального профиля.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function socialProfiles()
+    {
+        return $this->hasMany(app()->make('InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract'), 'user_id', 'id');
     }
 }

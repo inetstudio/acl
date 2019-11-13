@@ -11,6 +11,7 @@ use Laravel\Socialite\Facades\Socialite;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
+use InetStudio\ACL\SocialProfiles\Contracts\Services\Front\ItemsServiceContract as SocialProfilesServiceContract;
 
 /**
  * Class UsersService.
@@ -27,13 +28,20 @@ class UsersService implements UsersServiceContract
      */
     private $user;
 
+    protected $socialProfilesService;
+
     /**
      * UsersService constructor.
+     *
+     * @param  SocialProfilesServiceContract  $socialProfilesService
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function __construct()
+    public function __construct(SocialProfilesServiceContract $socialProfilesService)
     {
         $this->repositories['users'] = app()->make('InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract');
-        $this->repositories['usersSocialProfiles'] = app()->make('InetStudio\ACL\Profiles\Contracts\Repositories\UsersSocialProfilesRepositoryContract');
+
+        $this->socialProfilesService = $socialProfilesService;
 
         $this->user = Auth::user();
     }
@@ -232,7 +240,7 @@ class UsersService implements UsersServiceContract
     {
         $email = ($approveEmail) ? $approveEmail : $socialUser->getEmail();
 
-        $socialProfile = $this->repositories['usersSocialProfiles']->searchItems([
+        $socialProfile = $this->socialProfilesService->getModel()->where([
             ['provider', '=', $providerName],
             ['provider_id', '=', $socialUser->getId()],
         ])->first();
@@ -242,7 +250,7 @@ class UsersService implements UsersServiceContract
         }
 
         if (! $socialProfile) {
-            $socialProfile = $this->repositories['usersSocialProfiles']->save([
+            $socialProfile = $this->socialProfilesService->saveModel([
                 'provider' => $providerName,
                 'provider_id' => $socialUser->getId(),
                 'provider_email' => $email,
