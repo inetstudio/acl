@@ -41,8 +41,8 @@
           "InetStudio\\ACL\\Permissions\\Providers\\PermissionsServiceProvider",
           "InetStudio\\ACL\\Profiles\\Providers\\ProfilesBindingsServiceProvider",
           "InetStudio\\ACL\\Profiles\\Providers\\ProfilesServiceProvider",
-          "InetStudio\\ACL\\Roles\\Providers\\RolesBindingsServiceProvider",
-          "InetStudio\\ACL\\Roles\\Providers\\RolesServiceProvider",
+          "InetStudio\\ACL\\Roles\\Providers\\BindingsServiceProvider",
+          "InetStudio\\ACL\\Roles\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\EventsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersBindingsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\UsersServiceProvider"

@@ -1,4 +1,4 @@
-@inject('rolesService', 'InetStudio\ACL\Roles\Contracts\Services\Back\RolesServiceContract')
+@inject('rolesService', 'InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract')
 
 @php
     $item = $value;
@@ -13,10 +13,10 @@
         'data-placeholder' => $attributes['placeholder'] ?? 'Выберите роли',
         'style' => 'width: 100%',
         'multiple' => 'multiple',
-        'data-source' => route('back.acl.roles.getSuggestions'),
+        'data-source' => route('back.acl.roles.utility.suggestions'),
         'data-exclude' => isset($attributes['exclude']) ? implode('|', $attributes['exclude']) : '',
     ],
     'options' => [
-        'values' => (old('roles')) ? $rolesService->getRolesByIDs(old('roles'), true)->pluck('display_name', 'id')->toArray() : $item->roles()->pluck('display_name', 'id')->toArray(),
+        'values' => (old('roles')) ? $rolesService->getItemById(old('roles'), true)->pluck('display_name', 'id')->toArray() : $item->roles()->pluck('display_name', 'id')->toArray(),
     ],
 ]) !!}

@@ -2,7 +2,7 @@
 
 namespace InetStudio\ACL\Users\Listeners\Front;
 
-use InetStudio\ACL\Roles\Contracts\Repositories\RolesRepositoryContract;
+use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
 use InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract;
 
 /**
@@ -11,18 +11,18 @@ use InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract;
 class AttachUserRoleToUser implements AttachUserRoleToUserContract
 {
     /**
-     * @var RolesRepositoryContract
+     * @var ItemsServiceContract
      */
-    private $repository;
+    protected $rolesService;
 
     /**
      * AttachUserRoleToUser constructor.
      *
-     * @param RolesRepositoryContract $repository
+     * @param ItemsServiceContract $rolesService
      */
-    public function __construct(RolesRepositoryContract $repository)
+    public function __construct(ItemsServiceContract $rolesService)
     {
-        $this->repository = $repository;
+        $this->rolesService = $rolesService;
     }
 
     /**
@@ -35,7 +35,7 @@ class AttachUserRoleToUser implements AttachUserRoleToUserContract
     public function handle($event): void
     {
         $user = $event->user;
-        $userRole = $this->repository->searchItems([['name', '=', 'user']])->first();
+        $userRole = $this->rolesService->getModel()->where([['name', '=', 'user']])->first();
 
         if ($userRole) {
             $user->attachRole($userRole);

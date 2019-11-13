@@ -4,7 +4,7 @@ namespace InetStudio\ACL\Users\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use InetStudio\ACL\Roles\Contracts\Repositories\RolesRepositoryContract;
+use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
 use InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract;
 
 /**
@@ -27,6 +27,11 @@ class CreateAdminCommand extends Command
     protected $description = 'Create admin user';
 
     /**
+     * @var ItemsServiceContract
+     */
+    protected $rolesService;
+
+    /**
      * @var array
      */
     private $repositories;
@@ -34,14 +39,14 @@ class CreateAdminCommand extends Command
     /**
      * CreateAdminCommand constructor.
      *
-     * @param RolesRepositoryContract $rolesRepository
+     * @param ItemsServiceContract $rolesService
      * @param UsersRepositoryContract $usersRepository
      */
-    public function __construct(RolesRepositoryContract $rolesRepository, UsersRepositoryContract $usersRepository)
+    public function __construct(ItemsServiceContract $rolesService, UsersRepositoryContract $usersRepository)
     {
         parent::__construct();
 
-        $this->repositories['roles'] = $rolesRepository;
+        $this->rolesService = $rolesService;
         $this->repositories['users'] = $usersRepository;
     }
 
@@ -52,7 +57,8 @@ class CreateAdminCommand extends Command
      */
     public function handle(): void
     {
-        $adminRole = $this->repositories['roles']->searchItems([['name', '=', 'admin']])->first();
+        $adminRole = $this->rolesService->getModel()->where([['name', '=', 'admin']])->first();
+
         $user = $this->repositories['users']->searchItems([['name', '=', 'admin']])->first();
         $user = $this->repositories['users']->save([
             'activated' => 1,

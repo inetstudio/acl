@@ -1,12 +1,26 @@
 <?php
 
-Route::group([
-    'namespace' => 'InetStudio\ACL\Roles\Contracts\Http\Controllers\Back',
-    'middleware' => ['web', 'back.auth'],
-    'prefix' => 'back/acl',
-], function () {
-    Route::any('roles/data', 'RolesDataControllerContract@data')->name('back.acl.roles.data.index');
-    Route::post('roles/suggestions', 'RolesUtilityControllerContract@getSuggestions')->name('back.acl.roles.getSuggestions');
+use Illuminate\Support\Facades\Route;
 
-    Route::resource('roles', 'RolesControllerContract', ['as' => 'back.acl']);
-});
+Route::group(
+    [
+        'namespace' => 'InetStudio\ACL\Roles\Contracts\Http\Controllers\Back',
+        'middleware' => ['web', 'back.auth'],
+        'prefix' => 'back/acl',
+    ],
+    function () {
+        Route::any('roles/data', 'DataControllerContract@getIndexData')
+            ->name('back.acl.roles.data.index');
+
+        Route::post('roles/suggestions', 'UtilityControllerContract@getSuggestions')
+            ->name('back.acl.roles.utility.suggestions');
+
+        Route::resource(
+            'roles',
+            'ResourceControllerContract',
+            [
+                'as' => 'back.acl',
+            ]
+        );
+    }
+);
