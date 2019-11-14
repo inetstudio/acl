@@ -2,7 +2,9 @@
 
 namespace InetStudio\ACL\Activations\Listeners\Front;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\ACL\Activations\Contracts\Listeners\Front\SendActivateNotificationListenerContract;
+use InetStudio\ACL\Activations\Contracts\Services\Front\ItemsServiceContract as ActivationsServiceContract;
 
 /**
  * Class SendActivateNotificationListener.
@@ -17,26 +19,24 @@ class SendActivateNotificationListener implements SendActivateNotificationListen
     protected $resendAfter = 24;
 
     /**
-     * Используемые сервисы.
-     *
-     * @var array
+     * @var ActivationsServiceContract
      */
-    protected $services;
+    protected $activationsService;
 
     /**
      * SendActivateNotificationListener constructor.
+     *
+     * @param  ActivationsServiceContract  $activationsService
      */
-    public function __construct()
+    public function __construct(ActivationsServiceContract $activationsService)
     {
-        $this->services['activations'] = app()->make('InetStudio\ACL\Activations\Contracts\Services\Front\ActivationsServiceContract');
+        $this->activationsService = $activationsService;
     }
 
     /**
-     * Handle the event.
-     *
      * @param $event
      *
-     * @return void
+     * @throws BindingResolutionException
      */
     public function handle($event): void
     {
@@ -46,12 +46,14 @@ class SendActivateNotificationListener implements SendActivateNotificationListen
             return;
         }
 
-        $token = $this->services['activations']->createActivation($user);
+        $token = $this->activationsService->createToken($user);
 
-        $user->notify(app()->makeWith('InetStudio\ACL\Activations\Contracts\Notifications\Front\ActivateUserTokenNotificationContract', [
-            'token' => $token,
-            'user' => $user,
-        ]));
+        $user->notify(
+            app()->make(
+                'InetStudio\ACL\Activations\Contracts\Notifications\Front\ActivateUserTokenNotificationContract',
+                compact('token')
+            )
+        );
     }
 
     /**
@@ -63,7 +65,7 @@ class SendActivateNotificationListener implements SendActivateNotificationListen
      */
     private function shouldSend($user): bool
     {
-        $activation = $this->services['activations']->getActivationByUser($user);
+        $activation = $this->activationsService->getItemByUser($user);
 
         return $activation === null || strtotime($activation->created_at) + 60 * 60 * $this->resendAfter < time();
     }

@@ -19,7 +19,6 @@ use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 class UserModel extends Authenticatable implements UserModelContract
 {
     use Notifiable;
-    use HasActivation;
     use LaratrustUserTrait;
 
     /**
@@ -164,6 +163,16 @@ class UserModel extends Authenticatable implements UserModelContract
         }
 
         return parent::getRelationValue($key);
+    }
+
+    /**
+     * Отношение "один к одному" с моделью активации.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function activation()
+    {
+        return $this->hasOne(app()->make('InetStudio\ACL\Activations\Contracts\Models\ActivationModelContract'), 'user_id', 'id');
     }
 
     /**

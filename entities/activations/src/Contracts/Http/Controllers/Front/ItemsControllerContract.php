@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Activations\Contracts\Http\Controllers\Front;
 
 /**
- * Interface ActivationsControllerContract.
+ * Interface ItemsControllerContract.
  */
-interface ActivationsControllerContract
+interface ItemsControllerContract
 {
 }

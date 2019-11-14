@@ -3,7 +3,7 @@
 namespace InetStudio\ACL\Activations\Notifications\Front;
 
 use Illuminate\Notifications\Notification;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\ACL\Activations\Contracts\Mail\Front\ActivateUserTokenMailContract;
 use InetStudio\ACL\Activations\Contracts\Notifications\Front\ActivateUserTokenNotificationContract;
 
@@ -17,25 +17,16 @@ class ActivateUserTokenNotification extends Notification implements ActivateUser
      *
      * @var string
      */
-    public $token;
-
-    /**
-     * Пользователь.
-     *
-     * @var UserModelContract
-     */
-    public $user;
+    protected $token;
 
     /**
      * ActivateUserTokenNotification constructor.
      *
-     * @param string $token
-     * @param UserModelContract $user
+     * @param  string  $token
      */
-    public function __construct(string $token, UserModelContract $user)
+    public function __construct(string $token)
     {
         $this->token = $token;
-        $this->user = $user;
     }
 
     /**
@@ -56,11 +47,16 @@ class ActivateUserTokenNotification extends Notification implements ActivateUser
      * @param $notifiable
      *
      * @return ActivateUserTokenMailContract
+     *
+     * @throws BindingResolutionException
      */
     public function toMail($notifiable): ActivateUserTokenMailContract
     {
-        return app()->makeWith('InetStudio\ACL\Activations\Contracts\Mail\Front\ActivateUserTokenMailContract', [
-            'token' => $this->token,
-        ])->to($this->user->email);
+        return app()->make(
+            'InetStudio\ACL\Activations\Contracts\Mail\Front\ActivateUserTokenMailContract',
+            [
+                'token' => $this->token,
+            ]
+        );
     }
 }
