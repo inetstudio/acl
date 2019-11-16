@@ -41,4 +41,6 @@ return [
         ],
         */
     ],
+
+    'user_hash_length' => 5,
 ];

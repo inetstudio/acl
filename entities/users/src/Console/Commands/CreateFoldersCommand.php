@@ -49,11 +49,13 @@ class CreateFoldersCommand extends Command
      */
     private function createDir($path): void
     {
-        if (! is_dir($path)) {
-            mkdir($path, 0777, true);
-            $this->info($path.' Has been created.');
-        } else {
+        if (is_dir($path)) {
             $this->info($path.' Already created.');
+
+            return;
         }
+
+        mkdir($path, 0777, true);
+        $this->info($path.' Has been created.');
     }
 }

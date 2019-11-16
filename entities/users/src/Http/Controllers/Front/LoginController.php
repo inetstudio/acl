@@ -3,14 +3,18 @@
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\LoginRequestContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\LogoutResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\LoginControllerContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Login\LogoutResponseContract;
 
 /**
  * Class LoginController.
@@ -27,29 +31,25 @@ class LoginController extends Controller implements LoginControllerContract
     protected $redirectTo = '/';
 
     /**
-     * Используемые сервисы.
+     * LoginController constructor.
      *
-     * @var array
+     * @param  Application  $app
      */
-    protected $services;
-
-    /**
-     * SocialLoginController constructor.
-     */
-    public function __construct()
+    public function __construct(Application $app)
     {
-        $this->middleware('guest')->except('logout');
+        parent::__construct($app);
 
-        $this->services['users'] = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract');
+        $this->middleware('guest')->except('logout');
     }
 
     /**
      * Авторизация пользователя.
      *
-     * @param LoginRequestContract $request
+     * @param  LoginRequestContract  $request
      *
-     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response|void
+     * @return Response|void
      *
+     * @throws BindingResolutionException
      * @throws ValidationException
      */
     public function login(LoginRequestContract $request)
@@ -59,14 +59,14 @@ class LoginController extends Controller implements LoginControllerContract
         if ($this->hasTooManyLoginAttempts($baseRequest)) {
             $this->fireLockoutEvent($baseRequest);
 
-            return $this->sendLockoutResponse($baseRequest);
-        }
-
-        if ($user = $this->checkActivation($baseRequest)) {
-            return $this->sendNeedActivationResponse($user);
+            $this->sendLockoutResponse($baseRequest);
         }
 
         if ($this->attemptLogin($baseRequest)) {
+            if ($user = $this->checkActivation($baseRequest)) {
+                return $this->sendNeedActivationResponse($user);
+            }
+
             return $this->sendLoginResponseJSON($baseRequest);
         }
 
@@ -78,11 +78,11 @@ class LoginController extends Controller implements LoginControllerContract
     /**
      * Redirect the user after determining they are locked out.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      *
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     protected function sendLockoutResponse(Request $request)
     {
@@ -91,16 +91,19 @@ class LoginController extends Controller implements LoginControllerContract
         );
 
         throw ValidationException::withMessages([
-            $this->username() => [Lang::get('admin.module.acl.users::auth.throttle', ['seconds' => $seconds])],
-        ])->status(423);
+            $this->username() => [Lang::get('admin.module.acl.users::auth.throttle', [
+                'seconds' => $seconds,
+                'minutes' => ceil($seconds / 60),
+            ])],
+        ])->status(Response::HTTP_TOO_MANY_REQUESTS);
     }
 
     /**
      * Ответ при удачной авторизации.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     protected function sendLoginResponseJSON(Request $request)
     {
@@ -116,9 +119,9 @@ class LoginController extends Controller implements LoginControllerContract
     /**
      * Ответ при неудачной авторизации.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @throws ValidationException
      */
     protected function sendFailedLoginResponse(Request $request)
     {
@@ -130,13 +133,13 @@ class LoginController extends Controller implements LoginControllerContract
     /**
      * Проверяем активацию пользователя.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
-     * @return null
+     * @return UserModelContract|null
      */
-    public function checkActivation(Request $request)
+    public function checkActivation(Request $request): ?UserModelContract
     {
-        $provider = \Auth::getProvider();
+        $provider = Auth::getProvider();
 
         $credentials = $this->credentials($request);
         $user = $provider->retrieveByCredentials($credentials);
@@ -146,18 +149,29 @@ class LoginController extends Controller implements LoginControllerContract
                 return $user;
             }
         }
+
+        return null;
     }
 
     /**
      * Ошибка активации аккаунта.
      *
-     * @param UserModelContract $user
+     * @param  UserModelContract  $user
+     *
+     * @throws ValidationException
+     *
+     * @throws BindingResolutionException
      */
     public function sendNeedActivationResponse(UserModelContract $user)
     {
-        event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract', [
-            'user' => $user
-        ]));
+        event(
+            app()->make(
+                'InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract',
+                [
+                    'user' => $user
+                ]
+            )
+        );
 
         throw ValidationException::withMessages([
             'email' => [
@@ -169,18 +183,13 @@ class LoginController extends Controller implements LoginControllerContract
     /**
      * Выход пользователя.
      *
-     * @param Request $request
+     * @param  Request  $request
+     * @param  LogoutResponseContract  $response
      *
      * @return LogoutResponseContract
      */
-    public function logout(Request $request): LogoutResponseContract
+    public function logout(Request $request, LogoutResponseContract $response): LogoutResponseContract
     {
-        $this->services['users']->logout();
-
-        return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\LogoutResponseContract', [
-            'result' => [
-                'success' => true,
-            ],
-        ]);
+        return $response;
     }
 }

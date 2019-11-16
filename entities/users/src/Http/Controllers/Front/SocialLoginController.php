@@ -2,14 +2,14 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
+use Illuminate\Http\Request;
 use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Session;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\EmailRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\SocialLoginControllerContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterHandleResponseContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterAskEmailResponseContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterApproveEmailResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\AskEmailResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\ApproveEmailResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\RedirectToProviderResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\HandleProviderCallbackResponseContract;
 
 /**
  * Class SocialLoginController.
@@ -17,80 +17,60 @@ use InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterApproveEma
 class SocialLoginController extends Controller implements SocialLoginControllerContract
 {
     /**
-     * Используемые сервисы.
-     *
-     * @var array
-     */
-    protected $services;
-
-    /**
-     * SocialLoginController constructor.
-     */
-    public function __construct()
-    {
-        $this->services['users'] = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract');
-    }
-
-    /**
      * Редирект на авторизацию в социальной сети.
      *
-     * @param string $provider
+     * @param  Request  $request
+     * @param  RedirectToProviderResponseContract  $response
      *
-     * @return RedirectResponse
+     * @return RedirectToProviderResponseContract
      */
-    public function redirectToProvider(string $provider): RedirectResponse
-    {
-        $response = $this->services['users']->socialRedirect($provider);
-
+    public function redirectToProvider(
+        Request $request,
+        RedirectToProviderResponseContract $response
+    ): RedirectToProviderResponseContract {
         return $response;
     }
 
     /**
      * Обрабатываем ответ от социальной сети.
      *
-     * @param string $provider
+     * @param  Request  $request
+     * @param  HandleProviderCallbackResponseContract  $response
      *
-     * @return SocialRegisterHandleResponseContract
+     * @return HandleProviderCallbackResponseContract
      */
-    public function handleProviderCallback(string $provider): SocialRegisterHandleResponseContract
-    {
-        $user = $this->services['users']->socialCallback($provider);
-
-        return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterHandleResponseContract', [
-            'user' => $user,
-        ]);
+    public function handleProviderCallback(
+        Request $request,
+        HandleProviderCallbackResponseContract $response
+    ): HandleProviderCallbackResponseContract {
+        return $response;
     }
 
     /**
      * Если не получили почтовый ящик при регистрации, то спрашиваем пользователя.
      *
-     * @return SocialRegisterAskEmailResponseContract
+     * @param  Request  $request
+     * @param  AskEmailResponseContract  $response
+     *
+     * @return AskEmailResponseContract
      */
-    public function askEmail(): SocialRegisterAskEmailResponseContract
+    public function askEmail(Request $request, AskEmailResponseContract $response): AskEmailResponseContract
     {
-        return app()->make('InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterAskEmailResponseContract');
+        return $response;
     }
 
     /**
      * Пользователь ввел почтовый ящик для подтверждения.
      *
-     * @param EmailRequestContract $request
+     * @param  EmailRequestContract  $request
+     * @param  ApproveEmailResponseContract  $response
      *
-     * @return SocialRegisterApproveEmailResponseContract
+     * @return ApproveEmailResponseContract
      */
-    public function approveEmail(EmailRequestContract $request): SocialRegisterApproveEmailResponseContract
-    {
-        $socialUser = Session::get('social_user');
-        $provider = Session::get('provider');
-        $email = $request->get('email');
-
-        $this->services['users']->createOrGetSocialUser($socialUser, $provider, $email);
-
-        return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\SocialRegisterApproveEmailResponseContract', [
-            'result' => [
-                'success' => true,
-                'message' => trans('admin.module.acl.activations::activation.activationStatus'),
-            ],
-        ]);
+    public function approveEmail(
+        EmailRequestContract $request,
+        ApproveEmailResponseContract $response
+    ): ApproveEmailResponseContract {
+        return $response;
     }
 }

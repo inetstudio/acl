@@ -1,4 +1,4 @@
-@inject('usersService', 'InetStudio\ACL\Users\Contracts\Services\Back\UsersServiceContract')
+@inject('usersService', 'InetStudio\ACL\Users\Contracts\Services\Back\ItemsServiceContract')
 
 @php
     $item = $value;
@@ -12,9 +12,9 @@
         'class' => 'select2-drop form-control',
         'data-placeholder' => 'Выберите пользователя',
         'style' => 'width: 100%',
-        'data-source' => route('back.acl.users.getSuggestions'),
+        'data-source' => route('back.acl.users.utility.suggestions'),
     ],
     'options' => [
-        'values' => $usersService->getUsersByIDs(old('user_id') ? old('user_id') : (int) $item->user_id, true)->pluck('email', 'id')->toArray(),
+        'values' => $usersService->getItemById(old('user_id') ? old('user_id') : (int) $item->user_id)->pluck('email', 'id')->toArray(),
     ],
 ]) !!}

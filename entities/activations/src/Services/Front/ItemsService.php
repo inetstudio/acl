@@ -11,6 +11,7 @@ use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\ACL\Activations\Contracts\Models\ActivationModelContract;
 use InetStudio\ACL\Activations\Contracts\Services\Front\ItemsServiceContract;
+use InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract as UsersServiceContract;
 
 /**
  * Class ItemsService.
@@ -18,13 +19,21 @@ use InetStudio\ACL\Activations\Contracts\Services\Front\ItemsServiceContract;
 class ItemsService extends BaseService implements ItemsServiceContract
 {
     /**
+     * @var UsersServiceContract
+     */
+    protected $usersService;
+
+    /**
      * ItemsService constructor.
      *
      * @param  ActivationModelContract  $model
+     * @param  UsersServiceContract  $usersService
      */
-    public function __construct(ActivationModelContract $model)
+    public function __construct(ActivationModelContract $model, UsersServiceContract $usersService)
     {
         parent::__construct($model);
+
+        $this->usersService = $usersService;
     }
 
     /**
@@ -156,9 +165,12 @@ class ItemsService extends BaseService implements ItemsServiceContract
         if ($item !== null) {
             $user = $item['user'];
 
-            $this->repositories['users']->save([
-                'activated' => 1,
-            ], $user->id);
+            $this->usersService->saveModel(
+                [
+                    'activated' => 1,
+                ],
+                $user->id
+            );
 
             $this->destroyItem($token);
 

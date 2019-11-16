@@ -2,9 +2,11 @@
 
 namespace InetStudio\ACL\Users\Contracts\Http\Requests\Front;
 
+use InetStudio\AdminPanel\Base\Contracts\Http\Requests\BaseRequestContract;
+
 /**
  * Interface EmailRequestContract.
  */
-interface EmailRequestContract
+interface EmailRequestContract extends BaseRequestContract
 {
 }

@@ -2,10 +2,12 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Back;
 
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Back\LoginControllerContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Users\LoginResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Login\LoginResponseContract;
 
 /**
  * Class LoginController.
@@ -19,28 +21,38 @@ class LoginController extends Controller implements LoginControllerContract
      *
      * @var string
      */
-    protected $redirectTo = '';
+    protected $redirectTo = '/';
 
     /**
      * LoginController constructor.
+     *
+     * @param  Application  $app
      */
-    public function __construct()
+    public function __construct(Application $app)
     {
+        parent::__construct($app);
+
         $this->redirectTo = route('back');
 
-        $this->middleware('back.guest', [
-            'except' => 'logout',
-        ]);
+        $this->middleware(
+            'back.guest',
+            [
+                'except' => 'logout',
+            ]
+        );
     }
 
     /**
      * Отображаем страницу авторизации.
      *
+     * @param  Request  $request
+     * @param  LoginResponseContract  $response
+     *
      * @return LoginResponseContract
      */
-    public function showLoginForm(): LoginResponseContract
+    public function showLoginForm(Request $request, LoginResponseContract $response): LoginResponseContract
     {
-        return app()->make('InetStudio\ACL\Users\Contracts\Http\Responses\Back\Users\LoginResponseContract');
+        return $response;
     }
 
     /**

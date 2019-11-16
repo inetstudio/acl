@@ -3,23 +3,46 @@
 namespace InetStudio\ACL\Users\Models;
 
 use Illuminate\Support\Str;
+use OwenIt\Auditing\Auditable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use InetStudio\ACL\Activations\Models\Traits\HasActivation;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
 
 /**
  * Class UserModel.
  */
 class UserModel extends Authenticatable implements UserModelContract
 {
+    use Auditable;
     use Notifiable;
     use LaratrustUserTrait;
+    use BuildQueryScopeTrait;
+
+    /**
+     * Тип сущности.
+     */
+    const ENTITY_TYPE = 'user';
+
+    /**
+     * Имя конфига.
+     */
+    const CONFIG_NAME = 'acl_users';
+
+    /**
+     * Should the timestamps be audited?
+     *
+     * @var bool
+     */
+    protected $auditTimestamps = true;
 
     /**
      * Связанная с моделью таблица.
@@ -34,7 +57,10 @@ class UserModel extends Authenticatable implements UserModelContract
      * @var array
      */
     protected $fillable = [
-        'activated', 'name', 'email', 'password',
+        'activated',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -46,6 +72,19 @@ class UserModel extends Authenticatable implements UserModelContract
         'password', 'remember_token',
     ];
 
+    /**
+     * Атрибуты, которые должны быть преобразованы в даты.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     *
+     */
     public static function boot()
     {
         parent::boot();
@@ -54,29 +93,44 @@ class UserModel extends Authenticatable implements UserModelContract
             $referrerHash = (Cookie::queued('user_referer')) ? Cookie::queued('user_referer')->getValue() : Cookie::get('user_referer');
 
             if ($referrerHash) {
-                $usersRepository = app()->make('InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract');
-
-                $referrer = $usersRepository->getModel()->where('user_hash', $referrerHash)->first();
-                $model->referer_id = ($referrer) ? $referrer->id : null;
+                $referrer = self::where('user_hash', $referrerHash)->first();
+                $model->referrer_id = ($referrer) ? $referrer->id : null;
             }
 
-            $model->user_hash = (string) Str::random();
+            $hash = self::generateUserHash();
+
+            while (self::where('user_hash', $hash)->first()) {
+                $hash = self::generateUserHash();
+            }
+
+            $model->user_hash = (string) $hash;
         });
+
+        self::$buildQueryScopeDefaults['columns'] = [
+            'id', 'activated', 'name', 'email', 'remember_token',
+        ];
+
+        self::$buildQueryScopeDefaults['relations'] = [
+            'profile' => function ($query) {
+                $query->select(['id', 'user_id', 'additional_info']);
+            },
+            'socialProfiles' => function ($query) {
+                $query->select(['id', 'user_id', 'provider', 'provider_id', 'provider_email']);
+            },
+            'activation' => function ($query) {
+                $query->select(['user_id', 'token', 'created_at']);
+            },
+        ];
     }
 
-    public function setNameAttribute($value)
+    /**
+     * Генерируем пользовательский хэш.
+     *
+     * @return string
+     */
+    public static function generateUserHash(): string
     {
-        $this->attributes['name'] = trim(strip_tags($value));
-    }
-
-    public function setEmailAttribute($value)
-    {
-        $this->attributes['email'] = trim(strip_tags($value));
-    }
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make(trim($value));
+        return Str::random(config('acl_users.user_hash_length', 16));
     }
 
     /**
@@ -88,18 +142,62 @@ class UserModel extends Authenticatable implements UserModelContract
     }
 
     /**
+     * Сеттер атрибута name.
+     *
+     * @param $value
+     */
+    public function setNameAttribute($value): void
+    {
+        $this->attributes['name'] = trim(strip_tags($value));
+    }
+
+    /**
+     * Сеттер атрибута email.
+     *
+     * @param $value
+     */
+    public function setEmailAttribute($value): void
+    {
+        $this->attributes['email'] = trim(strip_tags($value));
+    }
+
+    /**
+     * Сеттер атрибута password.
+     *
+     * @param $value
+     */
+    public function setPasswordAttribute($value): void
+    {
+        $this->attributes['password'] = Hash::make(trim($value));
+    }
+
+    /**
+     * Геттер атрибута type.
+     *
+     * @return string
+     */
+    public function getTypeAttribute(): string
+    {
+        return self::ENTITY_TYPE;
+    }
+
+    /**
      * Send the password reset notification.
      *
-     * @param string $token
+     * @param  string  $token
      *
-     * @return void
+     * @throws BindingResolutionException
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(app()->makeWith('InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetPasswordTokenNotificationContract', [
-            'token' => $token,
-            'user' => $this,
-        ]));
+        $this->notify(
+            app()->make('InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetPasswordTokenNotificationContract',
+                [
+                    'token' => $token,
+                    'user' => $this,
+                ]
+            )
+        );
     }
 
     /**
@@ -109,9 +207,11 @@ class UserModel extends Authenticatable implements UserModelContract
      * @param $parameters
      *
      * @return mixed
+     *
+     * @throws BindingResolutionException
      */
     public function __call($method, $parameters) {
-        $config = implode( '.', ['acl_users.relationships', $method]);
+        $config = implode( '.', [self::CONFIG_NAME, 'relationships', $method]);
 
         if (Config::has($config)) {
             $data = Config::get($config);
@@ -134,7 +234,7 @@ class UserModel extends Authenticatable implements UserModelContract
      */
     public function getAttribute($key)
     {
-        $config = implode( '.', ['acl_users.relationships', $key]);
+        $config = implode( '.', [self::CONFIG_NAME, 'relationships', $key]);
 
         if (Config::has($config)) {
             return $this->getRelationValue($key);
@@ -156,7 +256,7 @@ class UserModel extends Authenticatable implements UserModelContract
             return $this->relations[$key];
         }
 
-        $config = implode( '.', ['acl_users.relationships', $key]);
+        $config = implode( '.', [self::CONFIG_NAME, 'relationships', $key]);
 
         if (Config::has($config)) {
             return $this->getRelationshipFromMethod($key);
@@ -168,30 +268,54 @@ class UserModel extends Authenticatable implements UserModelContract
     /**
      * Отношение "один к одному" с моделью активации.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return HasOne
+     *
+     * @throws BindingResolutionException
      */
-    public function activation()
+    public function activation(): HasOne
     {
-        return $this->hasOne(app()->make('InetStudio\ACL\Activations\Contracts\Models\ActivationModelContract'), 'user_id', 'id');
+        $activationModel = app()->make('InetStudio\ACL\Activations\Contracts\Models\ActivationModelContract');
+
+        return $this->hasOne(
+            get_class($activationModel),
+            'user_id',
+            'id'
+        );
     }
 
     /**
      * Отношение "один к одному" с моделью профиля.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return HasOne
+     *
+     * @throws BindingResolutionException
      */
-    public function profile()
+    public function profile(): HasOne
     {
-        return $this->hasOne(app()->make('InetStudio\ACL\Profiles\Contracts\Models\ProfileModelContract'), 'user_id', 'id');
+        $profileModel = app()->make('InetStudio\ACL\Profiles\Contracts\Models\ProfileModelContract');
+
+        return $this->hasOne(
+            get_class($profileModel),
+            'user_id',
+            'id'
+        );
     }
 
     /**
      * Отношение "один ко многим" с моделью социального профиля.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return HasMany
+     *
+     * @throws BindingResolutionException
      */
-    public function socialProfiles()
+    public function socialProfiles(): HasMany
     {
-        return $this->hasMany(app()->make('InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract'), 'user_id', 'id');
+        $socialProfileModel = app()->make('InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract');
+
+        return $this->hasMany(
+            get_class($socialProfileModel),
+            'user_id',
+            'id'
+        );
     }
 }

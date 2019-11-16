@@ -45,8 +45,8 @@
           "InetStudio\\ACL\\SocialProfiles\\Providers\\BindingsServiceProvider",
           "InetStudio\\ACL\\SocialProfiles\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\EventsServiceProvider",
-          "InetStudio\\ACL\\Users\\Providers\\UsersBindingsServiceProvider",
-          "InetStudio\\ACL\\Users\\Providers\\UsersServiceProvider"
+          "InetStudio\\ACL\\Users\\Providers\\BindingsServiceProvider",
+          "InetStudio\\ACL\\Users\\Providers\\ServiceProvider"
         ]
       }
     }

@@ -2,13 +2,14 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Contracts\Foundation\Application;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\RegisterControllerContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Register\RegisterResponseContract;
 
 /**
  * Class RegisterController.
@@ -25,44 +26,27 @@ class RegisterController extends Controller implements RegisterControllerContrac
     protected $redirectTo = '/';
 
     /**
-     * Используемые сервисы.
+     * RegisterController constructor.
      *
-     * @var array
+     * @param  Application  $app
      */
-    protected $services;
-
-    /**
-     * UsersController constructor.
-     */
-    public function __construct()
+    public function __construct(Application $app)
     {
-        $this->middleware('guest');
+        parent::__construct($app);
 
-        $this->services['users'] = app()->make('InetStudio\ACL\Users\Contracts\Services\Front\UsersServiceContract');
+        $this->middleware('guest');
     }
 
     /**
      * Регистрация пользователя.
      *
-     * @param RegisterRequestContract $request
+     * @param  RegisterRequestContract  $request
+     * @param  RegisterResponseContract  $response
      *
      * @return RegisterResponseContract
      */
-    public function register(RegisterRequestContract $request): RegisterResponseContract
+    public function register(RegisterRequestContract $request, RegisterResponseContract $response): RegisterResponseContract
     {
-        $user = $this->services['users']->register($request);
-
-        event(new Registered($user));
-
-        if (config('acl.register.login_after_register')) {
-            Auth::login($user, true);
-        }
-
-        return app()->makeWith('InetStudio\ACL\Users\Contracts\Http\Responses\Front\RegisterResponseContract', [
-            'result' => [
-                'success' => true,
-                'message' => (config('acl.activations.enabled')) ? trans('admin.module.acl.activations::activation.activationStatus') : 'Пользователь успешно зарегистрирован',
-            ]
-        ]);
+        return $response;
     }
 }

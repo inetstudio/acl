@@ -17,6 +17,6 @@
         'data-exclude' => isset($attributes['exclude']) ? implode('|', $attributes['exclude']) : '',
     ],
     'options' => [
-        'values' => (old('roles')) ? $rolesService->getItemById(old('roles'), true)->pluck('display_name', 'id')->toArray() : $item->roles()->pluck('display_name', 'id')->toArray(),
+        'values' => (old('roles')) ? $rolesService->getItemById(old('roles'))->pluck('display_name', 'id')->toArray() : $item->roles()->pluck('display_name', 'id')->toArray(),
     ],
 ]) !!}

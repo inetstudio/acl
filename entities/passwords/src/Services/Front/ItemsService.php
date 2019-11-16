@@ -5,8 +5,8 @@ namespace InetStudio\ACL\Passwords\Services\Front;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
-use InetStudio\ACL\Users\Contracts\Repositories\UsersRepositoryContract;
 use InetStudio\ACL\Passwords\Contracts\Services\Front\ItemsServiceContract;
+use InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract as UsersServiceContract;
 
 /**
  * Class ItemsService.
@@ -14,18 +14,18 @@ use InetStudio\ACL\Passwords\Contracts\Services\Front\ItemsServiceContract;
 class ItemsService implements ItemsServiceContract
 {
     /**
-     * @var array
+     * @var UsersServiceContract
      */
-    private $repositories;
+    protected $usersService;
 
     /**
      * PasswordsService constructor.
      *
-     * @param  UsersRepositoryContract  $userRepository
+     * @param  UsersServiceContract  $usersService
      */
-    public function __construct(UsersRepositoryContract $userRepository)
+    public function __construct(UsersServiceContract $usersService)
     {
-        $this->repositories['users'] = $userRepository;
+        $this->usersService = $usersService;
     }
 
     /**
@@ -70,7 +70,7 @@ class ItemsService implements ItemsServiceContract
      */
     protected function resetPasswordWithoutLogin(UserModelContract $user, string $password): void
     {
-        $user = $this->repositories['users']->save(
+        $user = $this->usersService->saveModel(
             [
                 'password' => $password,
             ],

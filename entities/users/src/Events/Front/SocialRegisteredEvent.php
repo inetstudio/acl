@@ -22,7 +22,8 @@ class SocialRegisteredEvent implements SocialRegisteredEventContract
 
     /**
      * SocialRegisteredEvent constructor.
-     * @param UserModelContract $user
+     *
+     * @param  UserModelContract  $user
      */
     public function __construct(UserModelContract $user)
     {
