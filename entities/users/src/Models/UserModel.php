@@ -191,7 +191,7 @@ class UserModel extends Authenticatable implements UserModelContract
     public function sendPasswordResetNotification($token)
     {
         $this->notify(
-            app()->make('InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetPasswordTokenNotificationContract',
+            app()->make('InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetNotificationContract',
                 [
                     'token' => $token,
                     'user' => $this,

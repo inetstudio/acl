@@ -52,7 +52,7 @@ class ResetResponse implements ResetResponseContract
      */
     public function toResponse($request)
     {
-        $result = $this->passwordsService->reset($request, $this->broker());
+        $result = $this->passwordsService->reset($request, $this->broker);
 
         if ($result == Password::PASSWORD_RESET) {
             return response()->json(

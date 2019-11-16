@@ -5,7 +5,7 @@ namespace InetStudio\ACL\SocialProfiles\Services\Front;
 use Illuminate\Support\Arr;
 use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract;
-use InetStudio\ACL\SocialProfiles\Contracts\Services\Back\ItemsServiceContract;
+use InetStudio\ACL\SocialProfiles\Contracts\Services\Front\ItemsServiceContract;
 
 /**
  * Class ItemsService.

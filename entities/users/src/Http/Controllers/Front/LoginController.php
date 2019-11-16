@@ -62,11 +62,11 @@ class LoginController extends Controller implements LoginControllerContract
             $this->sendLockoutResponse($baseRequest);
         }
 
-        if ($this->attemptLogin($baseRequest)) {
-            if ($user = $this->checkActivation($baseRequest)) {
-                return $this->sendNeedActivationResponse($user);
-            }
+        if ($user = $this->checkActivation($baseRequest)) {
+            return $this->sendNeedActivationResponse($user);
+        }
 
+        if ($this->attemptLogin($baseRequest)) {
             return $this->sendLoginResponseJSON($baseRequest);
         }
 
@@ -167,9 +167,7 @@ class LoginController extends Controller implements LoginControllerContract
         event(
             app()->make(
                 'InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract',
-                [
-                    'user' => $user
-                ]
+                compact('user')
             )
         );
 

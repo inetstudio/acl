@@ -14,10 +14,9 @@ class BindingsServiceProvider extends BaseServiceProvider implements DeferrableP
     * @var  array
     */
     public $bindings = [
-        'InetStudio\ACL\SocialProfiles\Contracts\Models\UserProfileModelContract' => 'InetStudio\ACL\SocialProfiles\Models\UserProfileModel',
-        'InetStudio\ACL\SocialProfiles\Contracts\Models\UserSocialProfileModelContract' => 'InetStudio\ACL\SocialProfiles\Models\UserSocialProfileModel',
-        'InetStudio\ACL\SocialProfiles\Contracts\Services\Front\UsersProfilesServiceContract' => 'InetStudio\ACL\SocialProfiles\Services\Front\UsersProfilesService',
-        'InetStudio\ACL\SocialProfiles\Contracts\Services\Front\UsersSocialProfilesServiceContract' => 'InetStudio\ACL\SocialProfiles\Services\Front\UsersSocialProfilesService',
+        'InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract' => 'InetStudio\ACL\SocialProfiles\Models\SocialProfileModel',
+        'InetStudio\ACL\SocialProfiles\Contracts\Services\Back\ItemsServiceContract' => 'InetStudio\ACL\SocialProfiles\Services\Back\ItemsService',
+        'InetStudio\ACL\SocialProfiles\Contracts\Services\Front\ItemsServiceContract' => 'InetStudio\ACL\SocialProfiles\Services\Front\ItemsService',
     ];
 
     /**

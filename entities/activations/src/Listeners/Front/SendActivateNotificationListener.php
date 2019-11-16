@@ -46,7 +46,7 @@ class SendActivateNotificationListener implements SendActivateNotificationListen
             return;
         }
 
-        $token = $this->activationsService->createToken($user);
+        $token = $this->activationsService->getToken($user);
 
         $user->notify(
             app()->make(

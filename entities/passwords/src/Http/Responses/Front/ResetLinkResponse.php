@@ -36,7 +36,7 @@ class ResetLinkResponse implements ResetLinkResponseContract
      */
     public function toResponse($request)
     {
-        $result = $this->broker()->sendResetLink(
+        $result = $this->broker->sendResetLink(
             $request->only('email')
         );
 
