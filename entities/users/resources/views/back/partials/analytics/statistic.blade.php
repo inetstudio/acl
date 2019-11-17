@@ -1,13 +1,9 @@
-@php
-    $colors = [
-        0 => 'warning',
-        1 => 'primary',
-    ];
+@inject('usersService', 'InetStudio\ACL\Users\Services\Back\ItemsServiceContract')
 
-    $titles = [
-        0 => 'Неактивные',
-        1 => 'Активные',
-    ];
+@php
+    $registrations = $usersService->getItemsStatisticByActivation();
+    $colors = $usersService->getActivationsColors();
+    $titles = $usersService->getActivationsTitles();
 @endphp
 
 <div class="ibox float-e-margins">
@@ -16,8 +12,8 @@
         <ul class="todo-list m-t">
             @foreach ($registrations as $registration)
                 <li>
-                    <small class="label label-{{ (isset($colors[$registration->activated])) ? $colors[$registration->activated] : 'info' }}">{{ $registration->total }}</small>
-                    <span class="m-l-xs">{{ (isset($titles[$registration->activated])) ? $titles[$registration->activated] : 'Не удалось определить статус' }}</span>
+                    <small class="label label-{{ $colors[$registration->activated] ?? 'info' }}">{{ $registration->total }}</small>
+                    <span class="m-l-xs">{{ $titles[$registration->activated] ?? 'Не удалось определить статус' }}</span>
                 </li>
             @endforeach
             <hr>

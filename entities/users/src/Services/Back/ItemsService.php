@@ -15,6 +15,16 @@ use InetStudio\ACL\Users\Contracts\Services\Back\ItemsServiceContract;
  */
 class ItemsService extends BaseService implements ItemsServiceContract
 {
+    protected $colors = [
+        0 => 'warning',
+        1 => 'primary',
+    ];
+
+    protected $titles = [
+        0 => 'Неактивные',
+        1 => 'Активные',
+    ];
+
     /**
      * ItemsService constructor.
      *
@@ -79,5 +89,25 @@ class ItemsService extends BaseService implements ItemsServiceContract
             ->get();
 
         return $items;
+    }
+
+    /**
+     * Возвращаем цвета активаций.
+     *
+     * @return array
+     */
+    public function getActivationsColors(): array
+    {
+        return $this->colors;
+    }
+
+    /**
+     * Возвращаем заголовки активаций.
+     *
+     * @return array
+     */
+    public function getActivationsTitles(): array
+    {
+        return $this->titles;
     }
 }
