@@ -108,6 +108,9 @@ class SocialService extends BaseService implements SocialServiceContract
     public function createOrGetSocialUser($socialUser, string $providerName, string $approveEmail = ''): ?UserModelContract
     {
         $email = ($approveEmail) ? $approveEmail : $socialUser->getEmail();
+        $email = (! $email && config('acl_users.social_email_generate'))
+            ? $providerName.'_'.$socialUser->getId().'@'.parse_url(config('app.url'), PHP_URL_HOST)
+            : $email;
 
         $socialProfile = $this->socialProfilesService->getModel()->where([
             ['provider', '=', $providerName],
@@ -115,7 +118,7 @@ class SocialService extends BaseService implements SocialServiceContract
         ])->first();
 
         if (! $email && ! $socialProfile) {
-            return $this->getItemByID(0);
+            return $this->getItemById(0);
         }
 
         if (! $socialProfile) {

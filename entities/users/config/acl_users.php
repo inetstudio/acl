@@ -42,5 +42,7 @@ return [
         */
     ],
 
+    'social_email_generate' => false,
+
     'user_hash_length' => 5,
 ];
