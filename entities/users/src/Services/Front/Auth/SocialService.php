@@ -77,6 +77,10 @@ class SocialService extends BaseService implements SocialServiceContract
             return null;
         }
 
+        if($provider == 'vkontakte') {
+            $socialUser->email = $socialUser->accessTokenResponseBody['email'] ?? null;
+        }
+
         $user = $this->createOrGetSocialUser($socialUser, $provider);
 
         if (! $user['id']) {
@@ -111,7 +115,7 @@ class SocialService extends BaseService implements SocialServiceContract
      */
     public function createOrGetSocialUser($socialUser, string $providerName, string $approveEmail = ''): ?UserModelContract
     {
-        $email = ($approveEmail) ? $approveEmail : $socialUser->getEmail();
+        $email = ($approveEmail) ? $approveEmail : $socialUser->email ?? $socialUser->getEmail();
         $email = (! $email && config('acl_users.social_email_generate'))
             ? $providerName.'_'.$socialUser->getId().'@'.parse_url(config('app.url'), PHP_URL_HOST)
             : $email;
