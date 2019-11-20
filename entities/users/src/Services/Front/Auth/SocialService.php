@@ -3,7 +3,7 @@
 namespace InetStudio\ACL\Users\Services\Front\Auth;
 
 use Exception;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use InetStudio\ACL\SocialProfiles\Contracts\Services\Front\ItemsServiceContract as SocialProfilesServiceContract;
@@ -11,6 +11,7 @@ use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\Auth\SocialServiceContract;
 use InetStudio\AdminPanel\Base\Services\BaseService;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class SocialService.
@@ -59,6 +60,8 @@ class SocialService extends BaseService implements SocialServiceContract
      * @param string $provider
      *
      * @return UserModelContract|null
+     *
+     * @throws BindingResolutionException
      */
     public function callback(string $provider): ?UserModelContract
     {
@@ -82,10 +85,9 @@ class SocialService extends BaseService implements SocialServiceContract
         } else {
             if (! $user['activated']) {
                 event(
-                    app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract',
-                        [
-                            'user' => $user,
-                        ]
+                    app()->make(
+                        'InetStudio\ACL\Activations\Contracts\Events\Front\UnactivatedLoginEventContract',
+                        compact('user')
                     )
                 );
             } else {
@@ -104,6 +106,8 @@ class SocialService extends BaseService implements SocialServiceContract
      * @param string $approveEmail
      *
      * @return UserModelContract|null
+     *
+     * @throws BindingResolutionException
      */
     public function createOrGetSocialUser($socialUser, string $providerName, string $approveEmail = ''): ?UserModelContract
     {
@@ -146,14 +150,20 @@ class SocialService extends BaseService implements SocialServiceContract
             $socialProfile->user()->associate($user);
             $socialProfile->save();
 
-            event(app()->makeWith('InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract', [
-                'user' => $user,
-            ]));
+            event(
+                app()->make(
+                    'InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract',
+                    compact('user')
+                )
+            );
 
             if ($approveEmail) {
-                event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract', [
-                    'user' => $user,
-                ]));
+                event(
+                    app()->make(
+                        'InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract',
+                        compact('user')
+                    )
+                );
             }
         } else {
             if (! $user->hasRole('social_user')) {
@@ -161,9 +171,12 @@ class SocialService extends BaseService implements SocialServiceContract
                     'activated' => 1,
                 ]);
 
-                event(app()->makeWith('InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract', [
-                    'user' => $user,
-                ]));
+                event(
+                    app()->make(
+                        'InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract',
+                        compact('user')
+                    ))
+                ;
             }
         }
 
