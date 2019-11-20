@@ -175,8 +175,8 @@ class SocialService extends BaseService implements SocialServiceContract
                     app()->make(
                         'InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract',
                         compact('user')
-                    ))
-                ;
+                    )
+                );
             }
         }
 
