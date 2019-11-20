@@ -25,10 +25,10 @@ class EventsServiceProvider extends ServiceProvider
         ],
         'InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract' => [
             'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachSocialRoleToUserContract',
-            'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract'
+            'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract',
         ],
     ];
-    
+
     /**
      * Загрузка сервиса.
      *

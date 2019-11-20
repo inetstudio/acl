@@ -11,8 +11,8 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 class BindingsServiceProvider extends BaseServiceProvider implements DeferrableProvider
 {
     /**
-    * @var  array
-    */
+     * @var  array
+     */
     public $bindings = [
         'InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front\ForgotControllerContract' => 'InetStudio\ACL\Passwords\Http\Controllers\Front\ForgotController',
         'InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front\ResetControllerContract' => 'InetStudio\ACL\Passwords\Http\Controllers\Front\ResetController',

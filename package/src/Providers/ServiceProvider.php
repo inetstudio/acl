@@ -4,10 +4,10 @@ namespace InetStudio\ACL\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
-use Laratrust\Middleware\LaratrustRole;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Laratrust\Middleware\LaratrustAbility;
 use Laratrust\Middleware\LaratrustPermission;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laratrust\Middleware\LaratrustRole;
 
 /**
  * Class ServiceProvider.

@@ -2,10 +2,10 @@
 
 namespace InetStudio\ACL\Permissions\Transformers\Back\Resource;
 
-use Throwable;
-use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
 use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 use InetStudio\ACL\Permissions\Contracts\Transformers\Back\Resource\IndexTransformerContract;
+use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
+use Throwable;
 
 /**
  * Class IndexTransformer.

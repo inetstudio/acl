@@ -2,12 +2,12 @@
 
 namespace InetStudio\ACL\Roles\Http\Responses\Back\Utility;
 
-use League\Fractal\Manager;
 use Illuminate\Http\Request;
-use InetStudio\ACL\Roles\Contracts\Services\Back\UtilityServiceContract;
-use InetStudio\AdminPanel\Base\Contracts\Serializers\SimpleDataArraySerializerContract;
 use InetStudio\ACL\Roles\Contracts\Http\Responses\Back\Utility\SuggestionsResponseContract;
+use InetStudio\ACL\Roles\Contracts\Services\Back\UtilityServiceContract;
 use InetStudio\ACL\Roles\Contracts\Transformers\Back\Utility\SuggestionTransformerContract;
+use InetStudio\AdminPanel\Base\Contracts\Serializers\SimpleDataArraySerializerContract;
+use League\Fractal\Manager;
 
 /**
  * Class SuggestionsResponse.

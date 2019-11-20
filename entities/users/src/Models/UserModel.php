@@ -2,20 +2,20 @@
 
 namespace InetStudio\ACL\Users\Models;
 
-use Illuminate\Support\Str;
-use OwenIt\Auditing\Auditable;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
+use Laratrust\Traits\LaratrustUserTrait;
+use OwenIt\Auditing\Auditable;
 
 /**
  * Class UserModel.
@@ -82,9 +82,6 @@ class UserModel extends Authenticatable implements UserModelContract
         'updated_at',
     ];
 
-    /**
-     *
-     */
     public static function boot()
     {
         parent::boot();
@@ -210,8 +207,9 @@ class UserModel extends Authenticatable implements UserModelContract
      *
      * @throws BindingResolutionException
      */
-    public function __call($method, $parameters) {
-        $config = implode( '.', [self::CONFIG_NAME, 'relationships', $method]);
+    public function __call($method, $parameters)
+    {
+        $config = implode('.', [self::CONFIG_NAME, 'relationships', $method]);
 
         if (Config::has($config)) {
             $data = Config::get($config);
@@ -234,7 +232,7 @@ class UserModel extends Authenticatable implements UserModelContract
      */
     public function getAttribute($key)
     {
-        $config = implode( '.', [self::CONFIG_NAME, 'relationships', $key]);
+        $config = implode('.', [self::CONFIG_NAME, 'relationships', $key]);
 
         if (Config::has($config)) {
             return $this->getRelationValue($key);
@@ -256,7 +254,7 @@ class UserModel extends Authenticatable implements UserModelContract
             return $this->relations[$key];
         }
 
-        $config = implode( '.', [self::CONFIG_NAME, 'relationships', $key]);
+        $config = implode('.', [self::CONFIG_NAME, 'relationships', $key]);
 
         if (Config::has($config)) {
             return $this->getRelationshipFromMethod($key);

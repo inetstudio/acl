@@ -2,11 +2,11 @@
 
 namespace InetStudio\ACL\Users\Http\Responses\Front\Register;
 
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Events\Registered;
-use InetStudio\ACL\Users\Contracts\Services\Front\Auth\RegisterServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Register\RegisterResponseContract;
+use InetStudio\ACL\Users\Contracts\Services\Front\Auth\RegisterServiceContract;
 use InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract as MetaServiceContract;
 
 /**

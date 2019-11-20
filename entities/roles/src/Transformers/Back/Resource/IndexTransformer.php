@@ -2,10 +2,10 @@
 
 namespace InetStudio\ACL\Roles\Transformers\Back\Resource;
 
-use Throwable;
 use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
-use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
 use InetStudio\ACL\Roles\Contracts\Transformers\Back\Resource\IndexTransformerContract;
+use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
+use Throwable;
 
 /**
  * Class IndexTransformer.
@@ -31,7 +31,7 @@ class IndexTransformer extends BaseTransformer implements IndexTransformerContra
             'actions' => view(
                 'admin.module.acl.roles::back.partials.datatables.actions',
                 [
-                    'id' => $item['id']
+                    'id' => $item['id'],
                 ]
             )->render(),
         ];

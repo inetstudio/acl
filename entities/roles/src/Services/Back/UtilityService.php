@@ -3,9 +3,9 @@
 namespace InetStudio\ACL\Roles\Services\Back;
 
 use Illuminate\Support\Collection;
-use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
 use InetStudio\ACL\Roles\Contracts\Services\Back\UtilityServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class UtilityService.

@@ -4,10 +4,10 @@ namespace InetStudio\ACL\Passwords\Http\Controllers\Front;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
+use InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front\ForgotControllerContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ForgotRequestContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetLinkResponseContract;
-use InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front\ForgotControllerContract;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
 /**
  * Class ForgotController.

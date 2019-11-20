@@ -3,7 +3,6 @@
 namespace InetStudio\ACL\Users\Providers;
 
 use Collective\Html\FormBuilder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

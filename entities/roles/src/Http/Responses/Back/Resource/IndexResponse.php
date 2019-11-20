@@ -26,7 +26,6 @@ class IndexResponse implements IndexResponseContract
         $this->datatableService = $datatableService;
     }
 
-
     /**
      * Возвращаем ответ при открытии списка объектов.
      *

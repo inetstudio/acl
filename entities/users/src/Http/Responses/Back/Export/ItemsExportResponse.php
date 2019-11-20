@@ -3,9 +3,9 @@
 namespace InetStudio\ACL\Users\Http\Responses\Back\Export;
 
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use InetStudio\ACL\Users\Contracts\Exports\ItemsExportContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Export\ItemsExportResponseContract;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class ItemsExportResponse.

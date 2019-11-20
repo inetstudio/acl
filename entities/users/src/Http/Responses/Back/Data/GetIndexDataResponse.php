@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Users\Http\Responses\Back\Data;
 
 use Illuminate\Http\Request;
-use InetStudio\ACL\Users\Contracts\Services\Back\DataTables\IndexServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Data\GetIndexDataResponseContract;
+use InetStudio\ACL\Users\Contracts\Services\Back\DataTables\IndexServiceContract;
 
 /**
  * Class GetIndexDataResponse.

@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Activations\Events\Front;
 
 use Illuminate\Queue\SerializesModels;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Activations\Contracts\Events\Front\ActivatedEventContract;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 
 /**
  * Class ActivatedEvent.

@@ -2,12 +2,12 @@
 
 namespace InetStudio\ACL\Users\Services\Front;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-use InetStudio\AdminPanel\Base\Services\BaseService;
+use Illuminate\Support\Str;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class ItemsService.
@@ -40,7 +40,7 @@ class ItemsService extends BaseService implements ItemsServiceContract
     {
         $user = $this->user;
 
-        return ($user && $user->hasRole('admin'));
+        return $user && $user->hasRole('admin');
     }
 
     /**

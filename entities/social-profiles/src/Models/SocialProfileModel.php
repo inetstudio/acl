@@ -2,12 +2,12 @@
 
 namespace InetStudio\ACL\SocialProfiles\Models;
 
-use OwenIt\Auditing\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract;
 use InetStudio\ACL\Users\Models\Traits\HasUser;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
-use InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract;
+use OwenIt\Auditing\Auditable;
 
 /**
  * Class SocialProfileModel.

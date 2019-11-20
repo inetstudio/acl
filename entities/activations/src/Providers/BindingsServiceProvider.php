@@ -11,8 +11,8 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 class BindingsServiceProvider extends BaseServiceProvider implements DeferrableProvider
 {
     /**
-    * @var  array
-    */
+     * @var  array
+     */
     public $bindings = [
         'InetStudio\ACL\Activations\Contracts\Events\Front\ActivatedEventContract' => 'InetStudio\ACL\Activations\Events\Front\ActivatedEvent',
         'InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract' => 'InetStudio\ACL\Activations\Events\Front\SocialActivatedEvent',

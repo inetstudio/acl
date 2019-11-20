@@ -4,8 +4,8 @@ namespace InetStudio\ACL\Passwords\Services\Front;
 
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\PasswordBroker;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Passwords\Contracts\Services\Front\ItemsServiceContract;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract as UsersServiceContract;
 
 /**

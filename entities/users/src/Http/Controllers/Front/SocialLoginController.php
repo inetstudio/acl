@@ -3,13 +3,13 @@
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
-use InetStudio\ACL\Users\Contracts\Http\Requests\Front\EmailRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\SocialLoginControllerContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\AskEmailResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Requests\Front\EmailRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\ApproveEmailResponseContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\RedirectToProviderResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\AskEmailResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\HandleProviderCallbackResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\RedirectToProviderResponseContract;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
 /**
  * Class SocialLoginController.

@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Roles\Http\Responses\Back\Resource;
 
 use Illuminate\Http\Request;
-use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
 use InetStudio\ACL\Roles\Contracts\Http\Responses\Back\Resource\DestroyResponseContract;
+use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
 
 /**
  * Class DestroyResponse.

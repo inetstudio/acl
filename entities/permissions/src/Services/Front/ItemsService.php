@@ -2,9 +2,9 @@
 
 namespace InetStudio\ACL\Permissions\Services\Front;
 
-use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 use InetStudio\ACL\Permissions\Contracts\Services\Front\ItemsServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class ItemsService.

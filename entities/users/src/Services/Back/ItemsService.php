@@ -2,13 +2,13 @@
 
 namespace InetStudio\ACL\Users\Services\Back;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\ACL\Users\Contracts\Services\Back\ItemsServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class ItemsService.

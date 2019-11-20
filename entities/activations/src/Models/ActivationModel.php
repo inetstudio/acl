@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Activations\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use InetStudio\ACL\Users\Models\Traits\HasUser;
 use InetStudio\ACL\Activations\Contracts\Models\ActivationModelContract;
+use InetStudio\ACL\Users\Models\Traits\HasUser;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
 
 /**

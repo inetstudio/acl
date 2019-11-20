@@ -2,13 +2,13 @@
 
 namespace InetStudio\ACL\Roles\Services\Back;
 
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use InetStudio\AdminPanel\Base\Services\BaseService;
-use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
+use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
 use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class ItemsService.

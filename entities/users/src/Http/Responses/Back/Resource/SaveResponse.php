@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Users\Http\Responses\Back\Resource;
 
 use Illuminate\Http\Request;
-use InetStudio\ACL\Users\Contracts\Services\Back\ItemsServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\SaveResponseContract;
+use InetStudio\ACL\Users\Contracts\Services\Back\ItemsServiceContract;
 
 /**
  * Class SaveResponse.

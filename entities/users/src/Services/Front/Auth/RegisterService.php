@@ -2,11 +2,11 @@
 
 namespace InetStudio\ACL\Users\Services\Front\Auth;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
-use InetStudio\AdminPanel\Base\Services\BaseService;
+use Illuminate\Support\Str;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\Auth\RegisterServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class RegisterService.

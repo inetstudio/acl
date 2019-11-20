@@ -2,10 +2,10 @@
 
 namespace InetStudio\ACL\Roles\Models;
 
-use OwenIt\Auditing\Auditable;
-use Laratrust\Models\LaratrustRole;
 use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
+use Laratrust\Models\LaratrustRole;
+use OwenIt\Auditing\Auditable;
 
 /**
  * Class RoleModel.

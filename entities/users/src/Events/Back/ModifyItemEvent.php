@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Users\Events\Back;
 
 use Illuminate\Queue\SerializesModels;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Events\Back\ModifyItemEventContract;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 
 /**
  * Class ModifyItemEvent.
