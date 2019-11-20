@@ -3,9 +3,9 @@
 namespace InetStudio\ACL\Permissions\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Permissions\Contracts\Http\Controllers\Back\DataControllerContract;
 use InetStudio\ACL\Permissions\Contracts\Http\Responses\Back\Data\GetIndexDataResponseContract;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
 /**
  * Class DataController.

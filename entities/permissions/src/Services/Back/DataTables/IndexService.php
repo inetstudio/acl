@@ -3,13 +3,13 @@
 namespace InetStudio\ACL\Permissions\Services\Back\DataTables;
 
 use Exception;
-use Yajra\DataTables\DataTables;
-use Illuminate\Http\JsonResponse;
-use Yajra\DataTables\Html\Builder;
-use Yajra\DataTables\Services\DataTable;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\JsonResponse;
 use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 use InetStudio\ACL\Permissions\Contracts\Services\Back\DataTables\IndexServiceContract;
+use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Html\Builder;
+use Yajra\DataTables\Services\DataTable;
 
 /**
  * Class IndexService.
@@ -98,7 +98,7 @@ class IndexService extends DataTable implements IndexServiceContract
                 'name' => 'actions',
                 'title' => 'Действия',
                 'orderable' => false,
-                'searchable' => false
+                'searchable' => false,
             ],
         ];
     }

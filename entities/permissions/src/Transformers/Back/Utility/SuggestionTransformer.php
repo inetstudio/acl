@@ -2,9 +2,9 @@
 
 namespace InetStudio\ACL\Permissions\Transformers\Back\Utility;
 
-use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
 use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 use InetStudio\ACL\Permissions\Contracts\Transformers\Back\Utility\SuggestionTransformerContract;
+use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
 
 /**
  * Class SuggestionTransformer.

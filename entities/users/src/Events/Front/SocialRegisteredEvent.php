@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Users\Events\Front;
 
 use Illuminate\Queue\SerializesModels;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 
 /**
  * Class SocialRegisteredEvent.

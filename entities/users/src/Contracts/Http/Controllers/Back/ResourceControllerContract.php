@@ -4,12 +4,12 @@ namespace InetStudio\ACL\Users\Contracts\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Back\SaveItemRequestContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\SaveResponseContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\ShowResponseContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\EditResponseContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\IndexResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\CreateResponseContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\DestroyResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\EditResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\IndexResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\SaveResponseContract;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Resource\ShowResponseContract;
 
 /**
  * Interface ResourceControllerContract.

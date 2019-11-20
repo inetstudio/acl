@@ -2,14 +2,12 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Contracts\Foundation\Application;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
-use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\RegisterControllerContract;
+use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Register\RegisterResponseContract;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
 /**
  * Class RegisterController.

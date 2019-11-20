@@ -11,8 +11,8 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 class BindingsServiceProvider extends BaseServiceProvider implements DeferrableProvider
 {
     /**
-    * @var  array
-    */
+     * @var  array
+     */
     public $bindings = [
         'InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract' => 'InetStudio\ACL\SocialProfiles\Models\SocialProfileModel',
         'InetStudio\ACL\SocialProfiles\Contracts\Services\Back\ItemsServiceContract' => 'InetStudio\ACL\SocialProfiles\Services\Back\ItemsService',

@@ -4,8 +4,8 @@ namespace InetStudio\ACL\Users\Http\Responses\Front\Social;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use InetStudio\ACL\Users\Contracts\Services\Front\Auth\SocialServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\ApproveEmailResponseContract;
+use InetStudio\ACL\Users\Contracts\Services\Front\Auth\SocialServiceContract;
 use InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract as MetaServiceContract;
 
 /**

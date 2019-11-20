@@ -2,8 +2,8 @@
 
 namespace InetStudio\ACL\Passwords\Validation\Rules;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use InetStudio\ACL\Passwords\Contracts\Validation\Rules\CheckPasswordContract;
 
 /**
@@ -36,7 +36,7 @@ class CheckPassword implements CheckPasswordContract, Rule
      */
     public function passes($attribute, $value)
     {
-        return ($value == '' || Hash::check($value, $this->currentHash));
+        return $value == '' || Hash::check($value, $this->currentHash);
     }
 
     /**

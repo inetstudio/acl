@@ -2,8 +2,8 @@
 
 namespace InetStudio\ACL\Activations\Notifications\Front;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Notifications\Notification;
 use InetStudio\ACL\Activations\Contracts\Mail\Front\ActivateUserTokenMailContract;
 use InetStudio\ACL\Activations\Contracts\Notifications\Front\ActivateUserTokenNotificationContract;
 

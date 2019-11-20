@@ -2,10 +2,10 @@
 
 namespace InetStudio\ACL\Permissions\Models;
 
-use OwenIt\Auditing\Auditable;
-use Laratrust\Models\LaratrustPermission;
 use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
+use Laratrust\Models\LaratrustPermission;
+use OwenIt\Auditing\Auditable;
 
 /**
  * Class PermissionModel.

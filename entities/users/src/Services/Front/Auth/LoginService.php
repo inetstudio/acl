@@ -2,12 +2,10 @@
 
 namespace InetStudio\ACL\Users\Services\Front\Auth;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\Auth\LoginServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class LoginService.

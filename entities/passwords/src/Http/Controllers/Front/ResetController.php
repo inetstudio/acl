@@ -2,14 +2,14 @@
 
 namespace InetStudio\ACL\Passwords\Http\Controllers\Front;
 
-use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Contracts\Foundation\Application;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
-use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ResetRequestContract;
-use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetResponseContract;
+use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 use InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front\ResetControllerContract;
+use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ResetRequestContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetFormResponseContract;
+use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetResponseContract;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
 /**
  * Class ResetController.

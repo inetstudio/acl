@@ -2,9 +2,9 @@
 
 namespace InetStudio\ACL\SocialProfiles\Services\Back;
 
-use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\ACL\SocialProfiles\Contracts\Models\SocialProfileModelContract;
 use InetStudio\ACL\SocialProfiles\Contracts\Services\Back\ItemsServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class ItemsService.

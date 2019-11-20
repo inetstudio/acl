@@ -4,8 +4,8 @@ namespace InetStudio\ACL\Activations\Http\Responses\Front;
 
 use Illuminate\Http\Request;
 use InetStudio\ACL\Activations\Contracts\Http\Responses\Front\ActivateResponseContract;
-use InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract as MetaServiceContract;
 use InetStudio\ACL\Activations\Contracts\Services\Front\ItemsServiceContract as ActivationsServiceContract;
+use InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract as MetaServiceContract;
 
 /**
  * Class ActivateResponse.

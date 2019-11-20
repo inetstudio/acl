@@ -2,16 +2,16 @@
 
 namespace InetStudio\ACL\Activations\Services\Front;
 
-use Exception;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use InetStudio\AdminPanel\Base\Services\BaseService;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
+use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use InetStudio\ACL\Activations\Contracts\Models\ActivationModelContract;
 use InetStudio\ACL\Activations\Contracts\Services\Front\ItemsServiceContract;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract as UsersServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class ItemsService.

@@ -4,8 +4,8 @@ namespace InetStudio\ACL\Passwords\Contracts\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ResetRequestContract;
-use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetResponseContract;
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetFormResponseContract;
+use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetResponseContract;
 
 /**
  * Interface ResetControllerContract.

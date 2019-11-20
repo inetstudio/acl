@@ -11,8 +11,8 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 class BindingsServiceProvider extends BaseServiceProvider implements DeferrableProvider
 {
     /**
-    * @var  array
-    */
+     * @var  array
+     */
     public $bindings = [
         'InetStudio\ACL\Permissions\Contracts\Events\Back\ModifyItemEventContract' => 'InetStudio\ACL\Permissions\Events\Back\ModifyItemEvent',
         'InetStudio\ACL\Permissions\Contracts\Http\Controllers\Back\DataControllerContract' => 'InetStudio\ACL\Permissions\Http\Controllers\Back\DataController',

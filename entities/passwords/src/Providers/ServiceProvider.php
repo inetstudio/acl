@@ -52,7 +52,7 @@ class ServiceProvider extends BaseServiceProvider
     protected function registerValidators(): void
     {
         Validator::extend('check_password', function ($attribute, $value, $parameters, $validator) {
-            return ($value == '' || Hash::check($value, current($parameters)));
+            return $value == '' || Hash::check($value, current($parameters));
         });
     }
 }

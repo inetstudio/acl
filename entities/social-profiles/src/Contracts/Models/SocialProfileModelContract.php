@@ -2,8 +2,8 @@
 
 namespace InetStudio\ACL\SocialProfiles\Contracts\Models;
 
-use OwenIt\Auditing\Contracts\Auditable;
 use InetStudio\AdminPanel\Base\Contracts\Models\BaseModelContract;
+use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * Interface SocialProfileModelContract.

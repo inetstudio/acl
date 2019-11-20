@@ -4,8 +4,8 @@ namespace InetStudio\ACL\Users\Http\Responses\Front\Social;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\AskEmailResponseContract;
+use InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract;
 
 /**
  * Class AskEmailResponse.

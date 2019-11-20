@@ -2,13 +2,13 @@
 
 namespace InetStudio\ACL\Profiles\Models;
 
-use OwenIt\Auditing\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use InetStudio\ACL\Users\Models\Traits\HasUser;
-use InetStudio\AdminPanel\Models\Traits\HasJSONColumns;
 use InetStudio\ACL\Profiles\Contracts\Models\ProfileModelContract;
+use InetStudio\ACL\Users\Models\Traits\HasUser;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
+use InetStudio\AdminPanel\Models\Traits\HasJSONColumns;
+use OwenIt\Auditing\Auditable;
 
 /**
  * Class ProfileModel.

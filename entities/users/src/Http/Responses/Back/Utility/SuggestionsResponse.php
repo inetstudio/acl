@@ -2,12 +2,12 @@
 
 namespace InetStudio\ACL\Users\Http\Responses\Back\Utility;
 
-use League\Fractal\Manager;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Support\Responsable;
-use League\Fractal\Serializer\DataArraySerializer;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Utility\SuggestionsResponseContract;
+use League\Fractal\Manager;
+use League\Fractal\Serializer\DataArraySerializer;
 
 /**
  * Class SuggestionsResponse.

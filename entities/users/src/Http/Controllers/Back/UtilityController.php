@@ -3,9 +3,9 @@
 namespace InetStudio\ACL\Users\Http\Controllers\Back;
 
 use Illuminate\Http\Request;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Back\UtilityControllerContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Utility\SuggestionsResponseContract;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
 /**
  * Class UtilityController.

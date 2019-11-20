@@ -2,9 +2,9 @@
 
 namespace InetStudio\ACL\Roles\Services\Front;
 
-use InetStudio\AdminPanel\Base\Services\BaseService;
 use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
 use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
 
 /**
  * Class ItemsService.

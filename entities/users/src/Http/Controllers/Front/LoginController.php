@@ -2,19 +2,19 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use InetStudio\ACL\Users\Contracts\Http\Requests\Front\LoginRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Controllers\Front\LoginControllerContract;
+use InetStudio\ACL\Users\Contracts\Http\Requests\Front\LoginRequestContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Login\LogoutResponseContract;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
+use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
 /**
  * Class LoginController.

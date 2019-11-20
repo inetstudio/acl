@@ -3,9 +3,9 @@
 namespace InetStudio\ACL\Users\Http\Responses\Front\Social;
 
 use Illuminate\Http\Request;
+use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\HandleProviderCallbackResponseContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\Auth\SocialServiceContract;
 use InetStudio\MetaPackage\Meta\Contracts\Services\Front\ItemsServiceContract as MetaServiceContract;
-use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\HandleProviderCallbackResponseContract;
 
 /**
  * Class HandleProviderCallbackResponse.
@@ -44,7 +44,7 @@ class HandleProviderCallbackResponse implements HandleProviderCallbackResponseCo
     public function toResponse($request)
     {
         $provider = $request->route('provider', '');
-        
+
         $user = $this->socialService->callback($provider);
 
         if (! $user) {

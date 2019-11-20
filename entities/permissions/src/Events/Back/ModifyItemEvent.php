@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Permissions\Events\Back;
 
 use Illuminate\Queue\SerializesModels;
-use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 use InetStudio\ACL\Permissions\Contracts\Events\Back\ModifyItemEventContract;
+use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 
 /**
  * Class ModifyItemEvent.

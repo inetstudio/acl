@@ -2,8 +2,8 @@
 
 namespace InetStudio\ACL\Passwords\Notifications\Front;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Notifications\Notification;
 use InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetMailContract;
 use InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetNotificationContract;
 

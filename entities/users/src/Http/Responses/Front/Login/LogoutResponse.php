@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Users\Http\Responses\Front\Login;
 
 use Illuminate\Http\Request;
-use InetStudio\ACL\Users\Contracts\Services\Front\Auth\LoginServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Login\LogoutResponseContract;
+use InetStudio\ACL\Users\Contracts\Services\Front\Auth\LoginServiceContract;
 
 /**
  * Class LogoutResponse.

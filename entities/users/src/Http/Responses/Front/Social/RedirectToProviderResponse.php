@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Users\Http\Responses\Front\Social;
 
 use Illuminate\Http\Request;
-use InetStudio\ACL\Users\Contracts\Services\Front\Auth\SocialServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\RedirectToProviderResponseContract;
+use InetStudio\ACL\Users\Contracts\Services\Front\Auth\SocialServiceContract;
 
 /**
  * Class RedirectToProviderResponse.

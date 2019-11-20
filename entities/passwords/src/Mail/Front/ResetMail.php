@@ -4,8 +4,8 @@ namespace InetStudio\ACL\Passwords\Mail\Front;
 
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Passwords\Contracts\Mail\Front\ResetMailContract;
+use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 
 /**
  * Class ResetMail.

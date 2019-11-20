@@ -3,8 +3,8 @@
 namespace InetStudio\ACL\Roles\Transformers\Back\Utility;
 
 use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
-use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
 use InetStudio\ACL\Roles\Contracts\Transformers\Back\Utility\SuggestionTransformerContract;
+use InetStudio\AdminPanel\Base\Transformers\BaseTransformer;
 
 /**
  * Class SuggestionTransformer.

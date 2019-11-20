@@ -3,14 +3,14 @@
 namespace InetStudio\ACL\Users\Services\Front\Auth;
 
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Laravel\Socialite\Facades\Socialite;
-use InetStudio\AdminPanel\Base\Services\BaseService;
+use InetStudio\ACL\SocialProfiles\Contracts\Services\Front\ItemsServiceContract as SocialProfilesServiceContract;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\Auth\SocialServiceContract;
-use InetStudio\ACL\SocialProfiles\Contracts\Services\Front\ItemsServiceContract as SocialProfilesServiceContract;
+use InetStudio\AdminPanel\Base\Services\BaseService;
+use Laravel\Socialite\Facades\Socialite;
 
 /**
  * Class SocialService.
