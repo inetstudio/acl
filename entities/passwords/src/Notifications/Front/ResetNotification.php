@@ -58,6 +58,6 @@ class ResetNotification extends Notification implements ResetNotificationContrac
                 'token' => $this->token,
                 'user' => $notifiable,
             ]
-        );
+        )->to($notifiable->email);
     }
 }

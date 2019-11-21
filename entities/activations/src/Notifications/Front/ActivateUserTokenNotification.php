@@ -57,6 +57,6 @@ class ActivateUserTokenNotification extends Notification implements ActivateUser
             [
                 'token' => $this->token,
             ]
-        );
+        )->to($notifiable->email);
     }
 }
