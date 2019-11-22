@@ -35,9 +35,10 @@ class RedirectToProviderResponse implements RedirectToProviderResponseContract
      */
     public function toResponse($request)
     {
+        $data = $request->all();
         $provider = $request->route('provider', '');
 
-        $response = $this->socialService->redirect($provider);
+        $response = $this->socialService->redirect($data, $provider);
 
         return $response;
     }

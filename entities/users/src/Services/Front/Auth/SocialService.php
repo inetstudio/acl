@@ -4,7 +4,6 @@ namespace InetStudio\ACL\Users\Services\Front\Auth;
 
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
-Use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use InetStudio\ACL\SocialProfiles\Contracts\Services\Front\ItemsServiceContract as SocialProfilesServiceContract;
@@ -40,12 +39,12 @@ class SocialService extends BaseService implements SocialServiceContract
     /**
      * Редирект на авторизацию в социальной сети.
      *
+     * @param array $data
      * @param string $provider
-     * @param Request $request
      *
      * @return RedirectResponse
      */
-    public function redirect(Request $request, string $provider): RedirectResponse
+    public function redirect(array $data, string $provider): RedirectResponse
     {
         $driver = Socialite::driver($provider);
 
@@ -53,7 +52,7 @@ class SocialService extends BaseService implements SocialServiceContract
             $driver->stateless()->scopes(['email']);
         }
 
-        $driver->with($request->all());
+        $driver->with($data);
 
         return $driver->redirect();
     }
