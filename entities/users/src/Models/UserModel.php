@@ -87,7 +87,7 @@ class UserModel extends Authenticatable implements UserModelContract
         parent::boot();
 
         self::creating(function ($model) {
-            $referrerHash = (Cookie::queued('user_referer')) ? Cookie::queued('user_referer')->getValue() : Cookie::get('user_referer');
+            $referrerHash = (Cookie::queued('user_referrer')) ? Cookie::queued('user_referrer')->getValue() : Cookie::get('user_referrer');
 
             if ($referrerHash) {
                 $referrer = self::where('user_hash', $referrerHash)->first();

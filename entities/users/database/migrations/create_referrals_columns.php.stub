@@ -15,7 +15,7 @@ class CreateReferralsColumns extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('user_hash')->after('id')->unique();
-            $table->unsignedBigInteger('referer_id')->nullable()->after('id')->index();
+            $table->unsignedBigInteger('referrer_id')->nullable()->after('id')->index();
         });
     }
 
@@ -28,7 +28,7 @@ class CreateReferralsColumns extends Migration
     {
         Schema::table('feedback', function (Blueprint $table) {
             $table->dropColumn('user_hash');
-            $table->dropColumn('referer_id');
+            $table->dropColumn('referrer_id');
         });
     }
 }

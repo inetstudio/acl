@@ -57,7 +57,7 @@ class ServiceProvider extends BaseServiceProvider
             __DIR__.'/../../config/filesystems.php', 'filesystems.disks'
         );
 
-        if (Schema::hasColumn('users', 'user_hash') || Schema::hasColumn('users', 'referer_id')) {
+        if (Schema::hasColumn('users', 'user_hash') || Schema::hasColumn('users', 'referrer_id')) {
             return;
         }
 
