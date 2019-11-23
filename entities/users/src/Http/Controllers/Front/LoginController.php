@@ -2,6 +2,7 @@
 
 namespace InetStudio\ACL\Users\Http\Controllers\Front;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -67,6 +68,7 @@ class LoginController extends Controller implements LoginControllerContract
         }
 
         if ($this->attemptLogin($baseRequest)) {
+            Session::put('login_type', 'regular');
             return $this->sendLoginResponseJSON($baseRequest);
         }
 
@@ -188,6 +190,8 @@ class LoginController extends Controller implements LoginControllerContract
      */
     public function logout(Request $request, LogoutResponseContract $response): LogoutResponseContract
     {
+        Session::forget('login_type');
+        
         return $response;
     }
 }
