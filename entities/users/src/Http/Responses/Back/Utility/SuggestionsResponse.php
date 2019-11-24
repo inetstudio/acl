@@ -4,10 +4,11 @@ namespace InetStudio\ACL\Users\Http\Responses\Back\Utility;
 
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Collection;
+use InetStudio\AdminPanel\Base\Contracts\Serializers\SimpleDataArraySerializerContract;
+use InetStudio\ACL\Users\Contracts\Services\Back\UtilityServiceContract;
 use InetStudio\ACL\Users\Contracts\Http\Responses\Back\Utility\SuggestionsResponseContract;
 use League\Fractal\Manager;
-use League\Fractal\Serializer\DataArraySerializer;
+use InetStudio\ACL\Users\Contracts\Transformers\Back\Utility\SuggestionTransformerContract;
 
 /**
  * Class SuggestionsResponse.
@@ -15,25 +16,35 @@ use League\Fractal\Serializer\DataArraySerializer;
 class SuggestionsResponse implements SuggestionsResponseContract, Responsable
 {
     /**
-     * @var array
+     * @var UtilityServiceContract
      */
-    private $suggestions;
+    protected $utilityService;
 
     /**
-     * @var string
+     * @var SuggestionTransformerContract
      */
-    private $type;
+    protected $transformer;
 
     /**
-     * SuggestionsResponse constructor.
+     * @var SimpleDataArraySerializerContract
+     */
+    protected $serializer;
+
+    /**
+     * CreateResponse constructor.
      *
-     * @param Collection $suggestions
-     * @param string $type
+     * @param  UtilityServiceContract  $utilityService
+     * @param  SuggestionTransformerContract  $transformer
+     * @param  SimpleDataArraySerializerContract  $serializer
      */
-    public function __construct(Collection $suggestions, string $type)
-    {
-        $this->suggestions = $suggestions;
-        $this->type = $type;
+    public function __construct(
+        UtilityServiceContract $utilityService,
+        SuggestionTransformerContract $transformer,
+        SimpleDataArraySerializerContract $serializer
+    ) {
+        $this->utilityService = $utilityService;
+        $this->transformer = $transformer;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -45,20 +56,28 @@ class SuggestionsResponse implements SuggestionsResponseContract, Responsable
      */
     public function toResponse($request): JsonResponse
     {
-        $resource = (app()->makeWith(
-            'InetStudio\ACL\Users\Contracts\Transformers\Back\SuggestionTransformerContract', [
-            'type' => $this->type,
-        ]))->transformCollection($this->suggestions);
+        $search = $request->get('q', '') ?? '';
+        $type = $request->get('type', '') ?? '';
+
+        $items = $this->utilityService->getSuggestions($search);
+
+        $this->transformer->setType($type);
+        $resource = $this->transformer->transformCollection($items);
 
         $manager = new Manager();
-        $manager->setSerializer(new DataArraySerializer());
+        $manager->setSerializer($this->serializer);
 
         $transformation = $manager->createData($resource)->toArray();
 
-        if ($this->type == 'autocomplete') {
-            $data['suggestions'] = $transformation['data'];
+        $data = [
+            'suggestions' => [],
+            'items' => [],
+        ];
+
+        if ($type == 'autocomplete') {
+            $data['suggestions'] = $transformation;
         } else {
-            $data['items'] = $transformation['data'];
+            $data['items'] = $transformation;
         }
 
         return response()->json($data);
