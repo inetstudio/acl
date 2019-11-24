@@ -155,6 +155,10 @@ class SocialService extends BaseService implements SocialServiceContract
                 'activated' => ($approveEmail) ? 0 : 1,
             ], 0);
 
+            if ($socialUser->avatar) {
+                $user->addMediaFromUrl($socialUser->avatar)->toMediaCollection('image', 'users');
+            }
+
             $socialProfile->user()->associate($user);
             $socialProfile->save();
 

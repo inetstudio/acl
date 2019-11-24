@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
+use InetStudio\Uploads\Models\Traits\HasImages;
 use Laratrust\Traits\LaratrustUserTrait;
 use OwenIt\Auditing\Auditable;
 
@@ -23,6 +24,7 @@ use OwenIt\Auditing\Auditable;
 class UserModel extends Authenticatable implements UserModelContract
 {
     use Auditable;
+    use HasImages;
     use Notifiable;
     use LaratrustUserTrait;
     use BuildQueryScopeTrait;
@@ -43,6 +45,16 @@ class UserModel extends Authenticatable implements UserModelContract
      * @var bool
      */
     protected $auditTimestamps = true;
+
+    /**
+     * Настройки для генерации изображений.
+     *
+     * @var array
+     */
+    protected $images = [
+        'config' => 'acl_users',
+        'model' => 'user',
+    ];
 
     /**
      * Связанная с моделью таблица.

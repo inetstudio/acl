@@ -191,7 +191,7 @@ class LoginController extends Controller implements LoginControllerContract
     public function logout(Request $request, LogoutResponseContract $response): LogoutResponseContract
     {
         Session::forget('login_type');
-        
+
         return $response;
     }
 }
