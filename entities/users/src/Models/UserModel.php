@@ -229,7 +229,17 @@ class UserModel extends Authenticatable implements UserModelContract
             $model = isset($data['model']) ? [app()->make($data['model'])] : [];
             $params = isset($data['params']) ? $data['params'] : [];
 
-            return call_user_func_array([$this, $data['relationship']], array_merge($model, $params));
+            $relation = call_user_func_array([$this, $data['relationship']], array_merge($model, $params));
+
+            if (isset($data['pivot'])) {
+                $relation = $relation->withPivot($data['pivot']);
+            }
+
+            if ($data['timestamps'] ?? false) {
+                $relation = $relation->withTimestamps();
+            }
+
+            return $relation;
         }
 
         return parent::__call($method, $parameters);
