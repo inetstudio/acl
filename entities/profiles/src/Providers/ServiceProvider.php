@@ -21,8 +21,6 @@ class ServiceProvider extends BaseServiceProvider
 
     /**
      * Регистрация команд.
-     *
-     * @return void
      */
     protected function registerConsoleCommands(): void
     {

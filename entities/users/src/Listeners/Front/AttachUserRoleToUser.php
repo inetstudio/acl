@@ -29,8 +29,6 @@ class AttachUserRoleToUser implements AttachUserRoleToUserContract
      * Handle the event.
      *
      * @param $event
-     *
-     * @return void
      */
     public function handle($event): void
     {

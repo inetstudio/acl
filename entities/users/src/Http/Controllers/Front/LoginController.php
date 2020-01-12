@@ -82,8 +82,6 @@ class LoginController extends Controller implements LoginControllerContract
      *
      * @param  Request  $request
      *
-     * @return void
-     *
      * @throws ValidationException
      */
     protected function sendLockoutResponse(Request $request)

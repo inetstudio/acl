@@ -31,8 +31,6 @@ class EventsServiceProvider extends ServiceProvider
 
     /**
      * Загрузка сервиса.
-     *
-     * @return void
      */
     public function boot(): void
     {
