@@ -52,7 +52,9 @@ class SocialService extends BaseService implements SocialServiceContract
             $driver->stateless()->scopes(['email']);
         }
 
-        $driver->with($data);
+        if ($provider !== 'twitter') {
+            $driver->with($data);
+        }
 
         return $driver->redirect();
     }
