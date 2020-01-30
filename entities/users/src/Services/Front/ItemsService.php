@@ -5,7 +5,10 @@ namespace InetStudio\ACL\Users\Services\Front;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Contracts\Auth\Authenticatable;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract;
 use InetStudio\AdminPanel\Base\Services\BaseService;
 
@@ -29,6 +32,24 @@ class ItemsService extends BaseService implements ItemsServiceContract
         parent::__construct($model);
 
         $this->user = Auth::user();
+    }
+
+    /**
+     * Получаем имя класса пользователя.
+     *
+     * @return Authenticatable
+     *
+     * @throws BindingResolutionException
+     */
+    public function resolveUserModel(): Authenticatable
+    {
+        $userClassName = Config::get('auth.model');
+
+        if (is_null($userClassName)) {
+            $userClassName = Config::get('auth.providers.users.model');
+        }
+
+        return app()->make($userClassName);
     }
 
     /**
@@ -74,11 +95,15 @@ class ItemsService extends BaseService implements ItemsServiceContract
     /**
      * Возвращаем id пользователя или хэш гостя.
      *
-     * @return mixed
+     * @param  null  $userId
+     *
+     * @return array|int|\Ramsey\Uuid\UuidInterface|string|null
      */
-    public function getUserIdOrHash()
+    public function getUserIdOrHash($userId = null)
     {
-        $userId = $this->getUserId();
+        if (is_null($userId)) {
+            $userId = $this->getUserId();
+        }
 
         if (! $userId) {
             $cookieData = request()->cookie('guest_user_hash');
