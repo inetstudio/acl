@@ -1,4 +1,4 @@
-@inject('usersService', 'InetStudio\ACL\Users\Services\Back\ItemsServiceContract')
+@inject('usersService', 'InetStudio\ACL\Users\Contracts\Services\Back\ItemsServiceContract')
 
 @php
     $registrations = $usersService->getItemsStatisticByActivation();

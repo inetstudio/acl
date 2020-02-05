@@ -17,7 +17,7 @@ class LogoutResponse implements LogoutResponseContract
     protected $loginService;
 
     /**
-     * ApproveEmailResponse constructor.
+     * LogoutResponse constructor.
      *
      * @param  LoginServiceContract  $loginService
      */
