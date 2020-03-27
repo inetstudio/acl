@@ -1,16 +1,16 @@
 <?php
 
-namespace InetStudio\ACL\Passwords\Notifications\Front;
+namespace InetStudio\ACL\Users\Notifications;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Notifications\Notification;
-use InetStudio\ACL\Passwords\Contracts\Mail\Front\NewCredentialsMailContract;
-use InetStudio\ACL\Passwords\Contracts\Notifications\Front\NewCredentialsNotificationContract;
+use InetStudio\ACL\Users\Contracts\Mail\CredentialsMailContract;
+use InetStudio\ACL\Users\Contracts\Notifications\CredentialsNotificationContract;
 
 /**
- * Class NewCredentialsNotification.
+ * Class CredentialsNotification.
  */
-class NewCredentialsNotification extends Notification implements NewCredentialsNotificationContract
+class CredentialsNotification extends Notification implements CredentialsNotificationContract
 {
     /**
      * Пароль.
@@ -20,7 +20,7 @@ class NewCredentialsNotification extends Notification implements NewCredentialsN
     protected $password;
 
     /**
-     * NewCredentialsNotification constructor.
+     * CredentialsNotification constructor.
      *
      * @param  string  $password
      */
@@ -46,14 +46,14 @@ class NewCredentialsNotification extends Notification implements NewCredentialsN
      *
      * @param $notifiable
      *
-     * @return NewCredentialsMailContract
+     * @return CredentialsMailContract
      *
      * @throws BindingResolutionException
      */
-    public function toMail($notifiable): NewCredentialsMailContract
+    public function toMail($notifiable): CredentialsMailContract
     {
         return app()->make(
-            NewCredentialsMailContract::class,
+            CredentialsMailContract::class,
             [
                 'password' => $this->password,
                 'user' => $notifiable,

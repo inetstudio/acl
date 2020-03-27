@@ -15,6 +15,7 @@ class BindingsServiceProvider extends BaseServiceProvider implements DeferrableP
      */
     public $bindings = [
         'InetStudio\ACL\Users\Contracts\Events\Back\ModifyItemEventContract' => 'InetStudio\ACL\Users\Events\Back\ModifyItemEvent',
+        'InetStudio\ACL\Users\Contracts\Events\Front\RegisteredEventContract' => 'InetStudio\ACL\Users\Events\Front\RegisteredEvent',
         'InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract' => 'InetStudio\ACL\Users\Events\Front\SocialRegisteredEvent',
         'InetStudio\ACL\Users\Contracts\Exports\ItemsExportContract' => 'InetStudio\ACL\Users\Exports\ItemsExport',
         'InetStudio\ACL\Users\Contracts\Http\Controllers\Back\DataControllerContract' => 'InetStudio\ACL\Users\Http\Controllers\Back\DataController',
@@ -45,10 +46,13 @@ class BindingsServiceProvider extends BaseServiceProvider implements DeferrableP
         'InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\AskEmailResponseContract' => 'InetStudio\ACL\Users\Http\Responses\Front\Social\AskEmailResponse',
         'InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\HandleProviderCallbackResponseContract' => 'InetStudio\ACL\Users\Http\Responses\Front\Social\HandleProviderCallbackResponse',
         'InetStudio\ACL\Users\Contracts\Http\Responses\Front\Social\RedirectToProviderResponseContract' => 'InetStudio\ACL\Users\Http\Responses\Front\Social\RedirectToProviderResponse',
+        'InetStudio\ACL\Users\Contracts\Listeners\SendCredentialsListenerContract' => 'InetStudio\ACL\Users\Listeners\SendCredentialsListener',
         'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachSocialRoleToUserContract' => 'InetStudio\ACL\Users\Listeners\Front\AttachSocialRoleToUser',
         'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract' => 'InetStudio\ACL\Users\Listeners\Front\AttachUserRoleToUser',
+        'InetStudio\ACL\Users\Contracts\Mail\CredentialsMailContract' => 'InetStudio\ACL\Users\Mail\CredentialsMail',
         'InetStudio\ACL\Users\Contracts\Mail\NewUserMailContract' => 'InetStudio\ACL\Users\Mail\NewUserMail',
         'InetStudio\ACL\Users\Contracts\Models\UserModelContract' => 'InetStudio\ACL\Users\Models\UserModel',
+        'InetStudio\ACL\Users\Contracts\Notifications\CredentialsNotificationContract' => 'InetStudio\ACL\Users\Notifications\CredentialsNotification',
         'InetStudio\ACL\Users\Contracts\Notifications\NewUserNotificationContract' => 'InetStudio\ACL\Users\Notifications\NewUserNotification',
         'InetStudio\ACL\Users\Contracts\Notifications\NewUserQueueableNotificationContract' => 'InetStudio\ACL\Users\Notifications\NewUserQueueableNotification',
         'InetStudio\ACL\Users\Contracts\Services\Back\DataTables\IndexServiceContract' => 'InetStudio\ACL\Users\Services\Back\DataTables\IndexService',

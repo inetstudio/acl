@@ -31,4 +31,10 @@ return [
         'login_after_register' => false,
     ],
 
+    'users' => [
+        'mails' => [
+            'credentials_subject' => 'Данные для доступа',
+        ],
+    ],
+
 ];
