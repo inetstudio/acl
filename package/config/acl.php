@@ -23,6 +23,7 @@ return [
         'generate' => false,
         'mails' => [
             'subject' => 'Сброс пароля',
+            'new_credentials_subject' => 'Новые данные для доступа',
         ],
     ],
 

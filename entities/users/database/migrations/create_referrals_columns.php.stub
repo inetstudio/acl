@@ -24,7 +24,7 @@ class CreateReferralsColumns extends Migration
      */
     public function down()
     {
-        Schema::table('feedback', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('user_hash');
             $table->dropColumn('referrer_id');
         });

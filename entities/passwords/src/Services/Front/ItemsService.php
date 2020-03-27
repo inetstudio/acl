@@ -2,8 +2,8 @@
 
 namespace InetStudio\ACL\Passwords\Services\Front;
 
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\PasswordBroker;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use InetStudio\ACL\Passwords\Contracts\Services\Front\ItemsServiceContract;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\ACL\Users\Contracts\Services\Front\ItemsServiceContract as UsersServiceContract;
@@ -67,6 +67,8 @@ class ItemsService implements ItemsServiceContract
      *
      * @param  UserModelContract  $user
      * @param  string  $password
+     *
+     * @throws BindingResolutionException
      */
     protected function resetPasswordWithoutLogin(UserModelContract $user, string $password): void
     {
@@ -77,6 +79,11 @@ class ItemsService implements ItemsServiceContract
             $user['id']
         );
 
-        event(new PasswordReset($user));
+        event(
+            app()->make(
+                'InetStudio\ACL\Passwords\Contracts\Events\PasswordResetContract',
+                compact('user', 'password')
+            )
+        );
     }
 }
