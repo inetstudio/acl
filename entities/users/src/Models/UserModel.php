@@ -3,6 +3,7 @@
 namespace InetStudio\ACL\Users\Models;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +29,7 @@ class UserModel extends Authenticatable implements UserModelContract
     use Notifiable;
     use LaratrustUserTrait;
     use BuildQueryScopeTrait;
+    use HasFactory;
 
     /**
      * Тип сущности.
