@@ -7,4 +7,5 @@ namespace InetStudio\ACL\Activations\Contracts\Listeners\Front;
  */
 interface SendActivateNotificationListenerContract
 {
+    public function handle($event): void;
 }

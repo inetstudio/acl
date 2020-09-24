@@ -26,12 +26,13 @@ class UtilityService extends BaseService implements UtilityServiceContract
      * Получаем подсказки.
      *
      * @param  string  $search
+     * @param  array  $roles
      *
      * @return Collection
      */
-    public function getSuggestions(string $search): Collection
+    public function getSuggestions(string $search, array $roles = []): Collection
     {
-        $items = $this->model::where(
+        $builder = $this->model::where(
                 [
                     ['email', 'LIKE', '%'.$search.'%'],
                 ]
@@ -40,9 +41,12 @@ class UtilityService extends BaseService implements UtilityServiceContract
                 [
                     ['name', 'LIKE', '%'.$search.'%'],
                 ]
-            )
-            ->get();
+            );
 
-        return $items;
+        if (! empty($roles)) {
+            $builder = $builder->whereRoleIs($roles);
+        }
+
+        return $builder->get();
     }
 }

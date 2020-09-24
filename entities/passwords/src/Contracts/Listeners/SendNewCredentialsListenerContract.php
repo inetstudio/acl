@@ -7,4 +7,5 @@ namespace InetStudio\ACL\Passwords\Contracts\Listeners;
  */
 interface SendNewCredentialsListenerContract
 {
+    public function handle($event): void;
 }

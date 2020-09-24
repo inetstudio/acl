@@ -58,8 +58,9 @@ class SuggestionsResponse implements SuggestionsResponseContract, Responsable
     {
         $search = $request->get('q', '') ?? '';
         $type = $request->get('type', '') ?? '';
+        $roles = $request->get('roles', []) ?? [];
 
-        $items = $this->utilityService->getSuggestions($search);
+        $items = $this->utilityService->getSuggestions($search, $roles);
 
         $this->transformer->setType($type);
         $resource = $this->transformer->transformCollection($items);

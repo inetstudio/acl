@@ -7,4 +7,5 @@ namespace InetStudio\ACL\Profiles\Contracts\Listeners\Front;
  */
 interface CreateProfileListenerContract
 {
+    public function handle($event): void;
 }

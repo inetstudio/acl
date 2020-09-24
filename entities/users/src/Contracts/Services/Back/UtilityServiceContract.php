@@ -14,8 +14,9 @@ interface UtilityServiceContract extends BaseServiceContract
      * Получаем подсказки.
      *
      * @param  string  $search
+     * @param  array  $roles
      *
      * @return Collection
      */
-    public function getSuggestions(string $search): Collection;
+    public function getSuggestions(string $search, array $roles = []): Collection;
 }
