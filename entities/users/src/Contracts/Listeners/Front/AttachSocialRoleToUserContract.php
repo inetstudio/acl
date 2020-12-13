@@ -7,4 +7,10 @@ namespace InetStudio\ACL\Users\Contracts\Listeners\Front;
  */
 interface AttachSocialRoleToUserContract
 {
+    /**
+     * Handle the event.
+     *
+     * @param $event
+     */
+    public function handle($event): void;
 }

@@ -42,26 +42,28 @@ class ItemsService extends BaseService implements ItemsServiceContract
      * @param  int  $id
      *
      * @return UserModelContract
-     *
-     * @throws BindingResolutionException
      */
     public function save(array $data, int $id): UserModelContract
     {
         $action = ($id) ? 'отредактирован' : 'создан';
 
         $itemData = Arr::only($data, $this->model->getFillable());
+        if (! $itemData['password']) {
+            Arr::forget($itemData, ['password']);
+        }
+
         $item = $this->saveModel($itemData, $id);
 
         $rolesData = Arr::get($data, 'roles', []);
-        app()->make('InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract')
+        resolve('InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract')
             ->attachToObject($rolesData, $item);
 
         $permissionsData = Arr::get($data, 'permissions', []);
-        app()->make('InetStudio\ACL\Permissions\Contracts\Services\Back\ItemsServiceContract')
+        resolve('InetStudio\ACL\Permissions\Contracts\Services\Back\ItemsServiceContract')
             ->attachToObject($permissionsData, $item);
 
         event(
-            app()->makeWith(
+            resolve(
                 'InetStudio\ACL\Users\Contracts\Events\Back\ModifyItemEventContract',
                 compact('item')
             )
