@@ -3,28 +3,16 @@
 namespace InetStudio\ACL\Users\Http\Requests\Front;
 
 use Illuminate\Foundation\Http\FormRequest;
+use InetStudio\ACL\Passwords\Validation\Rules\StrongPassword;
 use InetStudio\ACL\Users\Contracts\Http\Requests\Front\RegisterRequestContract;
 
-/**
- * Class RegisterRequest.
- */
 class RegisterRequest extends FormRequest implements RegisterRequestContract
 {
-    /**
-     * Определить, авторизован ли пользователь для этого запроса.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Сообщения об ошибках.
-     *
-     * @return array
-     */
     public function messages(): array
     {
         return [
@@ -44,11 +32,6 @@ class RegisterRequest extends FormRequest implements RegisterRequestContract
         ];
     }
 
-    /**
-     * Правила проверки запроса.
-     *
-     * @return array
-     */
     public function rules(): array
     {
         $rules = [
@@ -58,7 +41,11 @@ class RegisterRequest extends FormRequest implements RegisterRequestContract
         ];
 
         if (! config('acl.passwords.generate')) {
-            $rules['password'] = 'required|confirmed|min:6';
+            $rules['password'] = [
+                'required',
+                'confirmed',
+                new StrongPassword(),
+            ];
         }
 
         return $rules;

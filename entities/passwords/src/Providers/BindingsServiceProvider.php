@@ -29,6 +29,7 @@ class BindingsServiceProvider extends BaseServiceProvider implements DeferrableP
         'InetStudio\ACL\Passwords\Contracts\Notifications\Front\ResetNotificationContract' => 'InetStudio\ACL\Passwords\Notifications\Front\ResetNotification',
         'InetStudio\ACL\Passwords\Contracts\Services\Front\ItemsServiceContract' => 'InetStudio\ACL\Passwords\Services\Front\ItemsService',
         'InetStudio\ACL\Passwords\Contracts\Validation\Rules\CheckPasswordContract' => 'InetStudio\ACL\Passwords\Validation\Rules\CheckPassword',
+        'InetStudio\ACL\Passwords\Contracts\Validation\Rules\StrongPasswordContract' => 'InetStudio\ACL\Passwords\Validation\Rules\StrongPassword',
     ];
 
     /**
