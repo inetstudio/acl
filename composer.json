@@ -11,11 +11,11 @@
     ],
     "require": {
       "inetstudio/meta": "^8.0",
-      "jhaoda/socialite-odnoklassniki": "^3.0",
       "laravel/socialite": "^5.0",
       "laravel/ui": "^3.0",
       "santigarcor/laratrust": "^6.2",
-      "socialiteproviders/instagram": "^3.0",
+      "socialiteproviders/instagram": "^4.0",
+      "socialiteproviders/odnoklassniki": "^4.0",
       "socialiteproviders/vkontakte": "^4.0"
     },
     "autoload": {
