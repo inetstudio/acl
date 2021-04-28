@@ -19,9 +19,9 @@ class EventsServiceProvider extends ServiceProvider
             'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachUserRoleToUserContract',
         ],
         'SocialiteProviders\Manager\SocialiteWasCalled' => [
-            'SocialiteProviders\VKontakte\VKontakteExtendSocialite',
-            'JhaoDa\SocialiteProviders\Odnoklassniki\OdnoklassnikiExtendSocialite',
             'SocialiteProviders\Instagram\InstagramExtendSocialite',
+            'SocialiteProviders\Odnoklassniki\OdnoklassnikiExtendSocialite',
+            'SocialiteProviders\VKontakte\VKontakteExtendSocialite',
         ],
         'InetStudio\ACL\Users\Contracts\Events\Front\SocialRegisteredEventContract' => [
             'InetStudio\ACL\Users\Contracts\Listeners\Front\AttachSocialRoleToUserContract',
