@@ -75,6 +75,7 @@ class UserModel extends Authenticatable implements UserModelContract
         'name',
         'email',
         'password',
+        'api_token',
     ];
 
     /**

@@ -3,49 +3,27 @@
 namespace InetStudio\ACL\Roles\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 use InetStudio\ACL\Roles\Contracts\Services\Back\ItemsServiceContract;
 
-/**
- * Class CreateRolesCommand.
- */
 class CreateRolesCommand extends Command
 {
-    /**
-     * Имя команды.
-     *
-     * @var string
-     */
     protected $name = 'inetstudio:acl:roles:seed';
 
-    /**
-     * Описание команды.
-     *
-     * @var string
-     */
     protected $description = 'Create acl roles';
 
-    /**
-     * @var ItemsServiceContract
-     */
-    protected $rolesService;
-
-    /**
-     * CreateRolesCommand constructor.
-     *
-     * @param  ItemsServiceContract  $rolesService
-     */
-    public function __construct(ItemsServiceContract $rolesService)
-    {
+    public function __construct(
+        protected ItemsServiceContract $rolesService
+    ) {
         parent::__construct();
-
-        $this->rolesService = $rolesService;
     }
 
-    /**
-     * Запуск команды.
-     */
     public function handle(): void
     {
+        Config::set('laratrust.user_models', [
+            'users' => 'InetStudio\ACL\Users\Models\UserModel',
+        ]);
+
         $adminRole = $this->rolesService->getModel()->where([['name', '=', 'admin']])->first();
         if (! $adminRole) {
             $this->rolesService->save(

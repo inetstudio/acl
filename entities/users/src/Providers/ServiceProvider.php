@@ -36,6 +36,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->commands([
             'InetStudio\ACL\Users\Console\Commands\CreateAdminCommand',
             'InetStudio\ACL\Users\Console\Commands\CreateFoldersCommand',
+            'InetStudio\ACL\Users\Console\Commands\CreatePermissionsCommand',
             'InetStudio\ACL\Users\Console\Commands\SetupCommand',
         ]);
     }
@@ -57,17 +58,25 @@ class ServiceProvider extends BaseServiceProvider
             __DIR__.'/../../config/filesystems.php', 'filesystems.disks'
         );
 
-        if (Schema::hasColumn('users', 'user_hash') || Schema::hasColumn('users', 'referrer_id')) {
-            return;
+        if (! (Schema::hasColumn('users', 'user_hash') || Schema::hasColumn('users', 'referrer_id'))) {
+            $timestamp = date('Y_m_d_His', time());
+            $this->publishes(
+                [
+                    __DIR__.'/../../database/migrations/add_referrals_columns_to_users_table.php.stub' => database_path('migrations/'.$timestamp.'_add_referrals_columns_to_users_table.php'),
+                ],
+                'migrations'
+            );
         }
 
-        $timestamp = date('Y_m_d_His', time());
-        $this->publishes(
-            [
-                __DIR__.'/../../database/migrations/create_referrals_columns.php.stub' => database_path('migrations/'.$timestamp.'_create_referrals_columns.php'),
-            ],
-            'migrations'
-        );
+        if (! (Schema::hasColumn('users', 'api_token'))) {
+            $timestamp = date('Y_m_d_His', time());
+            $this->publishes(
+                [
+                    __DIR__.'/../../database/migrations/add_api_token_column_to_users_table.php.stub' => database_path('migrations/'.$timestamp.'_add_api_token_column_to_users_table.php.php'),
+                ],
+                'migrations'
+            );
+        }
     }
 
     /**

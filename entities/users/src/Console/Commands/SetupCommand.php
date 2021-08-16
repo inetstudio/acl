@@ -36,11 +36,6 @@ class SetupCommand extends BaseSetupCommand
             ],
             [
                 'type' => 'artisan',
-                'description' => 'Create admin user',
-                'command' => 'inetstudio:acl:users:admin',
-            ],
-            [
-                'type' => 'artisan',
                 'description' => 'Publish config',
                 'command' => 'vendor:publish',
                 'params' => [
@@ -50,7 +45,7 @@ class SetupCommand extends BaseSetupCommand
             ],
             [
                 'type' => 'artisan',
-                'description' => 'Publish config',
+                'description' => 'Publish migrations',
                 'command' => 'vendor:publish',
                 'params' => [
                     '--provider' => 'InetStudio\ACL\Users\Providers\ServiceProvider',
@@ -61,6 +56,11 @@ class SetupCommand extends BaseSetupCommand
                 'type' => 'artisan',
                 'description' => 'Migration',
                 'command' => 'migrate',
+            ],
+            [
+                'type' => 'artisan',
+                'description' => 'Create admin user',
+                'command' => 'inetstudio:acl:users:admin',
             ],
         ];
     }

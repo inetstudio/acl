@@ -35,6 +35,11 @@ class SetupCommand extends BaseSetupCommand
                 'command' => 'laratrust:migration',
             ],
             [
+                'type' => 'cli',
+                'description' => 'dump-autoload',
+                'command' => ['composer', 'du'],
+            ],
+            [
                 'type' => 'artisan',
                 'description' => 'Migration',
                 'command' => 'migrate',

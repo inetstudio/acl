@@ -78,6 +78,24 @@
                                                 ],
                                             ]) !!}
 
+                                            {!! Form::string('api_token', $item->api_token, [
+                                                'label' => [
+                                                    'title' => 'API Токен',
+                                                ],
+                                            ]) !!}
+
+                                            {!! Form::hidden('activated', 0) !!}
+                                            {!! Form::checks('activated', $item['activated'], [
+                                                'label' => [
+                                                    'title' => 'Активирован',
+                                                ],
+                                                'checks' => [
+                                                    [
+                                                        'value' => 1,
+                                                    ],
+                                                ],
+                                            ]) !!}
+
                                         </div>
                                     </div>
                                 </div>
