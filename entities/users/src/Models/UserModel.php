@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
-use InetStudio\Uploads\Models\Traits\HasImages;
+use InetStudio\UploadsPackage\Uploads\Models\Traits\HasMedia;
 use Laratrust\Traits\LaratrustUserTrait;
 use OwenIt\Auditing\Auditable;
+use InetStudio\ACL\Users\Database\Factories\UserFactory;
 
 /**
  * Class UserModel.
@@ -25,7 +26,7 @@ use OwenIt\Auditing\Auditable;
 class UserModel extends Authenticatable implements UserModelContract
 {
     use Auditable;
-    use HasImages;
+    use HasMedia;
     use Notifiable;
     use LaratrustUserTrait;
     use BuildQueryScopeTrait;
@@ -47,16 +48,6 @@ class UserModel extends Authenticatable implements UserModelContract
      * @var bool
      */
     protected $auditTimestamps = true;
-
-    /**
-     * Настройки для генерации изображений.
-     *
-     * @var array
-     */
-    protected $images = [
-        'config' => 'acl_users',
-        'model' => 'user',
-    ];
 
     /**
      * Связанная с моделью таблица.
@@ -340,5 +331,15 @@ class UserModel extends Authenticatable implements UserModelContract
             'user_id',
             'id'
         );
+    }
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
+
+    public function getMediaConfig(): array
+    {
+        return config('acl_users.media', []);
     }
 }

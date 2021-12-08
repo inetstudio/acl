@@ -33,6 +33,8 @@ class PermissionModel extends LaratrustPermission implements PermissionModelCont
      * @var array
      */
     protected $fillable = [
+        'package',
+        'scope',
         'name',
         'display_name',
         'description',

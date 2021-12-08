@@ -49,6 +49,18 @@
           "InetStudio\\ACL\\Users\\Providers\\BindingsServiceProvider",
           "InetStudio\\ACL\\Users\\Providers\\ServiceProvider"
         ]
+      },
+      "inetstudio": {
+        "entities": [
+          "activations",
+          "passwords",
+          "permissions",
+          "profiles",
+          "roles",
+          "social-profiles",
+          "users"
+        ],
+        "package": "acl"
       }
     }
 }

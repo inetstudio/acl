@@ -4,28 +4,12 @@ namespace InetStudio\ACL\Console\Commands;
 
 use InetStudio\AdminPanel\Base\Console\Commands\BaseSetupCommand;
 
-/**
- * Class SetupCommand.
- */
 class SetupCommand extends BaseSetupCommand
 {
-    /**
-     * Имя команды.
-     *
-     * @var string
-     */
     protected $name = 'inetstudio:acl:setup';
 
-    /**
-     * Описание команды.
-     *
-     * @var string
-     */
     protected $description = 'Setup acl package';
 
-    /**
-     * Инициализация команд.
-     */
     protected function initCommands(): void
     {
         $this->calls = [
@@ -57,6 +41,11 @@ class SetupCommand extends BaseSetupCommand
                 'type' => 'artisan',
                 'description' => 'ACL activations setup',
                 'command' => 'inetstudio:acl:activations:setup',
+            ],
+            [
+                'type' => 'artisan',
+                'description' => 'ACL permissions setup',
+                'command' => 'inetstudio:acl:permissions:setup',
             ],
             [
                 'type' => 'artisan',

@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddPackageColumnsToPermissionsTable extends Migration
+{
+    public function up()
+    {
+        Schema::table('permissions', function ($table) {
+            $table->string('scope')->after('id')->nullable()->default(null);
+            $table->string('package')->after('id')->nullable()->default(null);
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->dropColumn('package');
+            $table->dropColumn('scope');
+        });
+    }
+}

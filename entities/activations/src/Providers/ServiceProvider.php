@@ -2,6 +2,7 @@
 
 namespace InetStudio\ACL\Activations\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -14,7 +15,7 @@ class ServiceProvider extends BaseServiceProvider
     /**
      * Загрузка сервиса.
      */
-    public function boot(): void
+    public function boot(Router $router): void
     {
         $this->registerConsoleCommands();
         $this->registerPublishes();
@@ -22,6 +23,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->registerViews();
         $this->registerTranslations();
         $this->registerEvents();
+        $this->registerMiddlewares($router);
     }
 
     /**
@@ -97,6 +99,14 @@ class ServiceProvider extends BaseServiceProvider
         Event::listen(
             'InetStudio\ACL\Activations\Contracts\Events\Front\SocialActivatedEventContract',
             'InetStudio\ACL\Activations\Contracts\Listeners\Front\SendActivateNotificationListenerContract'
+        );
+    }
+
+    protected function registerMiddlewares(Router $router): void
+    {
+        $router->aliasMiddleware(
+            'acl.users.activated',
+            'InetStudio\ACL\Activations\Contracts\Http\Middleware\Front\CheckActivationContract'
         );
     }
 }

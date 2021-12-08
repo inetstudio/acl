@@ -9,18 +9,10 @@ use InetStudio\ACL\Passwords\Contracts\Http\Requests\Front\ForgotRequestContract
 use InetStudio\ACL\Passwords\Contracts\Http\Responses\Front\ResetLinkResponseContract;
 use InetStudio\AdminPanel\Base\Http\Controllers\Controller;
 
-/**
- * Class ForgotController.
- */
 class ForgotController extends Controller implements ForgotControllerContract
 {
     use SendsPasswordResetEmails;
 
-    /**
-     * ForgotPasswordController constructor.
-     *
-     * @param  Application  $app
-     */
     public function __construct(Application $app)
     {
         parent::__construct($app);
@@ -28,14 +20,6 @@ class ForgotController extends Controller implements ForgotControllerContract
         $this->middleware('guest');
     }
 
-    /**
-     * Отправляем пользователю ссылку для сброса пароля.
-     *
-     * @param  ForgotRequestContract  $request
-     * @param  ResetLinkResponseContract  $response
-     *
-     * @return ResetLinkResponseContract
-     */
     public function sendResetLinkEmail(
         ForgotRequestContract $request,
         ResetLinkResponseContract $response
