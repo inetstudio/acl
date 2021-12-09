@@ -81,11 +81,7 @@ class ItemsService extends BaseService implements ItemsServiceContract
      */
     public function getItemsStatisticByActivation()
     {
-        $items = $this->model::buildQuery(
-                [
-                    'relations' => ['status'],
-                ]
-            )
+        $items = $this->model::buildQuery()
             ->select(['activated', DB::raw('count(*) as total')])
             ->groupBy('activated')
             ->get();
