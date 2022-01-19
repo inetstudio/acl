@@ -39,6 +39,8 @@
           "InetStudio\\ACL\\Activations\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Passwords\\Providers\\BindingsServiceProvider",
           "InetStudio\\ACL\\Passwords\\Providers\\ServiceProvider",
+          "InetStudio\\ACL\\Profiles\\Providers\\BindingsServiceProvider",
+          "InetStudio\\ACL\\Profiles\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Permissions\\Providers\\BindingsServiceProvider",
           "InetStudio\\ACL\\Permissions\\Providers\\ServiceProvider",
           "InetStudio\\ACL\\Roles\\Providers\\BindingsServiceProvider",
