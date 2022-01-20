@@ -101,6 +101,7 @@ class SocialService extends BaseService implements SocialServiceContract
                 );
             } else {
                 Session::put('login_type', 'social');
+                Session::put('provider', $provider);
                 Auth::login($user, true);
             }
         }
