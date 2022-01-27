@@ -66,11 +66,11 @@ class RegisterResponse implements RegisterResponseContract
         );
 
         if (config('acl.register.login_after_register')) {
-            Session::put('auth_event', 'regular_register_auth');
+            Session::flash('auth_event', 'regular_register_auth');
             Auth::login($user, true);
+        } else {
+            Session::flash('auth_event', 'regular_register_activate');
         }
-
-        Session::put('auth_event', 'regular_register_activate');
 
         $result = [
             'success' => true,

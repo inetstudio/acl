@@ -186,7 +186,7 @@ class ItemsService extends BaseService implements ItemsServiceContract
 
             if (config('acl.activations.login_after_activate')) {
                 Auth::login($user, true);
-                Session::put('auth_event', 'activate_auth');
+                Session::flash('auth_event', 'activate_auth');
 
                 $isLogged = true;
             } else {
