@@ -91,7 +91,7 @@ class SocialService extends BaseService implements SocialServiceContract
         if (! $user['id']) {
             Session::put('social_user', $socialUser);
             Session::put('provider', $provider);
-            Session::flash('auth_event', 'social_reg');
+            Session::flash('auth_event', 'social_register');
         } else {
             if (! $user['activated']) {
                 event(
