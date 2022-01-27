@@ -91,6 +91,7 @@ class SocialService extends BaseService implements SocialServiceContract
         if (! $user['id']) {
             Session::put('social_user', $socialUser);
             Session::put('provider', $provider);
+            Session::put('auth_event', 'social_reg');
         } else {
             if (! $user['activated']) {
                 event(
@@ -102,6 +103,7 @@ class SocialService extends BaseService implements SocialServiceContract
             } else {
                 Session::put('login_type', 'social');
                 Session::put('provider', $provider);
+                Session::put('auth_event', 'social_auth');
                 Auth::login($user, true);
             }
         }

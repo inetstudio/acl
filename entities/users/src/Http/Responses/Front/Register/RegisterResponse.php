@@ -2,6 +2,7 @@
 
 namespace InetStudio\ACL\Users\Http\Responses\Front\Register;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,8 +66,11 @@ class RegisterResponse implements RegisterResponseContract
         );
 
         if (config('acl.register.login_after_register')) {
+            Session::put('auth_event', 'regular_register_auth');
             Auth::login($user, true);
         }
+
+        Session::put('auth_event', 'regular_register_activate');
 
         $result = [
             'success' => true,

@@ -69,6 +69,7 @@ class LoginController extends Controller implements LoginControllerContract
 
         if ($this->attemptLogin($baseRequest)) {
             Session::put('login_type', 'regular');
+            Session::put('auth_event', 'regular_auth');
             return $this->sendLoginResponseJSON($baseRequest);
         }
 
