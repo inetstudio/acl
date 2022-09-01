@@ -2,6 +2,7 @@
 
 namespace InetStudio\ACL\Users\Models;
 
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,6 +26,7 @@ use OwenIt\Auditing\Auditable;
 class UserModel extends Authenticatable implements UserModelContract
 {
     use Auditable;
+    use HasApiTokens;
     use HasImages;
     use Notifiable;
     use LaratrustUserTrait;
