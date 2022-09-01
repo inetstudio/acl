@@ -67,16 +67,6 @@ class ServiceProvider extends BaseServiceProvider
                 'migrations'
             );
         }
-
-        if (! (Schema::hasColumn('users', 'api_token'))) {
-            $timestamp = date('Y_m_d_His', time());
-            $this->publishes(
-                [
-                    __DIR__.'/../../database/migrations/add_api_token_column_to_users_table.php.stub' => database_path('migrations/'.$timestamp.'_add_api_token_column_to_users_table.php.php'),
-                ],
-                'migrations'
-            );
-        }
     }
 
     /**

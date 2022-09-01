@@ -65,6 +65,8 @@ class CreateAdminCommand extends Command
             'password' => 'password',
         ], $user ? $user->id : 0);
 
+        $user->createToken('api');
+
         DB::table('role_user')->insert(
             ['user_id' => $user->id, 'role_id' => $adminRole->id, 'user_type' => get_class($user)]
         );
