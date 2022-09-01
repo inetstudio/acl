@@ -341,4 +341,9 @@ class UserModel extends Authenticatable implements UserModelContract
             'id'
         );
     }
+
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 }
