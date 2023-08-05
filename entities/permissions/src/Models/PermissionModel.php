@@ -4,13 +4,13 @@ namespace InetStudio\ACL\Permissions\Models;
 
 use InetStudio\ACL\Permissions\Contracts\Models\PermissionModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
-use Laratrust\Models\LaratrustPermission;
+use Laratrust\Models\Permission;
 use OwenIt\Auditing\Auditable;
 
 /**
  * Class PermissionModel.
  */
-class PermissionModel extends LaratrustPermission implements PermissionModelContract
+class PermissionModel extends Permission implements PermissionModelContract
 {
     use Auditable;
     use BuildQueryScopeTrait;
