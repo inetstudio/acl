@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 use InetStudio\ACL\Users\Contracts\Models\UserModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
 use InetStudio\Uploads\Models\Traits\HasImages;
-use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Traits\HasRolesAndPermissions;
 use OwenIt\Auditing\Auditable;
 
 /**
@@ -29,7 +29,7 @@ class UserModel extends Authenticatable implements UserModelContract
     use HasApiTokens;
     use HasImages;
     use Notifiable;
-    use LaratrustUserTrait;
+    use HasRolesAndPermissions;
     use BuildQueryScopeTrait;
     use HasFactory;
 
