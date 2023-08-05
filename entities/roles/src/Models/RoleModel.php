@@ -4,13 +4,13 @@ namespace InetStudio\ACL\Roles\Models;
 
 use InetStudio\ACL\Roles\Contracts\Models\RoleModelContract;
 use InetStudio\AdminPanel\Base\Models\Traits\Scopes\BuildQueryScopeTrait;
-use Laratrust\Models\LaratrustRole;
+use Laratrust\Models\Role;
 use OwenIt\Auditing\Auditable;
 
 /**
  * Class RoleModel.
  */
-class RoleModel extends LaratrustRole implements RoleModelContract
+class RoleModel extends Role implements RoleModelContract
 {
     use Auditable;
     use BuildQueryScopeTrait;
