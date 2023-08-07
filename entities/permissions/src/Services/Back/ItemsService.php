@@ -71,7 +71,7 @@ class ItemsService extends BaseService implements ItemsServiceContract
         if (! empty($permissions)) {
             $item->syncPermissions($this->model::whereIn('id', $permissions)->get());
         } else {
-            $item->detachPermissions($item['permissions']);
+            $item->syncPermissions([]);
         }
     }
 }
