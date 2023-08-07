@@ -75,7 +75,7 @@ class ItemsService extends BaseService implements ItemsServiceContract
         if (! empty($roles)) {
             $item->syncRoles($this->model::whereIn('id', $roles)->get());
         } else {
-            $item->detachRoles($item['roles']);
+            $item->syncRoles([]);
         }
     }
 }
