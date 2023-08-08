@@ -10,6 +10,7 @@ class AddReferralsColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('user_hash')->after('id')->unique();
             $table->unsignedBigInteger('referrer_id')->nullable()->after('id')->index();
+            $table->string('api_token', 80)->unique()->nullable()->after('password')->default(null);
         });
     }
 
@@ -18,6 +19,7 @@ class AddReferralsColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('user_hash');
             $table->dropColumn('referrer_id');
+            $table->dropColumn('api_token');
         });
     }
 }
