@@ -44,7 +44,7 @@ class UtilityService extends BaseService implements UtilityServiceContract
             );
 
         if (! empty($roles)) {
-            $builder = $builder->whereRoleIs($roles);
+            $builder = $builder->whereHasRole($roles);
         }
 
         return $builder->get();
