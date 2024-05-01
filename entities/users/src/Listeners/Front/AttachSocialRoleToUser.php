@@ -36,7 +36,7 @@ class AttachSocialRoleToUser implements AttachSocialRoleToUserContract
         $userRole = $this->rolesService->getModel()->where([['name', '=', 'social_user']])->first();
 
         if ($userRole) {
-            $user->attachRole($userRole);
+            $user->addRole($userRole);
         }
     }
 }
